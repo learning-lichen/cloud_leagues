@@ -1,2 +1,4 @@
-<%= @user.id %><br />
-<%= @user.login %><br />
+<h1>User: <%= @user.login %></h1>
+<p>ID: <%= @user.id %></p>
+
+<%= link_to "#{@user.login}'s Profile", user_profile_path(@user) %>

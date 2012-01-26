@@ -24,7 +24,7 @@ class AccountInformationsController < ApplicationController
   end
 
   def update
-    if @account_information.update_attributes params[:user], :as => current_user.role
+    if @account_information.update_attributes params[:account_information], :as => current_user.role
       flash[:notice] = 'Profile information was updated successfully.'
       redirect_to user_profile_path(@user)
     else

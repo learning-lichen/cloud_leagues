@@ -1,19 +1,27 @@
 <h1><%= "#{@user.login}'s Profile" %></h1>
+<% if @account_information %>
+  <ul>
+    <li>
+      Reddit Name:
+      <%= @account_information.reddit_name %>
+    </li>
+    
+    <li>
+      Starcraft Character Name:
+      <%= @account_information.character_name %>
+    </li>
+    
+    <li>
+      Role:
+      <%= AccountInformation::ROLES[@account_information.role].capitalize %>
+    </li>
+  </ul>
+<% else %>
+  <p>This user does not have a profile yet.</p>
+<% end %>
 
-<ul>
-  <li>
-    Reddit Name:
-    <%= @user.reddit_name %>
-  </li>
-
-  <li>
-    Starcraft Character Name:
-    <%= @user.character_name %>
-  </li>
-
-  <li>
-    Role:
-    <%= @user.role %>
-  </li>
-</ul>
-  
+<% if @account_information && can?(:update, @account_information) %>
+  <p><%= link_to "Edit Profile", edit_user_profile_path(@user) %></p>
+<% elsif @account_information.nil? && can?(:create, @user.build_account_information) %>
+  <p><%= link_to "Add Profile", new_user_profile_path(@user) %></p>
+<% end %>
