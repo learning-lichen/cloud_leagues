@@ -1,0 +1,22 @@
+<%= form_for @account_information do |form| %>
+  <%= render "shared/error_messages", :target => @account_information %>
+
+  <fieldset>
+    <ul class="accountInformationForm">
+      <li>
+	<%= form.label :reddit_name, "Reddit Username" %>
+	<%= form.text_field :reddit_name %>
+      </li>
+      
+      <li>
+	<%= form.label :character_name, "Starcraft Character Name" %>
+	<%= form.text_field :character_name %>
+      </li>
+
+      <li>
+	<%= form.label :character_code, "Character Code" %>
+	<%= form.text_field :character_code %>
+      </li>
+    </ul>
+  </fieldset>
+<% end %>

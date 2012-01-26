@@ -1,0 +1,11 @@
+all_tournament:
+  id: 1
+  league: 0
+  format: 0
+  start_time: <%= Time.now %>
+
+grand_master_tournament:
+  id: 2
+  league: 1
+  format: 0
+  start_time: <%= 1.hours.from_now %>

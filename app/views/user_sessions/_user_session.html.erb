@@ -1,0 +1,21 @@
+<%= form_for @user_session, :url => login_path do |form| %>
+  <%= render "shared/error_messages", :target => @user_session %>
+
+  <fieldset>
+    <ul class="loginForm">
+      <li>
+	<%= form.label :login, "Username" %>
+	<%= form.text_field :login %>
+      </li>
+
+      <li>
+	<%= form.label :password, "Password" %>
+	<%= form.password_field :password %>
+      </li>
+      
+      <li>
+	<%= form.submit "Submit" %>
+      </li>
+    </ul>
+  </fieldset>
+<% end %>

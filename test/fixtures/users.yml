@@ -1,0 +1,39 @@
+default_user:
+  id: 1
+  login: Default_User
+  email: default@default.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('default_password' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+other_user:
+  id: 2
+  login: Other_User
+  email: other@other.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('other_password' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+admin_user:
+  id: 3
+  login: Admin_User
+  email: admin@admin.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('admin_password' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+moderator_user:
+  id: 4
+  login: Moderator_User
+  email: mod@mod.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('moderator_password' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+
+other_moderator_user:
+  id: 5
+  login: Other_Moderator_User
+  email: other_mod@mod.com
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt('other_moderator_password' + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>

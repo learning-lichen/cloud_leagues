@@ -1,0 +1,27 @@
+default_to_admin:
+  id: 1
+  sender_id: 1a2b3c
+  recipient_id: asdasf
+  message: Hello World
+  read: false
+
+admin_to_default:
+  id: 2
+  sender_id: asdasf
+  recipient_id: 1a2b3c
+  message: What do you want?
+  read: true
+
+admin_to_mod:
+  id: 3
+  sender_id: asdasf
+  recipient_id: jjfcgh
+  message: Ban all the members, now!
+  read: true
+  
+default_to_mod:
+  id: 4
+  sender_id: 1a2b3c
+  recipient_id: jjfcgh
+  message: Hello there mod
+  read: true

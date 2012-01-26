@@ -1,0 +1,24 @@
+default_profile:
+  id: 1
+  user_id: 1
+  chat_id: 1a2b3c
+
+other_profile:
+  id: 2
+  user_id: 2
+  chat_id: aaaaa
+
+admin_profile:
+  id: 3
+  user_id: 3
+  chat_id: asdasf
+
+moderator_profile:
+  id: 4
+  user_id: 4
+  chat_id: jjfcgh
+
+other_moderator_profile:
+  id: 5
+  user_id: 5
+  chat_id: shjbvv

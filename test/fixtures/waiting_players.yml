@@ -1,0 +1,29 @@
+default_waiting_all:
+  id: 1
+  tournament_id: 1
+  user_id: 1
+  player_accepted: false
+
+admin_waiting_grand_master:
+  id: 2
+  tournament_id: 2
+  user_id: 3
+  player_accepted: true
+
+admin_waiting_all:
+  id: 3
+  tournament_id: 1
+  user_id: 3
+  player_accepted: true
+
+mod_waiting_all:
+  id: 4
+  tournament_id: 1
+  user_id: 4
+  player_accepted: true
+
+default_waiting_grandmaster:
+  id: 5
+  tournament_id: 2
+  user_id: 1
+  player_accepted: true

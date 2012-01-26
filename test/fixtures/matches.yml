@@ -1,0 +1,17 @@
+all_match_one:
+  id: 1
+  tournament_id: 1
+  player_one_id: 3
+  player_two_id: 4
+  player_one_accepts: true
+  player_two_accepts: false
+  contested: false
+
+grand_master_match_one:
+  id: 2
+  tournament_id: 2
+  player_one_id: 3
+  player_two_id: 1
+  player_one_accepts: true
+  player_two_accepts: false
+  contested: false

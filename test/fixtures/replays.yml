@@ -1,0 +1,17 @@
+all_match_replay_one:
+  id: 1
+  match_id: 1
+  replay_url: www.all_match_replay_one.com
+  uploader_id: 3
+
+all_match_replay_two:
+  id: 2
+  match_id: 1
+  replay_url: www.all_match_replay_two.com
+  uploader_id: 4
+
+grand_master_match_replay_one:
+  id: 3
+  match_id: 2
+  replay_url: www.gm_match_replay_one.com
+  uploader_id: 3

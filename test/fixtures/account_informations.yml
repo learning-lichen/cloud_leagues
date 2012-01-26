@@ -1,0 +1,27 @@
+default_information:
+  user_id: 1
+  reddit_name: Default
+  character_name: Default
+  character_code: 111
+  role: <%= AccountInformation::MEMBER %>
+
+admin_information:
+  user_id: 3
+  reddit_name: t3h Admin
+  character_name: Admin
+  character_code: 111
+  role: <%= AccountInformation::ADMIN %>
+
+mod_information:
+  user_id: 4
+  reddit_name: t3h Mod
+  character_name: Mod
+  character_code: 222
+  role: <%= AccountInformation::MODERATOR %>
+
+other_mod_information:
+  user_id: 5
+  reddit_name: t3h other mod
+  character_name: Other Mod
+  character_code: 222
+  role: <%= AccountInformation::MODERATOR %>
