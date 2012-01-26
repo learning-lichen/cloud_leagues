@@ -69,7 +69,7 @@ class AccountInformationTest < ActiveSupport::TestCase
       role: 2
     }
 
-    new_info = AccountInformation.new account_information_params, :as => :guest
+    new_info = AccountInformation.new account_information_params, as: :guest
 
     assert_nil new_info.user_id
     assert_nil new_info.reddit_name
@@ -87,7 +87,7 @@ class AccountInformationTest < ActiveSupport::TestCase
       role: 2
     }
 
-    new_info = AccountInformation.new account_info_params, :as => :member
+    new_info = AccountInformation.new account_info_params, as: :member
 
     assert_nil new_info.user_id
     assert_equal 'hello', new_info.reddit_name
@@ -105,7 +105,7 @@ class AccountInformationTest < ActiveSupport::TestCase
       role: 2
     }
 
-    new_info = AccountInformation.new account_info_params, :as => :moderator
+    new_info = AccountInformation.new account_info_params, as: :moderator
 
     assert_nil new_info.user_id
     assert_equal 'hello', new_info.reddit_name
@@ -123,7 +123,7 @@ class AccountInformationTest < ActiveSupport::TestCase
       role: 2
     }
 
-    new_info = AccountInformation.new account_info_params, :as => :admin
+    new_info = AccountInformation.new account_info_params, as: :admin
 
     assert_equal 1, new_info.user_id
     assert_equal 'hello', new_info.reddit_name

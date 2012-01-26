@@ -32,9 +32,13 @@ class Tournament < ActiveRecord::Base
   has_many :matches
 
   # Validations
-  validates :league, :presence => true, :inclusion => {:in => LEAGUES.keys}
-  validates :format, :presence => true, :inclusion => {:in => FORMATS.keys}
-  validates :start_time, :presence => true
+  validates :league, presence: true, inclusion: {in: LEAGUES.keys}
+  validates :format, presence: true, inclusion: {in: FORMATS.keys}
+  validates :start_time, presence: true
+
+  # Attribute Whitelists
+  attr_accessible :league, :format, :start_time, as: :moderator
+  attr_accessible :league, :format, :start_time, as: :admin
 
   protected
   def authorize

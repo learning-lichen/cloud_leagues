@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update, :destroy]
+  before_filter :authenticate, only: [:edit, :update, :destroy]
   load_and_authorize_resource
 
   def index
@@ -14,12 +14,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new params[:user], :as => current_user ? current_user.role : :guest
+    @user = User.new params[:user], as: current_user ? current_user.role : :guest
 
     if @user.save
       redirect_to user_path(@user)
     else
-      render :action => :new
+      render action: :new
     end
   end
 
@@ -27,11 +27,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes params[:user], :as => current_user.role
+    if @user.update_attributes params[:user], as: current_user.role
       flash[:notice] = 'Update was successful.'
       redirect_to user_path(@user)
     else
-      render :action => :edit
+      render action: :edit
     end
   end
   

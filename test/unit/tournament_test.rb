@@ -34,4 +34,62 @@ class TournamentTest < ActiveSupport::TestCase
 
     assert !all_tournament.valid?
   end
+
+  test "guest accessible attributes" do
+    tournament_params = {
+      league: -1,
+      format: -1,
+      start_time: Time.now
+    }
+
+    new_tournament = Tournament.new tournament_params, as: :guest
+
+    assert_equal 0, new_tournament.league
+    assert_equal 0, new_tournament.format
+    assert_nil new_tournament.start_time
+  end
+
+  test "member accessible attributes" do
+    tournament_params = {
+      league: -1,
+      format: -1,
+      start_time: Time.now
+    }
+
+    new_tournament = Tournament.new tournament_params, as: :member
+
+    assert_equal 0, new_tournament.league
+    assert_equal 0, new_tournament.format
+    assert_nil new_tournament.start_time
+  end
+
+  test "moderator accessible attributes" do
+    start_time = Time.now
+    tournament_params = {
+      league: -1,
+      format: -1,
+      start_time: start_time
+    }
+    
+    new_tournament = Tournament.new tournament_params, as: :moderator
+
+    assert_equal -1, new_tournament.league
+    assert_equal -1, new_tournament.format
+    assert_equal start_time, new_tournament.start_time
+  end
+
+  test "admin accessible attributes" do
+    start_time = Time.now
+    tournament_params = {
+      league: -1,
+      format: -1,
+      start_time: start_time
+    }
+    
+    new_tournament = Tournament.new tournament_params, as: :admin
+
+    assert_equal -1, new_tournament.league
+    assert_equal -1, new_tournament.format
+    assert_equal start_time, new_tournament.start_time
+  end
 end
