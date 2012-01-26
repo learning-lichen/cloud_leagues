@@ -39,22 +39,4 @@ class Tournament < ActiveRecord::Base
   # Attribute Whitelists
   attr_accessible :league, :format, :start_time, as: :moderator
   attr_accessible :league, :format, :start_time, as: :admin
-
-  protected
-  def authorize
-    current_user = UserSession.find.user
-
-    if current_user.role == AccountInformation::ADMIN
-      # Admins can do anything, place no restriction on them.
-      return true
-      
-    elsif current_user.role == AccountInformation::MODERATOR
-      # Mods can modify any tournament.
-      return true
-      
-    else
-      # Regular users cannot modify any tournament.
-      return false
-    end
-  end
 end

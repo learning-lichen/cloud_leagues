@@ -265,4 +265,115 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.can?(:destroy, account_informations(:other_mod_information))
     assert ability.can?(:destroy, account_informations(:admin_information))
   end
+
+  ##############################################################################
+  # Tournament Modification Abilities                                          #
+  ##############################################################################
+  test "guest can read tournaments" do
+    ability = Ability.new(nil)
+
+    assert ability.can?(:read, tournaments(:all_tournament))
+    assert ability.can?(:read, tournaments(:grand_master_tournament))
+  end
+
+  test "guest cannot create tournaments" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:create, Tournament)
+  end
+  
+  test "guest cannot update tournaments" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:update, tournaments(:all_tournament))
+    assert ability.cannot?(:update, tournaments(:grand_master_tournament))
+  end
+
+  test "guest cannot destroy tournaments" do
+    ability = Ability.new(nil)
+    
+    assert ability.cannot?(:destroy, tournaments(:all_tournament))
+    assert ability.cannot?(:destroy, tournaments(:grand_master_tournament))
+  end
+
+  test "members can read tournaments" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.can?(:read, tournaments(:all_tournament))
+    assert ability.can?(:read, tournaments(:grand_master_tournament))
+  end
+
+  test "members cannot create tournaments" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.cannot?(:create, Tournament)
+  end
+  
+  test "members cannot update tournaments" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.cannot?(:update, tournaments(:all_tournament))
+    assert ability.cannot?(:update, tournaments(:grand_master_tournament))
+  end
+
+  test "members cannot destroy tournaments" do
+    ability = Ability.new(users(:default_user))
+    
+    assert ability.cannot?(:destroy, tournaments(:all_tournament))
+    assert ability.cannot?(:destroy, tournaments(:grand_master_tournament))
+  end
+
+  test "moderator can read tournaments" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:read, tournaments(:all_tournament))
+    assert ability.can?(:read, tournaments(:grand_master_tournament))
+  end
+
+  test "moderator cannot create tournaments" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.cannot?(:create, Tournament)
+  end
+  
+  test "moderator can update tournaments" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:update, tournaments(:all_tournament))
+    assert ability.can?(:update, tournaments(:grand_master_tournament))
+  end
+
+  test "moderator cannot destroy tournaments" do
+    ability = Ability.new(users(:moderator_user))
+    
+    assert ability.cannot?(:destroy, tournaments(:all_tournament))
+    assert ability.cannot?(:destroy, tournaments(:grand_master_tournament))
+  end
+
+  test "admin can read tournaments" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:read, tournaments(:all_tournament))
+    assert ability.can?(:read, tournaments(:grand_master_tournament))
+  end
+
+  test "admin can create tournaments" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:create, Tournament)
+  end
+  
+  test "admin can update tournaments" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:update, tournaments(:all_tournament))
+    assert ability.can?(:update, tournaments(:grand_master_tournament))
+  end
+
+  test "admin can destroy tournaments" do
+    ability = Ability.new(users(:admin_user))
+    
+    assert ability.can?(:destroy, tournaments(:all_tournament))
+    assert ability.can?(:destroy, tournaments(:grand_master_tournament))
+  end
 end

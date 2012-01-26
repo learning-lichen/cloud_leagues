@@ -14,7 +14,7 @@ class Ability
       
       can :destroy, UserSession
 
-      can :create, AccountInformation, :user => { :id => user.id }
+      can :create, AccountInformation, user: { id: user.id }
 
     elsif user.role? :moderator
       # Moderators can manage users, but cannot destroy them.
@@ -25,8 +25,10 @@ class Ability
       
       can :destroy, UserSession
       
-      can [:create, :update, :destroy], AccountInformation, :user => { :role => :member }
-      can [:create, :update, :destroy], AccountInformation, :user => { :id => user.id }
+      can [:create, :update, :destroy], AccountInformation, user: { role: :member }
+      can [:create, :update, :destroy], AccountInformation, user: { id: user.id }
+
+      can :update, Tournament
 
     elsif user.role? :admin
       # Admins can manage all resources.
@@ -34,8 +36,10 @@ class Ability
     end
 
     can :read, User
-    can :manage, User, :id => user.id
+    can :manage, User, id: user.id
     
     can :read, AccountInformation
+
+    can :read, Tournament
   end
 end
