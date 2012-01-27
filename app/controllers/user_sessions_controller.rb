@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  before_filter :authenticate, :only => :destroy
+  before_filter :authenticate, except: [:new, :create]
   load_and_authorize_resource
 
   def new

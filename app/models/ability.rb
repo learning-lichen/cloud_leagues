@@ -16,6 +16,12 @@ class Ability
 
       can :create, AccountInformation, user: { id: user.id }
 
+      # Certain features require account information.
+      if user.account_information
+        can :create, WaitingPlayer, valid?: true
+        can :destroy, WaitingPlayer, user_id: user.id
+      end
+      
     elsif user.role? :moderator
       # Moderators can manage users, but cannot destroy them.
       can :update, User do |user|
@@ -27,6 +33,8 @@ class Ability
       
       can [:create, :update, :destroy], AccountInformation, user: { role: :member }
       can [:create, :update, :destroy], AccountInformation, user: { id: user.id }
+
+      can [:create, :update, :destroy], WaitingPlayer
 
       can :update, Tournament
 

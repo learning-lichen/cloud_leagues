@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_filter :authenticate, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :authenticate, except: [:index, :show]
   load_and_authorize_resource
 
   def index

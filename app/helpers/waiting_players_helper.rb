@@ -1,0 +1,2 @@
+module WaitingPlayersHelper
+end

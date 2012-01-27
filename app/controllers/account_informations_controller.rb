@@ -1,8 +1,11 @@
 class AccountInformationsController < ApplicationController
-  before_filter :authenticate, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :authenticate, except: [:show]
   load_and_authorize_resource :user
   load_and_authorize_resource :account_information, through: :user, singleton: true
 
+  def show
+  end
+  
   def new
   end
 
@@ -15,9 +18,6 @@ class AccountInformationsController < ApplicationController
     else
       render action: :new
     end
-  end
-
-  def show
   end
 
   def edit

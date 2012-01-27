@@ -22,7 +22,7 @@ mod_waiting_all:
   user_id: 4
   player_accepted: true
 
-default_waiting_grandmaster:
+default_waiting_grand_master:
   id: 5
   tournament_id: 2
   user_id: 1

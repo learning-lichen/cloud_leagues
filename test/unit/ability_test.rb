@@ -376,4 +376,108 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.can?(:destroy, tournaments(:all_tournament))
     assert ability.can?(:destroy, tournaments(:grand_master_tournament))
   end
+
+  ##############################################################################
+  # Waiting Player Modification Abilities                                      #
+  ##############################################################################
+  test "guest cannot create waiting player" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:create, WaitingPlayer)
+  end
+
+  test "guest cannot update waiting player" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:update, waiting_players(:default_waiting_all))
+  end
+
+  test "guest cannot destroy waiting player" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:destroy, waiting_players(:default_waiting_all))
+  end
+
+  test "member can create waiting player" do
+    default_user = users(:default_user)
+    ability = Ability.new(default_user)
+    waiting_players(:default_waiting_all).destroy
+    
+    all_tournament = tournaments(:all_tournament)
+    new_player = all_tournament.waiting_players.build
+    new_player.user_id = default_user.id
+
+    assert ability.can?(:create, new_player)
+  end
+
+  test "member cannot create waiting player if already waiting" do
+    default_user = users(:default_user)
+    ability = Ability.new(default_user)
+    
+    all_tournament = tournaments(:all_tournament)
+    new_player = all_tournament.waiting_players.build
+    new_player.user_id = default_user.id
+
+    assert ability.cannot?(:create, new_player)
+  end
+
+  test "member cannot create waiting player without account information" do
+    other_user = users(:other_user)
+    ability = Ability.new(other_user)
+
+    all_tournament = tournaments(:all_tournament)
+    new_player = all_tournament.waiting_players.build
+    new_player.user_id = other_user.id
+
+    assert ability.cannot?(:create, new_player)
+  end
+
+  test "memeber cannot update waiting player" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.cannot?(:update, waiting_players(:default_waiting_all))
+  end
+
+  test "member can destroy their waiting player" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.can?(:destroy, waiting_players(:default_waiting_all))
+    assert ability.cannot?(:destroy, waiting_players(:admin_waiting_all))
+  end
+
+  test "moderators can create waiting player" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:create, WaitingPlayer)
+  end
+
+  test "moderators can update waiting player" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:update, WaitingPlayer)
+  end
+
+  test "moderators can destroy waiting player" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:destroy, WaitingPlayer)
+  end
+
+  test "admins can create waiting player" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:create, WaitingPlayer)
+  end
+
+  test "admins can update waiting player" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:update, WaitingPlayer)
+  end
+
+  test "admins can destroy waiting player" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:destroy, WaitingPlayer)
+  end
 end
