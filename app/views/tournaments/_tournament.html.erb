@@ -1,0 +1,26 @@
+<%= form_for @tournament do |form| %>
+  <%= render "shared/error_messages", target: @tournament %>
+  
+  <fieldset>
+    <ul class="tournamentForm">
+      <li>
+	<%= form.label :league, "League" %>
+	<%= select_tag "tournament[league]", options_for_select(Tournament::LEAGUES.keys.collect { |k| [Tournament::LEAGUES[k], k] }) %>
+      </li>
+
+      <li>
+	<%= form.label :format, "Format" %>
+	<%= select_tag "tournament[format]", options_for_select(Tournament::FORMATS.keys.collect { |k| [Tournament::FORMATS[k], k] }) %>
+      </li>
+
+      <li>
+	<%= form.label :start_time, "Start Time" %>
+	<%= form.datetime_select :start_time %>
+      </li>
+
+      <li>
+	<%= form.submit "Submit" %>
+      </li>
+    </ul>
+  </fieldset>
+<% end %>

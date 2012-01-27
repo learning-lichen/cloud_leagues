@@ -1,0 +1,11 @@
+<h2>Tournament List</h2>
+
+<%= link_to "New Tournament", new_tournament_path if can?(:create, Tournament)%>
+
+<ul>
+  <% @tournaments.each do |tournament| %>
+    <li>
+      <%= link_to "Tournament \##{tournament.id}", tournament_path(tournament) %>
+    </li>
+  <% end %>
+</ul>

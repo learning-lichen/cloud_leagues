@@ -1,5 +1,5 @@
-<%= form_for @account_information, :url => user_profile_path(@user) do |form| %>
-  <%= render "shared/error_messages", :target => @account_information %>
+<%= form_for @account_information, url: user_profile_path(@user) do |form| %>
+  <%= render "shared/error_messages", target: @account_information %>
 
   <fieldset>
     <ul class="accountInformationForm">

@@ -10,7 +10,7 @@ class Tournament < ActiveRecord::Base
   BRONZE = 7
 
   LEAGUES = {
-    ALL => 'All Leagues',
+    ALL => 'All',
     GRAND_MASTER => 'Grand Master',
     MASTER => 'Master',
     DIAMOND => 'Diamond',

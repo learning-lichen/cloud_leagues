@@ -49,6 +49,16 @@ class AccountInformationsControllerTest < ActionController::TestCase
   end
 
   test "should no update account information" do
+    default_user = login :default_user
+    default_information = default_user.account_information
+    old_name = default_information.reddit_name
+    put :update, user_id: default_user.id, account_information: {
+      reddit_name: 'new_name' }
+
+    default_information.reload
+
+    assert_redirected_to root_path
+    assert_equal old_name, default_information.reddit_name
   end
 
   test "should delete account information" do
@@ -61,5 +71,10 @@ class AccountInformationsControllerTest < ActionController::TestCase
   end
 
   test "should not delete account information" do
+    default_user = login :default_user
+    delete :destroy, user_id: default_user.id
+
+    assert_not_nil default_user.account_information
+    assert_redirected_to root_path
   end
 end

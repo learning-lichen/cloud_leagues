@@ -7,5 +7,7 @@ CloudLeagues::Application.routes.draw do
     resource :account_information, :as => :profile, :path => :profile
   end
 
+  resources :tournaments
+
   root :to => 'home#index'
 end
