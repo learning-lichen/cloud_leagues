@@ -8,7 +8,7 @@ CloudLeagues::Application.routes.draw do
   end
 
   resources :tournaments do
-    resources :waiting_players, except: [:index, :show], path: :players
+    resources :waiting_players, only: [:create, :update, :destroy], path: :players
   end
 
   root :to => 'home#index'

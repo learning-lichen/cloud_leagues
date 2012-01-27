@@ -23,7 +23,6 @@ class Ability
       end
       
     elsif user.role? :moderator
-      # Moderators can manage users, but cannot destroy them.
       can :update, User do |user|
         user.role? :member
       end
@@ -34,12 +33,12 @@ class Ability
       can [:create, :update, :destroy], AccountInformation, user: { role: :member }
       can [:create, :update, :destroy], AccountInformation, user: { id: user.id }
 
-      can [:create, :update, :destroy], WaitingPlayer
+      can :create, WaitingPlayer, valid?: true
+      can [:update, :destroy], WaitingPlayer
 
       can :update, Tournament
 
     elsif user.role? :admin
-      # Admins can manage all resources.
       can :manage, :all
     end
 

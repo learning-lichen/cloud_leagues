@@ -1,6 +1,7 @@
 class WaitingPlayer < ActiveRecord::Base
   # Associations
   belongs_to :tournament
+  belongs_to :user
 
   # Validations
   validates :tournament_id, presence: true

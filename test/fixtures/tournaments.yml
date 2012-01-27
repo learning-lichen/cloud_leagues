@@ -9,3 +9,9 @@ grand_master_tournament:
   league: 1
   format: 0
   start_time: <%= 1.hours.from_now %>
+
+master_tournament:
+  id: 3
+  league: 2
+  format: 0
+  start_time: <%= 2.hours.from_now %>

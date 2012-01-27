@@ -446,21 +446,39 @@ class AbilityTest < ActiveSupport::TestCase
   end
 
   test "moderators can create waiting player" do
-    ability = Ability.new(users(:moderator_user))
+    moderator_user = users(:moderator_user)
+    ability = Ability.new(moderator_user)
 
-    assert ability.can?(:create, WaitingPlayer)
+    gm_tournament = tournaments(:grand_master_tournament)
+    new_player = gm_tournament.waiting_players.build
+    new_player.user_id = moderator_user.id
+
+    all_tournament = tournaments(:all_tournament)
+    bad_player = all_tournament.waiting_players.build
+    bad_player.user_id = moderator_user.id
+
+    assert ability.can?(:create, new_player)
+    assert ability.cannot?(:create, bad_player)
   end
 
   test "moderators can update waiting player" do
     ability = Ability.new(users(:moderator_user))
 
-    assert ability.can?(:update, WaitingPlayer)
+    mod_waiting_all = waiting_players(:mod_waiting_all)
+    default_waiting_all = waiting_players(:default_waiting_all)
+
+    assert ability.can?(:update, mod_waiting_all)
+    assert ability.can?(:update, default_waiting_all)
   end
 
   test "moderators can destroy waiting player" do
     ability = Ability.new(users(:moderator_user))
 
-    assert ability.can?(:destroy, WaitingPlayer)
+    mod_waiting_all = waiting_players(:mod_waiting_all)
+    default_waiting_all = waiting_players(:default_waiting_all)
+
+    assert ability.can?(:destroy, mod_waiting_all)
+    assert ability.can?(:destroy, default_waiting_all)
   end
 
   test "admins can create waiting player" do

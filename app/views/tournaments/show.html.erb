@@ -3,3 +3,43 @@
 <p>Format: <%= Tournament::FORMATS[@tournament.format] %></p>
 <p>Start Time: <%= @tournament.start_time %></p>
 <p><%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %></p>
+
+<h2>Waiting Players</h2>
+<% if can?(:create, new_player(@tournament, current_user)) %>
+  <%= button_to "Join Tournament", {
+        controller: :waiting_players,
+        action: :create,
+        tournament_id: @tournament.id
+      }
+  %>
+<% end %>
+
+<ul>
+  <% @tournament.waiting_players.each do |player| %>
+    <li>
+      <%= player.user.login %><br />
+      <%= player.player_accepted ? "Accepted" : "Not Accepted Yet" %>
+
+      <% if can?(:update, player) && !player.player_accepted %>
+        <%= button_to "Accept Player", { 
+	      controller: :waiting_players, 
+	      action: :update,
+	      tournament_id: @tournament.id,
+              id: player.id,
+	      waiting_player: { player_accepted: true }
+	    }, method: :put
+        %>
+      <% end %>
+
+      <% if can?(:destroy, player) %>
+        <%= button_to "Remove Player", {
+	      controller: :waiting_players,
+	      action: :destroy,
+	      tournament_id: @tournament.id,
+	      id: player.id
+	    }, method: :delete
+	%>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
