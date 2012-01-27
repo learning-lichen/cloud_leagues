@@ -1,4 +1,14 @@
 <h1>User: <%= @user.login %></h1>
 <p>ID: <%= @user.id %></p>
 
-<%= link_to "#{@user.login}'s Profile", user_profile_path(@user) %>
+<ul>
+  <li>
+    <%= link_to "#{@user.login}'s Profile", user_profile_path(@user) %>
+  </li>
+  
+  <% if can?(:update, @user) %>
+    <li>
+      <%= link_to "Edit User", edit_user_path(@user) %>
+    </li>
+  <% end %>
+</ul>

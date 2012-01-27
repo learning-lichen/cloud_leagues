@@ -36,7 +36,9 @@ class UsersController < ApplicationController
   end
   
   def destroy
+    flash[:notice] = 'User has been deleted successfully.'
     current_user_session.destroy
+    current_user.account_information.destroy if current_user.account_information
     current_user.destroy
     redirect_to root_path
   end
