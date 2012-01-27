@@ -38,6 +38,8 @@ class Ability
 
       can :update, Tournament
 
+      can :manage, Match
+
     elsif user.role? :admin
       can :manage, :all
     end
@@ -48,5 +50,7 @@ class Ability
     can :read, AccountInformation
 
     can :read, Tournament
+
+    can :read, Match
   end
 end

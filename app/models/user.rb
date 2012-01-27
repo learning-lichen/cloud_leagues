@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # Associations
   has_one :account_information
   has_one :chat_profile
+  has_many :waiting_players
+  has_many :tournaments, through: :waiting_players
 
   # Callbacks
   before_validation :strip_inputs

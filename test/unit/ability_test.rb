@@ -498,4 +498,37 @@ class AbilityTest < ActiveSupport::TestCase
 
     assert ability.can?(:destroy, WaitingPlayer)
   end
+
+  ##############################################################################
+  # Waiting Player Modification Abilities                                      #
+  ##############################################################################
+  test "guest can only read match" do
+    ability = Ability.new(nil)
+
+    assert ability.can?(:read, Match)
+    assert ability.cannot?(:create, Match)
+    assert ability.cannot?(:update, Match)
+    assert ability.cannot?(:destroy, Match)
+  end
+
+  test "members can only read match" do
+    ability = Ability.new(users(:default_user))
+
+    assert ability.can?(:read, Match)
+    assert ability.cannot?(:create, Match)
+    assert ability.cannot?(:update, Match)
+    assert ability.cannot?(:destroy, Match)
+  end
+
+  test "moderators can manage match" do
+    ability = Ability.new(users(:moderator_user))
+
+    assert ability.can?(:manage, Match)
+  end
+
+  test "admins can manage match" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:manage, Match)
+  end
 end

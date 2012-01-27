@@ -2,7 +2,10 @@
 <p>For: <%= Tournament::LEAGUES[@tournament.league] %> League</p>
 <p>Format: <%= Tournament::FORMATS[@tournament.format] %></p>
 <p>Start Time: <%= @tournament.start_time %></p>
-<p><%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %></p>
+<p>
+  <%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %>
+  <%= button_to "Delete Tournament", { action: :destroy, id: @tournament.id }, method: :delete if can?(:destroy, @tournament) %>
+</p>
 
 <h2>Waiting Players</h2>
 <% if can?(:create, new_player(@tournament, current_user)) %>
