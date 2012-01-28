@@ -1,8 +1,8 @@
 class Match < ActiveRecord::Base
   # Associations
   belongs_to :tournament
-  belongs_to :player_one, class_name: :User
-  belongs_to :player_two, class_name: :User
+  belongs_to :player_one, class_name: "User"
+  belongs_to :player_two, class_name: "User"
   has_many :replays
 
   # Validations

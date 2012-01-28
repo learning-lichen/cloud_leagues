@@ -1,0 +1,46 @@
+<%= form_for @match do |form| %>
+  <%= render "shared/error_messages", target: @match %>
+
+  <fieldset>
+    <ul class="matchForm">
+      <li>
+	<%= form.label :tournament_id, "Tournament ID" %>
+	<%= form.text_field :tournament_id %>
+      </li>
+
+      <li>
+	<%= form.label :player_one_id, "Player One ID" %>
+	<%= form.text_field :player_one_id %>
+      </li>
+      
+      <li>
+	<%= form.label :player_two_id, "Player Two ID" %>
+	<%= form.text_field :player_two_id %>
+      </li>
+
+      <li>
+	<%= form.label :player_one_accepts, "Player One Accepts?" %>
+	<%= form.check_box :player_one_accepts %>
+      </li>
+
+      <li>
+	<%= form.label :player_two_accepts, "Player Two Accepts?" %>
+	<%= form.check_box :player_two_accepts %>
+      </li>
+
+      <li>
+	<%= form.label :winner, "Winner ID" %>
+	<%= form.text_field :winner %>
+      </li>
+
+      <li>
+	<%= form.label :contested, "Contested" %>
+	<%= form.check_box :contested %>
+      </li>
+      
+      <li>
+	<%= form.submit "Submit" %>
+      </li>
+    </ul>
+  </fieldset>
+<% end %>
