@@ -3,15 +3,18 @@ all_tournament:
   league: 0
   format: 0
   start_time: <%= Time.now %>
+  max_players: 20
 
 grand_master_tournament:
   id: 2
   league: 1
   format: 0
   start_time: <%= 1.hours.from_now %>
+  max_players: 25
 
 master_tournament:
   id: 3
   league: 2
   format: 0
   start_time: <%= 2.hours.from_now %>
+  max_players: 12

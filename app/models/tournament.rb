@@ -35,8 +35,9 @@ class Tournament < ActiveRecord::Base
   validates :league, presence: true, inclusion: {in: LEAGUES.keys}
   validates :format, presence: true, inclusion: {in: FORMATS.keys}
   validates :start_time, presence: true
+  validates :max_players, presence: true
 
   # Attribute Whitelists
-  attr_accessible :league, :format, :start_time, as: :moderator
-  attr_accessible :league, :format, :start_time, as: :admin
+  attr_accessible :league, :format, :start_time, :max_players, as: :moderator
+  attr_accessible :league, :format, :start_time, :max_players, as: :admin
 end

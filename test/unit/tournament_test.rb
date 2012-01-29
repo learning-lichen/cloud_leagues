@@ -35,11 +35,19 @@ class TournamentTest < ActiveSupport::TestCase
     assert !all_tournament.valid?
   end
 
+  test "max players validations" do
+    all_tournament = tournaments(:all_tournament)
+    all_tournament.max_players = nil
+
+    assert !all_tournament.valid?
+  end
+
   test "guest accessible attributes" do
     tournament_params = {
       league: -1,
       format: -1,
-      start_time: Time.now
+      start_time: Time.now,
+      max_players: 100
     }
 
     new_tournament = Tournament.new tournament_params, as: :guest
@@ -47,13 +55,15 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal 0, new_tournament.league
     assert_equal 0, new_tournament.format
     assert_nil new_tournament.start_time
+    assert_equal 20, new_tournament.max_players
   end
 
   test "member accessible attributes" do
     tournament_params = {
       league: -1,
       format: -1,
-      start_time: Time.now
+      start_time: Time.now,
+      max_players: 100
     }
 
     new_tournament = Tournament.new tournament_params, as: :member
@@ -61,6 +71,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal 0, new_tournament.league
     assert_equal 0, new_tournament.format
     assert_nil new_tournament.start_time
+    assert_equal 20, new_tournament.max_players
   end
 
   test "moderator accessible attributes" do
@@ -68,7 +79,8 @@ class TournamentTest < ActiveSupport::TestCase
     tournament_params = {
       league: -1,
       format: -1,
-      start_time: start_time
+      start_time: start_time,
+      max_players: 100
     }
     
     new_tournament = Tournament.new tournament_params, as: :moderator
@@ -76,6 +88,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal -1, new_tournament.league
     assert_equal -1, new_tournament.format
     assert_equal start_time, new_tournament.start_time
+    assert_equal 100, new_tournament.max_players
   end
 
   test "admin accessible attributes" do
@@ -83,7 +96,8 @@ class TournamentTest < ActiveSupport::TestCase
     tournament_params = {
       league: -1,
       format: -1,
-      start_time: start_time
+      start_time: start_time,
+      max_players: 100
     }
     
     new_tournament = Tournament.new tournament_params, as: :admin
@@ -91,5 +105,6 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal -1, new_tournament.league
     assert_equal -1, new_tournament.format
     assert_equal start_time, new_tournament.start_time
+    assert_equal 100, new_tournament.max_players
   end
 end
