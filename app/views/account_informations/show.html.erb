@@ -15,6 +15,11 @@
       Role:
       <%= AccountInformation::ROLES[@account_information.role].capitalize %>
     </li>
+
+    <li>
+      Race:
+      <%= AccountInformation::RACES[@account_information.race].capitalize %>
+    </li>
   </ul>
 <% else %>
   <p>This user does not have a profile yet.</p>

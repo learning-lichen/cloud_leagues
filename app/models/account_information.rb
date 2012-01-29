@@ -9,6 +9,19 @@ class AccountInformation < ActiveRecord::Base
     MODERATOR => :moderator,
     MEMBER => :member
   }
+
+  # Races
+  RANDOM = 0
+  TERRAN = 1
+  PROTOSS = 2
+  ZERG = 3
+  
+  RACES = {
+    RANDOM => :random,
+    TERRAN => :terran,
+    PROTOSS => :protoss,
+    ZERG => :zerg
+  }
   
   # Associations
   belongs_to :user
@@ -21,15 +34,17 @@ class AccountInformation < ActiveRecord::Base
     scope: :character_code, message: 'has already been registered'}
   validates :character_code, {presence: true, numericality: true, 
     length: {is: 3}}
-  validates :role, presence: true, inclusion: {in: ROLES.keys}
+  validates :role, presence: true, inclusion: { in: ROLES.keys }
+  validates :race, presence: true, inclusion: { in: RACES.keys }
 
   # Callbacks
   before_validation :strip_inputs
 
   # Attribute Whitelists
-  attr_accessible :reddit_name, :character_name, :character_code, as: :member
-  attr_accessible :reddit_name, :character_name, :character_code, as: :moderator
-  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, as: :admin
+  attr_accessible :reddit_name, :character_name, :character_code, :race, as: :new_member
+  attr_accessible :race, as: :member
+  attr_accessible :reddit_name, :character_name, :character_code, :race, as: :moderator
+  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, as: :admin
 
   protected
   def strip_inputs

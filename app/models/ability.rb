@@ -14,11 +14,11 @@ class Ability
       
       can :destroy, UserSession
 
-      can :create, AccountInformation, user: { id: user.id }
+      can [:create, :update], AccountInformation, user: { id: user.id }
 
       # Certain features require account information.
       if user.account_information
-        can :create, WaitingPlayer, valid?: true
+        can :create, WaitingPlayer, valid?: true, user_id: user.id
         can :destroy, WaitingPlayer, user_id: user.id
       end
       

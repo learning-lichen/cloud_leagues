@@ -19,6 +19,11 @@
       </li>
 
       <li>
+	<%= form.label :race, "Race" %>
+	<%= select_tag "account_information[race]", options_for_select(AccountInformation::RACES.keys.collect { |k| [AccountInformation::RACES[k], k] }) %>
+      </li>
+
+      <li>
 	<%= form.submit "Submit" %>
       </li>
     </ul>

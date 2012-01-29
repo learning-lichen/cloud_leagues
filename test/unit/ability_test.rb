@@ -178,10 +178,10 @@ class AbilityTest < ActiveSupport::TestCase
     other_ability.can?(:create, AccountInformation.new)
   end
 
-  test "members cannot update account information" do
+  test "members can update their account information" do
     ability = Ability.new(users(:default_user))
 
-    assert ability.cannot?(:update, account_informations(:default_information))
+    assert ability.can?(:update, account_informations(:default_information))
     assert ability.cannot?(:update, account_informations(:mod_information))
     assert ability.cannot?(:update, account_informations(:admin_information))
   end

@@ -60,13 +60,21 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert !default_information.valid?
   end
 
+  test "race validations" do
+    default_information = account_informations(:default_information)
+    default_information.race = -1
+
+    assert !default_information.valid?
+  end
+
   test "guest accessible attributes" do
     account_information_params = {
       user_id: 1,
       reddit_name: 'hello',
       character_name: 'char_name',
       character_code: 555,
-      role: 2
+      role: 2,
+      race: -1
     }
 
     new_info = AccountInformation.new account_information_params, as: :guest
@@ -76,24 +84,47 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_nil new_info.character_name
     assert_nil new_info.character_code
     assert_equal 0, new_info.role
+    assert_nil new_info.race
   end
 
-  test "member accessible attributes" do
+  test "new member accessible attributes" do
     account_info_params = {
       user_id: 1,
       reddit_name: 'hello',
       character_name: 'char_name',
       character_code: 555,
-      role: 2
+      role: 2,
+      race: 2
     }
 
-    new_info = AccountInformation.new account_info_params, as: :member
+    new_info = AccountInformation.new account_info_params, as: :new_member
 
     assert_nil new_info.user_id
     assert_equal 'hello', new_info.reddit_name
     assert_equal 'char_name', new_info.character_name
     assert_equal 555, new_info.character_code
     assert_equal 0, new_info.role
+    assert_equal 2, new_info.race
+  end
+
+  test "member accessible attributes" do
+    account_information_params = {
+      user_id: 1,
+      reddit_name: 'hello',
+      character_name: 'char_name',
+      character_code: 555,
+      role: 2,
+      race: 2
+    }
+
+    new_info = AccountInformation.new account_information_params, as: :member
+
+    assert_nil new_info.user_id
+    assert_nil new_info.reddit_name
+    assert_nil new_info.character_name
+    assert_nil new_info.character_code
+    assert_equal 0, new_info.role
+    assert_equal 2, new_info.race
   end
 
   test "moderator accessible attributes" do
@@ -102,7 +133,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       reddit_name: 'hello',
       character_name: 'char_name',
       character_code: 555,
-      role: 2
+      role: 2,
+      race: 2
     }
 
     new_info = AccountInformation.new account_info_params, as: :moderator
@@ -112,6 +144,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 'char_name', new_info.character_name
     assert_equal 555, new_info.character_code
     assert_equal 0, new_info.role
+    assert_equal 2, new_info.race
   end
 
   test "admin accessible attributes" do
@@ -120,7 +153,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       reddit_name: 'hello',
       character_name: 'char_name',
       character_code: 555,
-      role: 2
+      role: 2,
+      race: 2
     }
 
     new_info = AccountInformation.new account_info_params, as: :admin
@@ -130,6 +164,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 'char_name', new_info.character_name
     assert_equal 555, new_info.character_code
     assert_equal 2, new_info.role
+    assert_equal 2, new_info.race
   end
 
   test "strip inputs" do

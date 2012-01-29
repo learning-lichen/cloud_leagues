@@ -13,7 +13,7 @@ class AccountInformationsControllerTest < ActionController::TestCase
     assert_difference 'AccountInformation.count' do
       post :create, user_id: other_user.id, account_information: {
         reddit_name: 'other user', character_name: 'other char',
-        character_code: 555}
+        character_code: 555, race: 0 }
     end
 
     new_info = other_user.account_information
@@ -48,17 +48,18 @@ class AccountInformationsControllerTest < ActionController::TestCase
     assert_equal 'velium', default_information.reddit_name
   end
 
-  test "should no update account information" do
+  test "should not update account information" do
     default_user = login :default_user
-    default_information = default_user.account_information
-    old_name = default_information.reddit_name
-    put :update, user_id: default_user.id, account_information: {
+    admin_user = users(:admin_user)
+    admin_information = admin_user.account_information
+    old_name = admin_information.reddit_name
+    put :update, user_id: admin_user.id, account_information: {
       reddit_name: 'new_name' }
 
-    default_information.reload
+    admin_information.reload
 
     assert_redirected_to root_path
-    assert_equal old_name, default_information.reddit_name
+    assert_equal old_name, admin_information.reddit_name
   end
 
   test "should delete account information" do
