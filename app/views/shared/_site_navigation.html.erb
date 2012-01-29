@@ -1,16 +1,21 @@
 <div id="siteNavigation">
-  <h2>Site Navigation</h2>
-  <ul>
-    <li>
-      <%= link_to "Home", root_path %>
-    </li>
-    
-    <li>
-      <%= link_to "Users", users_path %>
-    </li>
+  <div class="navButtons">
+    <div class="button_outer first_button">
+      <%= link_to "Home", root_path, class: "button_inner" %>
+    </div>
 
-    <li>
-      <%= link_to "Tournaments", tournaments_path %>
-    </li>
-  </ul>
+    <div class="button_outer">
+      <%= link_to "Tournaments", tournaments_path, class: "button_inner" %>
+    </div>
+
+    <div class="button_outer last_button">
+      <%= link_to "Users", users_path, class: "button_inner" %>
+    </div>
+  </div>
 </div>
+
+<div id="headerLogo">
+  <%= link_to image_tag("header_logo.png", alt: "Cloud Leagues"), root_path %>
+</div>
+
+<%= content_for?(:user_navigation) ? yield(:user_navigation) : render("shared/user_navigation") %>

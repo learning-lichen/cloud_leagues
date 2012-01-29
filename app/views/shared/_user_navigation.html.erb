@@ -1,28 +1,33 @@
 <div id="userNavigation">
-  <h2>User Navigation</h2>
-  <% if current_user.nil? %>
-    <ul>
-      <li>
-	Welcome Guest
-      </li>
-      
-      <li>
-	<%= link_to "Login", login_path %>
-      </li>
-      
-      <li>
-	<%= link_to "Register", new_user_path %>
-      </li>
-    </ul>
-  <% else %>
-    <ul>
-      <li>
-	Welcome <%= current_user.login %>
-      </li>
+  <div class="userPane">
+    <div class="userPortrait"></div>
 
+    <ul>
       <li>
-	<%= link_to "Your Profile", user_profile_path(current_user) %>
+	Welcome <b><%= current_user ? current_user.login : "Guest" %></b>
       </li>
+      
+      <li>
+	Wins: 0 | Losses: 0
+	</li>
     </ul>
-  <% end %>
+
+    <% if current_user %>
+      <div class="button_outer">
+	<%= link_to "Your Profile", user_profile_path(current_user), class: "button_inner" %>
+      </div>
+
+      <div class="button_outer last_button">
+	<%= link_to "Messages", "#", class: "button_inner" %>
+      </div>
+    <% else %>
+      <div class="button_outer">
+	<%= link_to "Login", login_path, class: "button_inner" %>
+      </div>
+
+      <div class="button_outer last_button">
+	<%= link_to "Register", new_user_path, class: "button_inner" %>
+      </div>
+    <% end %>
+  </div>
 </div>

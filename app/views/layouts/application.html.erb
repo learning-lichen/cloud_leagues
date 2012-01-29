@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CloudLeagues</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header>
-    <%= content_for?(:user_navigation) ? yield(:user_navigation) : render("shared/user_navigation") %>
-    <%= content_for?(:site_navigation) ? yield(:site_navigation) : render("shared/site_navigation") %>
-  </header>
-  
-  <div id="mainContainer">
-    <%= yield %>
-  </div>
-
-  <footer>
-    <%= content_for?(:footer) ? yield(:footer) : render("shared/footer") %>
-  </footer>
-</body>
+  <head>
+    <title>CloudLeagues</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="contentWrapper">
+      <header>
+	<%= content_for?(:site_navigation) ? yield(:site_navigation) : render("shared/site_navigation") %>
+      </header>
+      
+      <div id="mainContainer">
+	<%= yield %>
+      </div>
+      
+      <footer>
+	<%= content_for?(:footer) ? yield(:footer) : render("shared/footer") %>
+      </footer>
+    </div>
+  </body>
 </html>

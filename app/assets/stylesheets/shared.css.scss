@@ -1,0 +1,186 @@
+$header_height: 75px;
+$header_bg_color: #222;
+
+$nav_active_border: #551A00;
+$user_nav_active_border: #ECECEC;
+
+$site_width: 900px;
+$logo_width: 150px;
+$site_nav_width: ($site_width - $logo_width) / 2;
+
+body {
+    background-color: #F1F1EC;
+    font-color: #222;
+}
+
+header {
+    height: $header_height;
+    background-color: $header_bg_color;
+    text-align: center;
+    overflow: hidden;
+}
+
+#headerLogo {
+    display: inline-block;
+    width: $logo_width;
+}
+
+#siteNavigation {
+    display: inline-block;
+    width: $site_nav_width;
+    text-align: left;
+    vertical-align: top;
+    height: $header_height;
+}
+
+#userNavigation {
+    display: inline-block;
+    width: $site_nav_width;
+    vertical-align: top;
+
+    text-align: right;
+}
+
+#mainContainer {
+    width: $site_width;
+    margin: auto;
+    padding-top: 10px;
+}
+
+footer {
+    width: $site_width;
+    margin: auto;
+}
+
+.navButtons {
+    height: 41px;
+    margin-top: 16px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 0;
+
+    border: 1px solid #982E00;
+
+    .button_outer {
+	border-right: 1px solid #982E00;
+	border-left: 1px solid #FF4D00;
+	display: inline-block;
+	height: 41px;
+	background-image: url(/assets/nav_buttons_bg.png);
+
+	&:hover { background-image: url(/assets/nav_buttons_bg_hover.png); }
+	&:active { border-right: 1px solid $nav_active_border; }
+    }
+
+    a.button_inner {
+	height: 28px;
+	padding-top: 13px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	font-family: Ariel, Sans-Serif;
+	font-weight: bold;
+	font-size: 13px;
+	color: #F1F1EC;
+	text-decoration: none;
+	display: block;
+
+	&:active {
+	    padding-top: 12px;
+	    padding-left: 9px;
+	    height: 27px;
+	    border: 1px solid $nav_active_border;
+	    border-right: 0;
+	}
+	
+	&:focus { outline: 0; }
+    }
+
+    .first_button {
+	border-left: none;
+    }
+    
+    .last_button {
+	border-right: 1px solid transparent;
+    }
+}
+
+.userPane {
+    height: 41px;
+    margin-top: 16px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 0;
+
+    border: 1px solid #797470;
+    background-image: url(/assets/user_nav_bg.png);
+
+    .userPortrait {
+	display: inline-block;
+	-mox-border-radius: 2px;
+	border-radius: 2px;
+	background-color: #797470;
+
+	height: 35px;
+	width: 35px;
+	margin-top: 3px;
+	margin-left: 3px;
+    }
+
+    .button_outer {
+	border-left: 1px solid #797470;
+	border-right: 1px solid #F1F1EC;
+	display: inline-block;
+	height: 41px;
+	vertical-align: top;
+
+	&:hover { background-image: url(/assets/user_nav_bg_hover.png); }
+	&:active { border-right: 1px solid $user_nav_active_border; }
+    }
+
+    a.button_inner {
+	height: 28px;
+	padding-top: 13px;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	font-family: Ariel, Sans-Serif;
+	font-weight: bold;
+	font-size: 13px;
+	color: #BB3900;
+	text-decoration: none;
+	display: block;
+
+	&:active {
+	    padding-top: 12px;
+	    padding-left: 9px;
+	    height: 27px;
+	    border: 1px solid $user_nav_active_border;
+	    border-right: 0;
+	}
+
+	&:focus { outline: 0; }
+    }
+
+    .last_button {
+	border-right: 1px solid transparent;
+    }
+
+    ul {
+	display: inline-block;
+	padding: 0;
+
+	font-size: 11px;
+	text-align: center;
+
+	list-style-type: none;
+	vertical-align: top;
+
+	margin-left: 5px;
+	margin-right: 10px;
+	margin-top: 7px;
+	margin-bottom: 0;
+    }
+}
