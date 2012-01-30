@@ -2,7 +2,7 @@
   <div class="userPane">
     <div class="userPortrait"></div>
 
-    <ul>
+    <ul class="userInformation">
       <li>
 	Welcome <b><%= current_user ? current_user.login : "Guest" %></b>
       </li>
@@ -18,8 +18,19 @@
       </div>
 
       <div class="button_outer last_button">
-	<%= link_to "Messages", "#", class: "button_inner" %>
+	<dl class="dropMenu">
+	  <dt>
+	    <%= link_to "", "#", class: "button_inner", id: "linkglobal"  %>
+	  </dt>
+	  <dd>
+	    <ul id="ulglobal">
+	      <li><%= link_to "Messages", "#" %></li>
+	      <li><%= link_to "Logout", logout_path %></li>
+	    </ul>
+	  </dd>
+	</dl>
       </div>
+ 
     <% else %>
       <div class="button_outer">
 	<%= link_to "Login", login_path, class: "button_inner" %>
