@@ -1,5 +1,7 @@
 /*
  *= require application_top
  *= require shared
+ *= require home
+ *= require user_sessions
  *= require application_bottom
 */

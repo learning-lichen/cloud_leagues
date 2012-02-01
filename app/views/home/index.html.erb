@@ -1,1 +1,5 @@
-Welcome Home
+<% if current_user %>
+  <%= render "user_welcome" %>
+<% else %>
+  <%= render "guest_welcome" %>
+<% end %>

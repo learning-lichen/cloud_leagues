@@ -5,6 +5,7 @@ $nav_active_border: #551A00;
 $user_nav_active_border: #ECECEC;
 
 $site_width: 900px;
+$sidebar_width: 250px;
 $logo_width: 150px;
 $site_nav_width: ($site_width - $logo_width) / 2;
 
@@ -17,6 +18,7 @@ header {
     height: $header_height;
     background-color: $header_bg_color;
     text-align: center;
+    font-size: 0;
 }
 
 #headerLogo {
@@ -41,14 +43,52 @@ header {
 }
 
 #mainContainer {
-    width: $site_width;
+    width: $site_width + 4;
     margin: auto;
-    padding-top: 10px;
+    font-size: 0;
+}
+
+#mainContent {
+    width: $site_width - $sidebar_width;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 12px;
+    margin-top: 5px;
+    border-top: 5px solid #BB3900;
+}
+
+#sidebar {
+    width: 250px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 12px;
+    margin-top: 5px;
+    border-top: 5px solid #BB3900;
+}
+
+#sidebarAd {
+    height: 250px;
+    overflow: hidden;
+}
+
+#sidebarContent {
+    width: $sidebar_width - 2;
+    border: 1px solid #797470;
+    border-top: 0;
+}
+
+#sidebarRibbonFold {
+    width: 4px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    height: 268px;
 }
 
 footer {
     width: $site_width;
     margin: auto;
+    padding-top: 15px;
 }
 
 .navButtons {
@@ -57,7 +97,6 @@ footer {
     -moz-border-radius: 2px;
     border-radius: 2px;
     display: inline-block;
-    font-size: 0;
 
     border: 1px solid #982E00;
 
@@ -217,11 +256,14 @@ footer {
 		    font-size: 11px;
 		    color: #797470;
 		    text-decoration: none;
+		    curson: pointer;
 
 		    &:hover {
 			background-color: #797470;
 			color: #F1F1EC;
 		    }
+
+		    &:focus { outline: 0; }
 		}
 	    }
 	}
