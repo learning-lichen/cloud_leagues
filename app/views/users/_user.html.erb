@@ -2,30 +2,30 @@
   <%= render "shared/error_messages", target: @user %>
 
   <fieldset>
-    <ul class="registrationForm">
-      <li>
-	<%= form.label :login, "Username" %>
-	<%= form.text_field :login %>
-      </li>
+    <table>
+      <tr>
+	<td><%= form.label :login, "Username" %></td>
+	<td><%= form.text_field :login %></td>
+      </tr>
       
-      <li>
-	<%= form.label :email, "Email" %>
-	<%= form.email_field :email %>
-      </li>
+      <tr>
+	<td><%= form.label :email, "Email" %></td>
+	<td><%= form.email_field :email %></td>
+      </tr>
       
-      <li>
-	<%= form.label :password, "Password" %>
-	<%= form.password_field :password %>
-      </li>
+      <tr>
+	<td><%= form.label :password, "Password" %></td>
+	<td><%= form.password_field :password %></td>
+      </tr>
 
-      <li>
-	<%= form.label :password_confirmation, "Confirm Password" %>
-	<%= form.password_field :password_confirmation %>
-      </li>
+      <tr>
+	<td><%= form.label :password_confirmation, "Confirm Password" %></td>
+	<td><%= form.password_field :password_confirmation %></td>
+      </tr>
       
-      <li>
-	<%= form.submit "Submit" %>
-      </li>
-    </ul>
+      <tr>
+	<td></td><td style="text-align: right;"><%= form.submit "Submit" %></td>
+      </tr>
+    </table>
   </fieldset>
 <% end %>

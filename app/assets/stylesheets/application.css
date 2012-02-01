@@ -2,6 +2,7 @@
  *= require application_top
  *= require shared
  *= require home
+ *= require users
  *= require user_sessions
  *= require application_bottom
 */
