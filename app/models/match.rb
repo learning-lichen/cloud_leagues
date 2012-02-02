@@ -1,17 +1,19 @@
 class Match < ActiveRecord::Base
   # Associations
   belongs_to :tournament
-  belongs_to :player_one, class_name: "User"
-  belongs_to :player_two, class_name: "User"
+  
+  has_many :match_player_relations
+  has_many :waiting_players, through: :match_player_relations
   has_many :replays
 
   # Validations
-  validates :tournament_id, :presence => true
-  validates :player_one_id, :presence => true
-  validates :player_two_id, :presence => true
-
+  validates :tournament_id, presence: true
+  validates :winner_id, inclusion: { 
+    in: lambda { |match| match.waiting_players.map { |player| player.id } }
+  }, if: :winner_id
+  
   # Attribute Whitelists
-  attr_accessible :tournament_id, :player_one_id, :player_two_id, :player_one_accepts, :player_two_accepts, :winner, :contested, as: :moderator
-  attr_accessible :tournament_id, :player_one_id, :player_two_id, :player_one_accepts, :player_two_accepts, :winner, :contested, as: :admin
+  attr_accessible :tournament_id, :winner_id, as: :moderator
+  attr_accessible :tournament_id, :winner_id, as: :admin
 end
 

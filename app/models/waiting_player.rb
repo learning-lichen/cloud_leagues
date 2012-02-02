@@ -2,6 +2,9 @@ class WaitingPlayer < ActiveRecord::Base
   # Associations
   belongs_to :tournament
   belongs_to :user
+  
+  has_many :match_player_relations
+  has_many :matches, through: :match_player_relations
 
   # Validations
   validates :tournament_id, presence: true

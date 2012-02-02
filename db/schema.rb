@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120129213020) do
+ActiveRecord::Schema.define(:version => 20120201184339) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -40,16 +40,20 @@ ActiveRecord::Schema.define(:version => 20120129213020) do
     t.datetime "updated_at"
   end
 
-  create_table "matches", :force => true do |t|
-    t.integer  "tournament_id",                         :null => false
-    t.integer  "player_one_id",                         :null => false
-    t.integer  "player_two_id",                         :null => false
-    t.boolean  "player_one_accepts", :default => false, :null => false
-    t.boolean  "player_two_accepts", :default => false, :null => false
-    t.integer  "winner"
+  create_table "match_player_relations", :force => true do |t|
+    t.integer  "waiting_player_id",                    :null => false
+    t.integer  "match_id",                             :null => false
+    t.boolean  "accepted",          :default => false
+    t.boolean  "contested",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "contested",          :default => false, :null => false
+  end
+
+  create_table "matches", :force => true do |t|
+    t.integer  "tournament_id", :null => false
+    t.integer  "winner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "replays", :force => true do |t|

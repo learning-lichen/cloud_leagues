@@ -1,0 +1,88 @@
+require 'test_helper'
+
+class MatchPlayerRelationTest < ActiveSupport::TestCase
+  test "validity of fixtures" do
+    assert match_player_relations(:default_all_match_one).valid?
+    assert match_player_relations(:admin_all_match_one).valid?
+    assert match_player_relations(:admin_grand_master_match_one).valid?
+    assert match_player_relations(:default_grand_master_match_one).valid?
+  end
+
+  test "waiting player id validations" do
+    default_all_match_one = match_player_relations(:default_all_match_one)
+    default_all_match_one.waiting_player_id = nil
+
+    assert !default_all_match_one.valid?
+  end
+
+  test "match id validations" do    
+    default_all_match_one = match_player_relations(:default_all_match_one)
+    default_all_match_one.match_id = nil
+
+    assert !default_all_match_one.valid?
+  end
+
+  test "guest accessible attributes" do
+    match_relation_params = {
+      match_id: 1,
+      waiting_player_id: 1,
+      accepted: true,
+      contested: true
+    }
+
+    new_relation = MatchPlayerRelation.new match_relation_params, as: :guest
+
+    assert_nil new_relation.match_id
+    assert_nil new_relation.waiting_player_id
+    assert !new_relation.accepted
+    assert !new_relation.contested
+  end
+
+  test "member accessible attributes" do
+    match_relation_params = {
+      match_id: 1,
+      waiting_player_id: 1,
+      accepted: true,
+      contested: true
+    }
+
+    new_relation = MatchPlayerRelation.new match_relation_params, as: :member
+
+    assert_nil new_relation.match_id
+    assert_nil new_relation.waiting_player_id
+    assert new_relation.accepted
+    assert new_relation.contested
+  end
+
+  test "moderator accessible attributes" do
+    match_relation_params = {
+      match_id: 1,
+      waiting_player_id: 1,
+      accepted: true,
+      contested: true
+    }
+
+    new_relation = MatchPlayerRelation.new match_relation_params, as: :moderator
+
+    assert_equal 1, new_relation.match_id
+    assert_equal 1, new_relation.waiting_player_id
+    assert new_relation.accepted
+    assert new_relation.contested
+  end
+
+  test "admin accessible attributes" do
+    match_relation_params = {
+      match_id: 1,
+      waiting_player_id: 1,
+      accepted: true,
+      contested: true
+    }
+
+    new_relation = MatchPlayerRelation.new match_relation_params, as: :admin
+
+    assert_equal 1, new_relation.match_id
+    assert_equal 1, new_relation.waiting_player_id
+    assert new_relation.accepted
+    assert new_relation.contested
+  end
+end

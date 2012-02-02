@@ -1,0 +1,27 @@
+default_all_match_one:
+  id: 1
+  match_id: 1
+  waiting_player_id: 1
+  accepted: true
+  contested: false
+
+admin_all_match_one:
+  id: 2	
+  match_id: 1
+  waiting_player_id: 3
+  accepted: false
+  contested: false
+
+admin_grand_master_match_one:
+  id: 3
+  match_id: 2
+  waiting_player_id: 2
+  accepted: true
+  contested: false
+
+default_grand_master_match_one:
+  id: 4
+  match_id: 2
+  waiting_player_id: 5
+  accepted: false
+  contested: false

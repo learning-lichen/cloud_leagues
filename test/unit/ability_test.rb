@@ -498,13 +498,13 @@ class AbilityTest < ActiveSupport::TestCase
 
     assert ability.can?(:destroy, WaitingPlayer)
   end
-
+  
   ##############################################################################
-  # Waiting Player Modification Abilities                                      #
+  # Match Modification Abilities                                               #
   ##############################################################################
   test "guest can only read match" do
     ability = Ability.new(nil)
-
+    
     assert ability.can?(:read, Match)
     assert ability.cannot?(:create, Match)
     assert ability.cannot?(:update, Match)
@@ -530,5 +530,38 @@ class AbilityTest < ActiveSupport::TestCase
     ability = Ability.new(users(:admin_user))
 
     assert ability.can?(:manage, Match)
+  end
+
+  ##############################################################################
+  # Match Player Relation Modification Abilities                               #
+  ##############################################################################
+  test "guest cannot access match player relation" do
+    ability = Ability.new(nil)
+    
+    assert ability.cannot?(:read, MatchPlayerRelation)
+    assert ability.cannot?(:create, MatchPlayerRelation)
+    assert ability.cannot?(:update, MatchPlayerRelation)
+    assert ability.cannot?(:destroy, MatchPlayerRelation)
+  end
+
+  test "members cannot access match player relation" do
+    ability = Ability.new(users(:default_user))
+    
+    assert ability.cannot?(:read, MatchPlayerRelation)
+    assert ability.cannot?(:create, MatchPlayerRelation)
+    assert ability.cannot?(:update, MatchPlayerRelation)
+    assert ability.cannot?(:destroy, MatchPlayerRelation)
+  end
+
+  test "moderators can manage match relations" do
+    ability = Ability.new(users(:moderator_user))
+    
+    assert ability.can?(:manage, MatchPlayerRelation)
+  end
+  
+  test "admins can manage match relations" do
+    ability = Ability.new(users(:admin_user))
+
+    assert ability.can?(:manage, MatchPlayerRelation)
   end
 end

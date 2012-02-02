@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_one :chat_profile
   has_many :waiting_players
   has_many :tournaments, through: :waiting_players
+  has_many :matches, through: :waiting_players
 
   # Callbacks
   before_validation :strip_inputs
