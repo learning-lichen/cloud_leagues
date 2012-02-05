@@ -107,4 +107,15 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal start_time, new_tournament.start_time
     assert_equal 100, new_tournament.max_players
   end
+
+  test "started method" do
+    all_tournament = tournaments(:all_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
+
+    all_tournament.start_time = 5.minutes.ago
+    gm_tournament.start_time = 5.minutes.from_now
+
+    assert all_tournament.started?
+    assert !gm_tournament.started?
+  end
 end

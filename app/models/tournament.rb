@@ -24,7 +24,7 @@ class Tournament < ActiveRecord::Base
   SINGLE_ELIMINATION = 0
 
   FORMATS = {
-    SINGLE_ELIMINATION => 'Single Elimination'
+    SINGLE_ELIMINATION => SingleElimination
   }
 
   # Associations
@@ -40,4 +40,8 @@ class Tournament < ActiveRecord::Base
   # Attribute Whitelists
   attr_accessible :league, :format, :start_time, :max_players, as: :moderator
   attr_accessible :league, :format, :start_time, :max_players, as: :admin
+
+  def started?
+    Time.now >= start_time
+  end
 end

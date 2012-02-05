@@ -239,7 +239,9 @@ footer {
 		border-bottom-right-radius: 2px;
 		border: 1px solid #797470;
 		border-top: 0;
-		background-color: #CECDC6;
+		background-color: #F1F1EC;
+		background-image: url(/assets/arrow_menu_gradient.png);
+		background-repeat: repeat-x;
 		
 		text-align: left;
 		font-size: 10px;
@@ -247,20 +249,19 @@ footer {
 		a {
 		    display: block;
 		    width: 75px;
-		    padding-top: 7px;
+		    padding-top: 5px;
 		    padding-bottom: 7px;
 		    padding-left: 3px;
 
 		    font-family: Ariel, Sans-Serif;
-		    font-weight: bold;
 		    font-size: 11px;
 		    color: #797470;
 		    text-decoration: none;
 		    curson: pointer;
 
 		    &:hover {
-			background-color: #797470;
-			color: #F1F1EC;
+			background-color: #CECDC6;
+			color: #BB3900;
 		    }
 
 		    &:focus { outline: 0; }
