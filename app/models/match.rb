@@ -10,12 +10,13 @@ class Match < ActiveRecord::Base
 
   # Validations
   validates :tournament_id, presence: true
+  validates :match_player_relations, length: { maximum: 2 }
   validates :winner_id, inclusion: { 
     in: lambda { |match| match.waiting_players.map { |player| player.id } }
   }, if: :winner_id
   
   # Attribute Whitelists
-  attr_accessible :tournament_id, :winner_id, as: :moderator
-  attr_accessible :tournament_id, :winner_id, as: :admin
+  attr_accessible :winner_id, as: :moderator
+  attr_accessible :winner_id, as: :admin
 end
 

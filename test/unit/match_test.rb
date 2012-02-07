@@ -13,6 +13,13 @@ class MatchTest < ActiveSupport::TestCase
     assert !all_match_one.valid?
   end
 
+  test "match player relations validations" do
+    all_match_one = matches(:all_match_one)
+    new_match = all_match_one.match_player_relations.build
+
+    assert !all_match_one.valid?
+  end
+
   test "winner id validations" do
     all_match_one = matches(:all_match_one)
     gm_match_one = matches(:grand_master_match_one)
@@ -56,7 +63,7 @@ class MatchTest < ActiveSupport::TestCase
 
     new_match = Match.new new_match_params, as: :moderator
 
-    assert_equal 1, new_match.tournament_id
+    assert_nil new_match.tournament_id
     assert_equal 2, new_match.winner_id
   end
 
@@ -68,7 +75,7 @@ class MatchTest < ActiveSupport::TestCase
 
     new_match = Match.new new_match_params, as: :admin
 
-    assert_equal 1, new_match.tournament_id
+    assert_nil new_match.tournament_id
     assert_equal 2, new_match.winner_id
   end
 end

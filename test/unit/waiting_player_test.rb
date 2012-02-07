@@ -75,8 +75,8 @@ class WaitingPlayerTest < ActiveSupport::TestCase
 
     new_waiting_player = WaitingPlayer.new waiting_player_params, as: :admin
 
-    assert_equal -1, new_waiting_player.tournament_id
-    assert_equal -1, new_waiting_player.user_id
+    assert_nil new_waiting_player.tournament_id
+    assert_nil new_waiting_player.user_id
     assert new_waiting_player.player_accepted
   end
 end

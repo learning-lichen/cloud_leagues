@@ -12,5 +12,5 @@ class WaitingPlayer < ActiveRecord::Base
 
   # Attribute Whitelists
   attr_accessible :player_accepted, as: :moderator
-  attr_accessible :tournament_id, :user_id, :player_accepted, as: :admin
+  attr_accessible :player_accepted, as: :admin
 end

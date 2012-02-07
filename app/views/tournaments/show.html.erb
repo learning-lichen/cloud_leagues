@@ -1,6 +1,6 @@
 <h1><%= "Tournament \##{@tournament.id}" %></h1>
 <p>For: <%= Tournament::LEAGUES[@tournament.league] %> League</p>
-<p>Format: <%= Tournament::FORMATS[@tournament.format] %></p>
+<p>Format: <%= @tournament.type %></p>
 <p>Start Time: <%= @tournament.start_time %></p>
 <p>
   <%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %>

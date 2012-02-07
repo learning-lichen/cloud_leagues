@@ -22,6 +22,15 @@ class MatchPlayerRelationTest < ActiveSupport::TestCase
     assert !default_all_match_one.valid?
   end
 
+  test "associated match validations" do
+    default_all_match_one = match_player_relations(:default_all_match_one)
+    all_match_one = default_all_match_one.match
+    new_relation = all_match_one.match_player_relations.build
+
+    assert !all_match_one.valid?
+    assert !new_relation.valid?
+  end
+
   test "guest accessible attributes" do
     match_relation_params = {
       match_id: 1,
@@ -64,7 +73,7 @@ class MatchPlayerRelationTest < ActiveSupport::TestCase
 
     new_relation = MatchPlayerRelation.new match_relation_params, as: :moderator
 
-    assert_equal 1, new_relation.match_id
+    assert_nil new_relation.match_id
     assert_equal 1, new_relation.waiting_player_id
     assert new_relation.accepted
     assert new_relation.contested
@@ -80,7 +89,7 @@ class MatchPlayerRelationTest < ActiveSupport::TestCase
 
     new_relation = MatchPlayerRelation.new match_relation_params, as: :admin
 
-    assert_equal 1, new_relation.match_id
+    assert_nil new_relation.match_id
     assert_equal 1, new_relation.waiting_player_id
     assert new_relation.accepted
     assert new_relation.contested

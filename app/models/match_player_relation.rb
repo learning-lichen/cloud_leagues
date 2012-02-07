@@ -8,9 +8,10 @@ class MatchPlayerRelation < ActiveRecord::Base
   # Validations
   validates :waiting_player_id, presence: true
   validates :match_id, presence: true
+  validates_associated :match
 
   # Attribute Whitelists
   attr_accessible :accepted, :contested, as: :member
-  attr_accessible :waiting_player_id, :match_id, :accepted, :contested, as: :moderator
-  attr_accessible :waiting_player_id, :match_id, :accepted, :contested, as: :admin
+  attr_accessible :waiting_player_id, :accepted, :contested, as: :moderator
+  attr_accessible :waiting_player_id, :accepted, :contested, as: :admin
 end
