@@ -2,11 +2,11 @@ class Match < ActiveRecord::Base
   # Associations
   belongs_to :tournament
   
-  has_many :match_player_relations
+  has_many :match_player_relations, dependent: :destroy
   has_many :waiting_players, through: :match_player_relations
-  has_many :replays
-  has_many :match_links
-  has_many :winner_match_links
+  has_many :replays, dependent: :destroy
+  has_many :match_links, dependent: :destroy
+  has_many :winner_match_links, dependent: :destroy
 
   # Validations
   validates :tournament_id, presence: true

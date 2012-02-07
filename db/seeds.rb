@@ -10,5 +10,6 @@ admin.create_account_information({
   reddit_name: 'Velium',
   character_name: 'Dimes',
   character_code: '985',
-  role: 2
+  role: 2,
+  race: 2
 }, as: :admin)

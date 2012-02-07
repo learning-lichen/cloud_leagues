@@ -3,7 +3,7 @@ class WaitingPlayer < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :user
   
-  has_many :match_player_relations
+  has_many :match_player_relations, dependent: :destroy
   has_many :matches, through: :match_player_relations
 
   # Validations

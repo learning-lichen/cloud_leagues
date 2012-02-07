@@ -28,8 +28,8 @@ class Tournament < ActiveRecord::Base
   }
 
   # Associations
-  has_many :waiting_players
-  has_many :matches
+  has_many :waiting_players, dependent: :destroy
+  has_many :matches, dependent: :destroy
   
   # Validations
   validates :league, presence: true, inclusion: {in: LEAGUES.keys}
