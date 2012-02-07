@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   end
 
   # Associations
-  has_one :account_information
-  has_one :chat_profile
+  has_one :account_information, dependent: :destroy
+  has_one :chat_profile, dependent: :destroy
   has_many :waiting_players
   has_many :tournaments, through: :waiting_players
   has_many :matches, through: :waiting_players
