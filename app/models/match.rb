@@ -5,6 +5,8 @@ class Match < ActiveRecord::Base
   has_many :match_player_relations
   has_many :waiting_players, through: :match_player_relations
   has_many :replays
+  has_many :match_links
+  has_many :winner_match_links
 
   # Validations
   validates :tournament_id, presence: true

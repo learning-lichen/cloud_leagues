@@ -1,0 +1,2 @@
+class WinnerMatchLink < MatchLink
+end

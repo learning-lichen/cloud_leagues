@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  match_id: 1
+  next_match_id: 1
+  type: 
+
+two:
+  match_id: 1
+  next_match_id: 1
+  type: 

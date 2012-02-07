@@ -10,7 +10,9 @@ class AccountInformationsController < ApplicationController
   end
 
   def create
-    @account_information = @user.build_account_information params[:account_information], as: :new_member
+    user_role = :new_member unless current_user.account_information
+    user_role ||= current_user.role
+    @account_information = @user.build_account_information params[:account_information], as: user_role
     
     if @account_information.save
       flash[:notice] = 'Account information saved successfully.'
