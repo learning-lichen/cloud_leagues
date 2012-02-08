@@ -21,9 +21,13 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "type validations" do
     all_tournament = tournaments(:all_tournament)
-    all_tournament.type = nil
+    gm_tournament = tournaments(:grand_master_tournament)
 
+    all_tournament.type = nil
+    gm_tournament.type = 'Random Stuff'
+    
     assert !all_tournament.valid?
+    assert !gm_tournament.valid?
   end
 
   test "start time validations" do
