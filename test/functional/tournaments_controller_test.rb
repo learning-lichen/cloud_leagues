@@ -23,7 +23,7 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "should create tournament" do
     login :admin_user
-    start_time = 5.hours.from_now
+    start_time = 100.hours.from_now
     
     assert_difference 'Tournament.count' do
       post :create, tournament: { league: 0, 

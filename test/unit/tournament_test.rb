@@ -4,6 +4,8 @@ class TournamentTest < ActiveSupport::TestCase
   test "validity of fixtures" do
     assert tournaments(:all_tournament).valid?
     assert tournaments(:grand_master_tournament).valid?
+    assert tournaments(:master_tournament).valid?
+    assert tournaments(:empty_tournament).valid?
   end
 
   test "league validations" do
@@ -113,5 +115,11 @@ class TournamentTest < ActiveSupport::TestCase
 
     assert all_tournament.started?
     assert !gm_tournament.started?
+  end
+
+  test "initialize tournament in superclass" do
+    assert_raise NotImplementedError do 
+      Tournament.new.initialize_tournament
+    end
   end
 end

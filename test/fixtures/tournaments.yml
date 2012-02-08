@@ -18,3 +18,10 @@ master_tournament:
   type: SingleEliminationTournament
   start_time: <%= 2.hours.from_now %>
   max_players: 12
+
+empty_tournament:
+  id: 4
+  league: 0
+  type: SingleEliminationTournament
+  start_time: <%= 5.hours.from_now %>
+  max_players: 20

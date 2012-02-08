@@ -37,4 +37,8 @@ class Tournament < ActiveRecord::Base
   def started?
     Time.now >= start_time
   end
+
+  def initialize_tournament
+    raise NotImplementedError.new('Not implemented in the super class.')
+  end
 end
