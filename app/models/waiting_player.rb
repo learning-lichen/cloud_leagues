@@ -9,6 +9,7 @@ class WaitingPlayer < ActiveRecord::Base
   # Validations
   validates :tournament_id, presence: true
   validates :user_id, presence: true, uniqueness: { scope: :tournament_id }
+  validates_associated :tournament
 
   # Attribute Whitelists
   attr_accessible :player_accepted, as: :moderator

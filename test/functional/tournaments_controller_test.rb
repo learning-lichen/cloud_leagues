@@ -36,7 +36,7 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "should not create tournament" do
     login :moderator_user
-    start_time = 5.hours.from_now
+    start_time = 100.hours.from_now
     
     assert_difference 'Tournament.count', 0 do
       post :create, tournament: { league: 0, format: 0, start_time: start_time }

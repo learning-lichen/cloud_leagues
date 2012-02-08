@@ -23,6 +23,14 @@ class WaitingPlayerTest < ActiveSupport::TestCase
 
     assert !admin_waiting_all.valid?
   end
+
+  test "associated tournament validations" do
+    default_waiting_all = waiting_players(:default_waiting_all)
+    default_waiting_all.tournament.max_players = 0
+    default_waiting_all.player_accepted = true
+
+    assert !default_waiting_all.valid?
+  end
   
   test "guest accessible attributes" do
     waiting_player_params = {
