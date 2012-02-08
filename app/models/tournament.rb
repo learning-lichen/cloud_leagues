@@ -29,6 +29,7 @@ class Tournament < ActiveRecord::Base
   validates :type, presence: true
   validates :start_time, presence: true
   validates :max_players, presence: true
+  validate :validate_waiting_players
 
   # Attribute Whitelists
   attr_accessible :league, :type, :start_time, :max_players, as: :moderator
@@ -40,5 +41,12 @@ class Tournament < ActiveRecord::Base
 
   def initialize_tournament
     raise NotImplementedError.new('Not implemented in the super class.')
+  end
+
+  protected
+  def validate_waiting_players
+    accepted_count = 0
+    waiting_players.each { |player| accepted_count += 1 if player.player_accepted }
+    errors.add(:waiting_players, "too many accepted") if accepted_count > (max_players || 0)
   end
 end
