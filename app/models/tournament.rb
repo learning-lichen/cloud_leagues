@@ -56,7 +56,7 @@ class Tournament < ActiveRecord::Base
 
   def validate_type
     errors.add(:type, 'must be present') and return if type.nil?
-    tournament_file_names = Dir.glob('app/models/tournaments/**').map do |file_name|
+    tournament_file_names = Dir.glob('app/models/*_tournament.rb').map do |file_name|
       File.basename file_name, '.rb'
     end
 

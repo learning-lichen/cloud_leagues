@@ -9,7 +9,14 @@ class SingleEliminationTournament < Tournament
       
       for i in 0..(match_list[match_level].length - 1)
         new_match = self.matches.build
-        new_match.save ? match_list[match_level][i] = new_match : self.destroy
+        
+        if new_match.save 
+          match_list[match_level][i] = new_match 
+        else
+          logger.warn 'Error creating tournament structure.'
+          destroy_structure
+          return false
+        end
         
         if match_level != 0
           first_link = match_list[match_level - 1][2 * i].winner_match_links.build
@@ -18,10 +25,16 @@ class SingleEliminationTournament < Tournament
           second_link = match_list[match_level - 1][2 * i + 1].winner_match_links.build
           second_link.next_match_id = match_list[match_level][i].id
           
-          self.destroy unless first_link.save && second_link.save
+          unless first_link.save && second_link.save
+            logger.warn 'Error creating tournament structure.'
+            destroy_structure
+            return false
+          end
         end
       end
     end
+
+    true
   end
 
   def destroy_structure
