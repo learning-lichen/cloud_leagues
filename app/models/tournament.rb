@@ -26,10 +26,10 @@ class Tournament < ActiveRecord::Base
   
   # Validations
   validates :league, presence: true, inclusion: { in: LEAGUES.keys }
-  validates :type, presence: true 
   validates :start_time, presence: true
   validates :max_players, presence: true
   validate :validate_waiting_players
+  validate :validate_type
 
   # Attribute Whitelists
   attr_accessible :league, :type, :start_time, :max_players, as: :moderator
@@ -52,5 +52,18 @@ class Tournament < ActiveRecord::Base
     accepted_count = 0
     waiting_players.each { |player| accepted_count += 1 if player.player_accepted }
     errors.add(:waiting_players, 'too many accepted') if accepted_count > (max_players || 0)
+  end
+
+  def validate_type
+    errors.add(:type, 'must be present') and return if type.nil?
+    tournament_file_names = Dir.glob('app/models/tournaments/**').map do |file_name|
+      File.basename file_name, '.rb'
+    end
+
+    class_names = tournament_file_names.map do |file_name|
+      file_name.split('_').map { |w| w.capitalize }.join
+    end
+
+    errors.add(:type, 'is not a valid tournament type') unless class_names.include?(type)
   end
 end
