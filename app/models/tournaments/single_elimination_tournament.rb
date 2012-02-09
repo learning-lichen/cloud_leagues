@@ -25,5 +25,6 @@ class SingleEliminationTournament < Tournament
   end
 
   def destroy_structure
+    matches.each { |match| match.destroy }
   end
 end

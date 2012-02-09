@@ -20,4 +20,11 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
     end
     assert_equal 1, empty_link_matches
   end
+
+  test "destroy structure" do
+    all_tournament = tournaments(:all_tournament)
+    all_tournament.destroy_structure
+
+    assert Match.find_all_by_tournament_id(all_tournament.id).empty?
+  end
 end
