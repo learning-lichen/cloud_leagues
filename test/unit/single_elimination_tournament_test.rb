@@ -1,11 +1,11 @@
 require 'test_helper'
 
 class SingleEliminationTournamentTest < ActiveSupport::TestCase
-  test "initialize_tournament" do
+  test "create structure" do
     empty_tournament = tournaments :empty_tournament
     closest_power = Math.log2(empty_tournament.max_players).ceil
 
-    empty_tournament.initialize_tournament
+    empty_tournament.create_structure
     matches = empty_tournament.matches
     empty_link_matches = 0
     

@@ -1,5 +1,5 @@
 class SingleEliminationTournament < Tournament
-  def initialize_tournament
+  def create_structure
     closest_power = Math.log2(max_players).ceil
     true_max_players = 2 ** closest_power
     
@@ -22,5 +22,8 @@ class SingleEliminationTournament < Tournament
         end
       end
     end
+  end
+
+  def destroy_structure
   end
 end

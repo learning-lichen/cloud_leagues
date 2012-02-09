@@ -21,13 +21,9 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "type validations" do
     all_tournament = tournaments(:all_tournament)
-    gm_tournament = tournaments(:grand_master_tournament)
-
     all_tournament.type = nil
-    gm_tournament.type = 'Random Stuff'
     
     assert !all_tournament.valid?
-    assert !gm_tournament.valid?
   end
 
   test "start time validations" do
@@ -131,9 +127,15 @@ class TournamentTest < ActiveSupport::TestCase
     assert !gm_tournament.started?
   end
 
-  test "initialize tournament in superclass" do
+  test "create structure in superclass" do
     assert_raise NotImplementedError do 
-      Tournament.new.initialize_tournament
+      Tournament.new.create_structure
+    end
+  end
+
+  test "destroy structure in superclass" do
+    assert_raise NotImplementedError do
+      Tournament.new.destroy_structure
     end
   end
 end
