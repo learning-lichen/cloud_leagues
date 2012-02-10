@@ -26,17 +26,17 @@ class Tournament < ActiveRecord::Base
   
   # Validations
   validates :league, presence: true, inclusion: { in: LEAGUES.keys }
-  validates :start_time, presence: true
   validates :max_players, presence: true, inclusion: { in: 1..64 }
   validate :validate_waiting_players
   validate :validate_type
+  validate :validate_times
 
   # Callbacks
   after_create :create_structure
 
   # Attribute Whitelists
-  attr_accessible :league, :type, :start_time, :max_players, as: :moderator
-  attr_accessible :league, :type, :start_time, :max_players, as: :admin
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, as: :moderator
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, as: :admin
 
   def started?
     Time.now >= start_time
@@ -68,5 +68,12 @@ class Tournament < ActiveRecord::Base
     end
 
     errors.add(:type, 'is not a valid tournament type') unless class_names.include?(type)
+  end
+  
+  def validate_times
+    errors.add(:start_time, 'must be present') and return if start_time.nil?
+    errors.add(:start_time, 'must be in the future') and return if new_record? && start_time <= Time.now
+    errors.add(:registration_time, 'must be present') and return if registration_time.nil?
+    errors.add(:registration_time, 'must be before start time') and return if registration_time >= start_time
   end
 end

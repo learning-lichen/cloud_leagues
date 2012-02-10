@@ -3,6 +3,7 @@ all_tournament:
   league: 0
   type: SingleEliminationTournament
   start_time: <%= Time.now %>
+  registration_time: <%= 2.hours.ago %>
   max_players: 20
 
 grand_master_tournament:
@@ -10,6 +11,7 @@ grand_master_tournament:
   league: 1
   type: SingleEliminationTournament
   start_time: <%= 1.hours.from_now %>
+  registration_time: <%= Time.now %>
   max_players: 25
 
 master_tournament:
@@ -17,6 +19,7 @@ master_tournament:
   league: 2
   type: SingleEliminationTournament
   start_time: <%= 2.hours.from_now %>
+  registration_time: <%= 3.hours.ago %>
   max_players: 12
 
 empty_tournament:
@@ -24,4 +27,5 @@ empty_tournament:
   league: 0
   type: SingleEliminationTournament
   start_time: <%= 5.hours.from_now %>
+  registration_time: <%= 4.hours.from_now %>
   max_players: 20

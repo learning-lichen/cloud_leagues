@@ -24,11 +24,13 @@ class TournamentsControllerTest < ActionController::TestCase
   test "should create tournament" do
     login :admin_user
     start_time = 100.hours.from_now
+    registration_time = 99.hours.from_now
     
     assert_difference 'Tournament.count' do
       post :create, tournament: { league: 0, 
         type: 'SingleEliminationTournament', 
-        start_time: start_time }
+        start_time: start_time, 
+        registration_time: registration_time }
     end
     assert_not_nil tournament = Tournament.find_by_start_time(start_time)
     assert_redirected_to tournament_path(tournament)

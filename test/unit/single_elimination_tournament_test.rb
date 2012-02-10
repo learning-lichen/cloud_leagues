@@ -3,7 +3,8 @@ require 'test_helper'
 class SingleEliminationTournamentTest < ActiveSupport::TestCase
   test "create structure" do
     empty_tournament = Tournament.new
-    empty_tournament.start_time = Time.now
+    empty_tournament.start_time = 1.hours.from_now
+    empty_tournament.registration_time = 2.hours.ago
     empty_tournament.type = 'SingleEliminationTournament'
     closest_power = Math.log2(empty_tournament.max_players).ceil
 

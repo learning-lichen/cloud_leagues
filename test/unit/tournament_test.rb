@@ -32,9 +32,38 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "start time validations" do
     all_tournament = tournaments(:all_tournament)
+    new_tournament_params = {
+      start_time: 1.hours.from_now,
+      registration_time: Time.now,
+      type: 'SingleEliminationTournament'
+    }
+    new_tournament = Tournament.new new_tournament_params, as: :admin
+    control_tournament = Tournament.new new_tournament_params, as: :admin
+
     all_tournament.start_time = nil
+    new_tournament.start_time = 1.hours.ago
 
     assert !all_tournament.valid?
+    assert control_tournament.valid?
+    assert !new_tournament.valid?
+  end
+
+  test "registration time validations" do
+    all_tournament = tournaments(:all_tournament)
+    new_tournament_params = {
+      start_time: 1.hours.from_now,
+      registration_time: Time.now,
+      type: 'SingleEliminationTournament'
+    }
+    new_tournament = Tournament.new new_tournament_params, as: :admin
+    control_tournament = Tournament.new new_tournament_params, as: :admin
+
+    all_tournament.registration_time = nil
+    new_tournament.registration_time = 5.hours.from_now
+
+    assert !all_tournament.valid?
+    assert control_tournament.valid?
+    assert !new_tournament.valid?
   end
 
   test "max players validations" do
@@ -66,6 +95,7 @@ class TournamentTest < ActiveSupport::TestCase
       league: -1,
       type: 'FakeTournament',
       start_time: Time.now,
+      registration_time: 1.hours.ago,
       max_players: 100
     }
 
@@ -74,6 +104,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal 0, new_tournament.league
     assert_nil new_tournament.type
     assert_nil new_tournament.start_time
+    assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
   end
 
@@ -82,6 +113,7 @@ class TournamentTest < ActiveSupport::TestCase
       league: -1,
       type: 'FakeTournament',
       start_time: Time.now,
+      registration_time: 1.hours.ago,
       max_players: 100
     }
 
@@ -90,15 +122,18 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal 0, new_tournament.league
     assert_nil new_tournament.type
     assert_nil new_tournament.start_time
+    assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
   end
 
   test "moderator accessible attributes" do
     start_time = Time.now
+    registration_time = 1.hours.ago
     tournament_params = {
       league: -1,
       type: 'TournamentType',
       start_time: start_time,
+      registration_time: registration_time,
       max_players: 100
     }
     
@@ -107,15 +142,18 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal -1, new_tournament.league
     assert_equal 'TournamentType', new_tournament.type
     assert_equal start_time, new_tournament.start_time
+    assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
   end
 
   test "admin accessible attributes" do
     start_time = Time.now
+    registration_time = 1.hours.ago
     tournament_params = {
       league: -1,
       type: 'TournamentType',
       start_time: start_time,
+      registration_time: registration_time,
       max_players: 100
     }
     
@@ -124,6 +162,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal -1, new_tournament.league
     assert_equal 'TournamentType', new_tournament.type
     assert_equal start_time, new_tournament.start_time
+    assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
   end
 
