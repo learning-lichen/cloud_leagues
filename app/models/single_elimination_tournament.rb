@@ -14,6 +14,7 @@ class SingleEliminationTournament < Tournament
           match_list[match_level][i] = new_match 
         else
           logger.warn 'Error creating tournament structure.'
+          errors.add :type, 'could not be created at this time. Please try again later'
           destroy_structure
           return false
         end
@@ -27,6 +28,7 @@ class SingleEliminationTournament < Tournament
           
           unless first_link.save && second_link.save
             logger.warn 'Error creating tournament structure.'
+            errors.add :type, 'could not be created at this time. Please try again later'
             destroy_structure
             return false
           end

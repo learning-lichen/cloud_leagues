@@ -131,15 +131,12 @@ class TournamentTest < ActiveSupport::TestCase
     assert !gm_tournament.started?
   end
 
-  test "create structure in superclass" do
-    assert_raise NotImplementedError do 
-      Tournament.new.create_structure
-    end
-  end
+  test "structure not created on arbitrary save" do
+    empty_tournament = tournaments(:empty_tournament)
+    empty_tournament.start_time = 100.hours.from_now
 
-  test "destroy structure in superclass" do
-    assert_raise NotImplementedError do
-      Tournament.new.destroy_structure
+    assert_no_difference 'Match.count' do
+      empty_tournament.save
     end
   end
 end
