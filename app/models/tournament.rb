@@ -27,7 +27,7 @@ class Tournament < ActiveRecord::Base
   # Validations
   validates :league, presence: true, inclusion: { in: LEAGUES.keys }
   validates :start_time, presence: true
-  validates :max_players, presence: true
+  validates :max_players, presence: true, inclusion: { in: 1..64 }
   validate :validate_waiting_players
   validate :validate_type
 

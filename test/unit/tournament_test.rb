@@ -39,9 +39,16 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "max players validations" do
     all_tournament = tournaments(:all_tournament)
+    empty_tournament = tournaments(:empty_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
+
     all_tournament.max_players = nil
+    empty_tournament.max_players = 0
+    gm_tournament.max_players = 65
 
     assert !all_tournament.valid?
+    assert !empty_tournament.valid?
+    assert !gm_tournament.valid?
   end
 
   test "waiting players validations" do
