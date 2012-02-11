@@ -449,8 +449,8 @@ class AbilityTest < ActiveSupport::TestCase
     moderator_user = users(:moderator_user)
     ability = Ability.new(moderator_user)
 
-    gm_tournament = tournaments(:grand_master_tournament)
-    new_player = gm_tournament.waiting_players.build
+    master_tournament = tournaments(:master_tournament)
+    new_player = master_tournament.waiting_players.build
     new_player.user_id = moderator_user.id
 
     all_tournament = tournaments(:all_tournament)

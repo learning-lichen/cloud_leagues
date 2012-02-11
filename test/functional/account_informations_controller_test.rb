@@ -13,7 +13,7 @@ class AccountInformationsControllerTest < ActionController::TestCase
     assert_difference 'AccountInformation.count' do
       post :create, user_id: other_user.id, account_information: {
         reddit_name: 'other user', character_name: 'other char',
-        character_code: 555, race: 0 }
+        character_code: 555, race: 0, league: 1 }
     end
 
     new_info = other_user.account_information

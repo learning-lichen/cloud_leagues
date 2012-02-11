@@ -33,6 +33,7 @@ class Tournament < ActiveRecord::Base
 
   # Callbacks
   after_create :create_structure
+  after_update :update_structure
 
   # Attribute Whitelists
   attr_accessible :league, :type, :start_time, :registration_time, :max_players, as: :moderator
@@ -46,14 +47,13 @@ class Tournament < ActiveRecord::Base
   def create_structure
     raise ActiveRecord::Rollback unless self.becomes(type.constantize).create_structure
   end
-  
-  def destroy_structure
-    raise ActiveRecord::Rollback unless self.becomes(type.constantize).destroy_structure
-  end
 
   def validate_waiting_players
     accepted_count = 0
-    waiting_players.each { |player| accepted_count += 1 if player.player_accepted }
+    waiting_players.each do |player| 
+      accepted_count += 1 if player.player_accepted
+    end
+    
     errors.add(:waiting_players, 'too many accepted') if accepted_count > (max_players || 0)
   end
 

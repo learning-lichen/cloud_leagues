@@ -36,15 +36,16 @@ class AccountInformation < ActiveRecord::Base
     length: {is: 3}}
   validates :role, presence: true, inclusion: { in: ROLES.keys }
   validates :race, presence: true, inclusion: { in: RACES.keys }
+  validates :league, presence: true, inclusion: { in: Tournament::LEAGUES.keys }, exclusion: { in: [Tournament::ALL] }
 
   # Callbacks
   before_validation :strip_inputs
 
   # Attribute Whitelists
-  attr_accessible :reddit_name, :character_name, :character_code, :race, as: :new_member
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :new_member
   attr_accessible :race, as: :member
-  attr_accessible :reddit_name, :character_name, :character_code, :race, as: :moderator
-  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, as: :admin
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :moderator
+  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, as: :admin
 
   protected
   def strip_inputs

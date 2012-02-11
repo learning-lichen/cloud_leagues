@@ -84,7 +84,7 @@ class TournamentTest < ActiveSupport::TestCase
   end
 
   test "waiting players validations" do
-    all_tournament = tournaments(:all_tournament)
+    all_tournament = tournaments(:all_tournament)    
     all_tournament.max_players = all_tournament.waiting_players.size - 1
     all_tournament.waiting_players.each do |player|
       player.player_accepted = true

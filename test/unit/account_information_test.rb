@@ -5,6 +5,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert account_informations(:default_information).valid?
     assert account_informations(:admin_information).valid?
     assert account_informations(:mod_information).valid?
+    assert account_informations(:other_mod_information).valid?
   end
 
   test "user id validations" do
@@ -67,6 +68,20 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert !default_information.valid?
   end
 
+  test "league validations" do
+    default_information = account_informations(:default_information)
+    admin_information =  account_informations(:admin_information)
+    mod_information = account_informations(:mod_information)
+  
+    default_information.league = nil
+    admin_information.league = -1
+    mod_information.league = Tournament::ALL
+
+    assert !default_information.valid?
+    assert !admin_information.valid?
+    assert !mod_information.valid?
+  end
+
   test "guest accessible attributes" do
     account_information_params = {
       user_id: 1,
@@ -74,7 +89,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_name: 'char_name',
       character_code: 555,
       role: 2,
-      race: -1
+      race: -1,
+      league: -1
     }
 
     new_info = AccountInformation.new account_information_params, as: :guest
@@ -85,6 +101,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_nil new_info.character_code
     assert_equal 0, new_info.role
     assert_nil new_info.race
+    assert_nil new_info.league
   end
 
   test "new member accessible attributes" do
@@ -94,7 +111,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_name: 'char_name',
       character_code: 555,
       role: 2,
-      race: 2
+      race: 2,
+      league: 5
     }
 
     new_info = AccountInformation.new account_info_params, as: :new_member
@@ -105,6 +123,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 555, new_info.character_code
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
+    assert_equal 5, new_info.league
   end
 
   test "member accessible attributes" do
@@ -114,7 +133,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_name: 'char_name',
       character_code: 555,
       role: 2,
-      race: 2
+      race: 2,
+      league: 5
     }
 
     new_info = AccountInformation.new account_information_params, as: :member
@@ -125,6 +145,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_nil new_info.character_code
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
+    assert_nil new_info.league
   end
 
   test "moderator accessible attributes" do
@@ -134,7 +155,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_name: 'char_name',
       character_code: 555,
       role: 2,
-      race: 2
+      race: 2,
+      league: 5
     }
 
     new_info = AccountInformation.new account_info_params, as: :moderator
@@ -145,6 +167,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 555, new_info.character_code
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
+    assert_equal 5, new_info.league
   end
 
   test "admin accessible attributes" do
@@ -154,7 +177,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_name: 'char_name',
       character_code: 555,
       role: 2,
-      race: 2
+      race: 2,
+      league: 5
     }
 
     new_info = AccountInformation.new account_info_params, as: :admin
@@ -165,6 +189,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 555, new_info.character_code
     assert_equal 2, new_info.role
     assert_equal 2, new_info.race
+    assert_equal 5, new_info.league
   end
 
   test "strip inputs" do

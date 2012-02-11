@@ -5,6 +5,7 @@ default_information:
   character_code: 111
   role: <%= AccountInformation::MEMBER %>
   race: 0
+  league: <%= Tournament::GRAND_MASTER %>
 
 admin_information:
   user_id: 3
@@ -13,6 +14,7 @@ admin_information:
   character_code: 111
   role: <%= AccountInformation::ADMIN %>
   race: 1
+  league: <%= Tournament::GRAND_MASTER %>
 
 mod_information:
   user_id: 4
@@ -21,6 +23,7 @@ mod_information:
   character_code: 222
   role: <%= AccountInformation::MODERATOR %>
   race: 2
+  league: <%= Tournament::MASTER %>
 
 other_mod_information:
   user_id: 5
@@ -29,3 +32,4 @@ other_mod_information:
   character_code: 222
   role: <%= AccountInformation::MODERATOR %>
   race: 3
+  league: <%= Tournament::GOLD %>

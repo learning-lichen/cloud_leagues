@@ -16,7 +16,7 @@ class WaitingPlayersControllerTest < ActionController::TestCase
   end
   
   test "member should create waiting player" do
-    login :default_user
+    login :moderator_user
     master_tournament = tournaments(:master_tournament)
     
     assert_difference 'WaitingPlayer.count' do
