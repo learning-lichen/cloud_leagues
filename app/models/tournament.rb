@@ -72,7 +72,7 @@ class Tournament < ActiveRecord::Base
   
   def validate_times
     errors.add(:start_time, 'must be present') and return if start_time.nil?
-    errors.add(:start_time, 'must be in the future') and return if new_record? && start_time <= Time.now
+    errors.add(:start_time, 'must be in the future') and return if new_record? and start_time <= Time.now
     errors.add(:registration_time, 'must be present') and return if registration_time.nil?
     errors.add(:registration_time, 'must be before start time') and return if registration_time >= start_time
   end

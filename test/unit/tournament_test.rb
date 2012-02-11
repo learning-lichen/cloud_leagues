@@ -32,6 +32,7 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "start time validations" do
     all_tournament = tournaments(:all_tournament)
+    master_tournament = tournaments(:master_tournament)
     new_tournament_params = {
       start_time: 1.hours.from_now,
       registration_time: Time.now,
@@ -41,9 +42,11 @@ class TournamentTest < ActiveSupport::TestCase
     control_tournament = Tournament.new new_tournament_params, as: :admin
 
     all_tournament.start_time = nil
+    master_tournament.start_time = 1.hours.ago
     new_tournament.start_time = 1.hours.ago
 
     assert !all_tournament.valid?
+    assert master_tournament.valid?
     assert control_tournament.valid?
     assert !new_tournament.valid?
   end
