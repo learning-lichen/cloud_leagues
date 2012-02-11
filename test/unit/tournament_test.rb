@@ -85,12 +85,17 @@ class TournamentTest < ActiveSupport::TestCase
 
   test "waiting players validations" do
     all_tournament = tournaments(:all_tournament)    
+    gm_tournament = tournaments(:grand_master_tournament)
+
     all_tournament.max_players = all_tournament.waiting_players.size - 1
     all_tournament.waiting_players.each do |player|
       player.player_accepted = true
     end
 
+    gm_tournament.league = Tournament::MASTER
+
     assert !all_tournament.valid?
+    assert !gm_tournament.valid?
   end
 
   test "guest accessible attributes" do

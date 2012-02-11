@@ -50,11 +50,15 @@ class Tournament < ActiveRecord::Base
 
   def validate_waiting_players
     accepted_count = 0
+    all_players_belong = true
+
     waiting_players.each do |player| 
       accepted_count += 1 if player.player_accepted
+      all_players_belong = false if league != ALL and player.user.account_information.league != league
     end
     
     errors.add(:waiting_players, 'too many accepted') if accepted_count > (max_players || 0)
+    errors.add(:waiting_players, 'do not belong to this tournaments league') unless all_players_belong
   end
 
   def validate_type
