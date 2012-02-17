@@ -27,3 +27,9 @@ default_waiting_grand_master:
   tournament_id: 2
   user_id: 1
   player_accepted: true
+
+admin_waiting_full:
+  id: 6
+  tournament_id: 5
+  user_id: 3
+  player_accepted: true

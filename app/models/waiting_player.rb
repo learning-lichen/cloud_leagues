@@ -11,10 +11,13 @@ class WaitingPlayer < ActiveRecord::Base
   validates :user_id, presence: true, uniqueness: { scope: :tournament_id }
   validates_associated :tournament
   validate :validate_users_league
+  validate :validate_player_acceptance
+
+  # Callbacks
 
   # Attribute Whitelists
-  attr_accessible :player_accepted, as: :moderator
-  attr_accessible :player_accepted, as: :admin
+  attr_accessible :player_accepted, :user_id, as: :moderator
+  attr_accessible :player_accepted, :user_id, as: :admin
 
   protected
   def validate_users_league
@@ -24,5 +27,11 @@ class WaitingPlayer < ActiveRecord::Base
     
     user_league = user.account_information.league
     errors.add :user, 'must be in the tournaments league' unless tournament.league == Tournament::ALL or user_league == tournament.league
+  end
+
+  def validate_player_acceptance    
+    if (player_accepted_changed? && player_accepted) || (new_record? && player_accepted)
+      errors.add :player_accepted, 'too many' if tournament.waiting_players.where(player_accepted: true).length >= tournament.max_players
+    end
   end
 end

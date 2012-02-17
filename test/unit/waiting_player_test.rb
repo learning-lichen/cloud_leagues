@@ -7,6 +7,7 @@ class WaitingPlayerTest < ActiveSupport::TestCase
     assert waiting_players(:admin_waiting_all).valid?
     assert waiting_players(:mod_waiting_all).valid?
     assert waiting_players(:default_waiting_grand_master).valid?
+    assert waiting_players(:admin_waiting_full).valid?
   end
   
   test "tournament id validations" do
@@ -30,6 +31,17 @@ class WaitingPlayerTest < ActiveSupport::TestCase
     default_waiting_all.player_accepted = true
 
     assert !default_waiting_all.valid?
+  end
+
+  test "player accepted validations" do
+    full_tournament = tournaments(:full_tournament)
+    default_user = users(:default_user)
+    
+    bad_player = full_tournament.waiting_players.build
+    bad_player.user_id = default_user.id
+    bad_player.player_accepted = true
+
+    assert !bad_player.valid?
   end
   
   test "guest accessible attributes" do
@@ -70,7 +82,7 @@ class WaitingPlayerTest < ActiveSupport::TestCase
     new_waiting_player = WaitingPlayer.new waiting_player_params, as: :moderator
 
     assert_nil new_waiting_player.tournament_id
-    assert_nil new_waiting_player.user_id
+    assert_equal -1, new_waiting_player.user_id
     assert new_waiting_player.player_accepted
   end
 
@@ -84,7 +96,7 @@ class WaitingPlayerTest < ActiveSupport::TestCase
     new_waiting_player = WaitingPlayer.new waiting_player_params, as: :admin
 
     assert_nil new_waiting_player.tournament_id
-    assert_nil new_waiting_player.user_id
+    assert_equal -1, new_waiting_player.user_id
     assert new_waiting_player.player_accepted
   end
 end

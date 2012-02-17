@@ -29,3 +29,11 @@ empty_tournament:
   start_time: <%= 5.hours.from_now %>
   registration_time: <%= 4.hours.from_now %>
   max_players: 20
+
+full_tournament:
+  id: 5
+  league: 0
+  type: SingleEliminationTournament
+  start_time: <%= 5.hours.from_now %>
+  registration_time: <%= 1.hours.ago %>
+  max_players: 1

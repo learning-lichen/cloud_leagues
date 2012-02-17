@@ -62,14 +62,14 @@ class TournamentsControllerTest < ActionController::TestCase
 
   test "should update tournament" do
     login :moderator_user
-    all_tournament = tournaments(:all_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
     start_time = 100.hours.from_now
-    old_time = all_tournament.start_time
-    put :update, id: all_tournament.id, tournament: { start_time: start_time }
-    all_tournament.reload
+    old_time = gm_tournament.start_time
+    put :update, id: gm_tournament.id, tournament: { start_time: start_time }
+    gm_tournament.reload
 
-    assert_redirected_to tournament_path(all_tournament)
-    assert_not_equal old_time, all_tournament.start_time
+    assert_redirected_to tournament_path(gm_tournament)
+    assert_not_equal old_time, gm_tournament.start_time
   end
 
   test "should not update tournament" do

@@ -48,6 +48,64 @@ class Tournament < ActiveRecord::Base
     raise ActiveRecord::Rollback unless self.becomes(type.constantize).create_structure
   end
 
+  # Updating tournaments is a fairly complicated process because of the implications 
+  # involved in updating some of the attributes. I have decided to take a fairly strict
+  # approach to updating tournaments for the following reasons:
+  # 1) The most important aspect of any website is the user experience. I do not want to
+  #    have any unexpected behavior (e.g. randomly dropping players from tournaments).
+  # 2) Tournament admins should be responsible. They shouldn't have to update something
+  #    like start time after the tournament has already started.
+  # 3) Allowing tournament modification after a tournament has started leads to an
+  #    extremely large number of edge cases. It doesn't make sense to try and handle
+  #    these all.
+  def update_structure
+    # Check for errors.
+    errors.add :type, 'cannot be changed' if type_changed?
+    errors.add :start_time, 'cannot be changed once started' if start_time_changed? and start_time_was <= Time.now
+    
+    if started?
+      error_end = 'once tournament has started'
+      errors.add :league, 'cannot be changed' + error_end if league_changed?
+      errors.add :start_time, 'cannot be changed' + error_end if start_time_changed?
+      errors.add :max_players, 'cannot be changed' + error_end if max_players_changed?
+      errors.add :registration_time, 'cannot be changed' + error_end if registration_time_changed?
+    end
+
+    if locked?
+      error_end = 'if tournament is locked'
+      errors.add :league, 'cannot be changed' + error_end if league_changed?
+      errors.add :start_time, 'cannot be changed' + error_end if start_time_changed?
+      errors.add :max_players, 'cannot be changed' + error_end if max_players_changed?
+      errors.add :registration_time, 'cannot be changed' + error_end if registration_time_changed?
+    end
+
+    raise ActiveRecord::Rollback unless errors.empty?
+    
+    if max_players_changed?
+      destroy_structure
+      reload
+      create_structure
+      waiting_players.where(player_accepted: true).each { |player| add_player(player) }
+    end
+  end
+
+  def destroy_structure
+    matches.each { |match| match.destroy }
+  end
+
+  def starting_matches
+    match_list = matches
+    start_matches = matches
+    
+    match_list.each do |match|
+      match.match_links.each do |match_link|
+        start_matches.delete_if { |x| x.id == match_link.next_match_id }
+      end
+    end
+    
+    start_matches
+  end
+
   def validate_waiting_players
     accepted_count = 0
     all_players_belong = true
@@ -63,6 +121,7 @@ class Tournament < ActiveRecord::Base
 
   def validate_type
     errors.add(:type, 'must be present') and return if type.nil?
+    errors.add(:type, 'cannot be changed') if !new_record? and type_changed?
     tournament_file_names = Dir.glob('app/models/*_tournament.rb').map do |file_name|
       File.basename file_name, '.rb'
     end

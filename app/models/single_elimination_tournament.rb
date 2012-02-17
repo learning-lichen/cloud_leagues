@@ -45,41 +45,48 @@ class SingleEliminationTournament < Tournament
     true
   end
 
-  # Updating tournaments is a fairly complicated process because of the implications 
-  # involved in updating some of the attributes. I have decided to take a fairly strict
-  # approach to updating tournaments for the following reasons:
-  # 1) The most important aspect of any website is the user experience. I do not want to
-  #    have any unexpected behavior (e.g. randomly dropping players from tournaments).
-  # 2) Tournament admins should be responsible. They shouldn't have to update something
-  #    like start time after the tournament has already started.
-  def update_structure
-    if started?
-      error_end = 'once tournament has started'
-      errors.add :league, 'cannot be changed' + error_end if league_changed?
-      errors.add :start_time, 'cannot be changed' + error_end if start_time_changed?
-      errors.add :max_players, 'cannot be changed' + error_end if max_players_changed?
-      errors.add :type, 'cannot be changed' + error_end if type_changed?
-      errors.add :locked, 'cannot be changed' + error_end if locked_changed?
-      errors.add :registration_time, 'cannot be changed' + error_end if registration_time_changed?
-      raise ActiveRecord::Rollback
+  # The strategy for adding players to this tournament is as follows:
+  # If there is an empty match, add the new players to that. If no empty match is found, 
+  # then add a player to a random open match. This should randomly distribute the byes.
+  def add_player(waiting_player)
+    waiting_player.player_accepted = true
+      
+    if waiting_player.save
+      new_players_relation = find_match_for_new_player.match_player_relations.build
+      new_players_relation.waiting_player_id = waiting_player.id
+      
+      waiting_player.player_accepted = false unless new_players_relation.save
+      waiting_player.save and return false if waiting_player.player_accepted_changed?
     end
+
+    true
   end
 
-  def destroy_structure
-    matches.each { |match| match.destroy }
+  def delete_player(waiting_player)
   end
 
   protected
-  def starting_matches
-    match_list = matches
-    starting_matches = matches
-
-    match_list.each do |match|
-      match.match_links.each do |match_link|
-        start_matches.delete_if { |x| x.id == match_link.next_match_id }
+  def find_match_for_new_player
+    available_matches = starting_matches
+    empty_matches = []
+    one_player_matches = []
+    
+    available_matches.each do |match|
+      match_valid = true
+      match.match_links.each do |link|
+        match_to_check = Match.find_by_id link.next_match_id
+        match_valid = false if match_to_check && !match_to_check.winner_id.nil?
+      end
+      
+      if match.match_player_relations.empty? && match_valid
+        empty_matches.push match
+      elsif match.match_player_relations.length == 1 && match_valid
+        one_player_matches.push match
       end
     end
 
-    starting_matches
+    new_players_match = empty_matches.first
+    new_players_match ||= one_player_matches[Random.rand(one_player_matches.length)] unless one_player_matches.empty?
+    new_players_match
   end
 end

@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'mysql2', '~> 0.3.11'
 gem 'authlogic', '~> 3.1.0'
 gem 'cancan', '~> 1.6.7'
+gem 'capistrano', '~> 2.9.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

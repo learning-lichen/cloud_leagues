@@ -1,0 +1,2 @@
+class DoubleEliminationTournament < Tournament
+end

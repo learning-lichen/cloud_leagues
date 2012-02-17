@@ -22,12 +22,15 @@ class TournamentTest < ActiveSupport::TestCase
   test "type validations" do
     all_tournament = tournaments(:all_tournament)
     gm_tournament = tournaments(:grand_master_tournament)
+    master_tournament = tournaments(:master_tournament)
 
     all_tournament.type = nil
     gm_tournament.type = 'FakeTournament'
+    master_tournament.type = 'DoubleEliminationTournament'
     
     assert !all_tournament.valid?
     assert !gm_tournament.valid?
+    assert !master_tournament.valid?
   end
 
   test "start time validations" do
@@ -191,6 +194,25 @@ class TournamentTest < ActiveSupport::TestCase
 
     assert_no_difference 'Match.count' do
       empty_tournament.save
+    end
+  end
+
+  test "update should recreate structure tournament" do
+    gm_tournament = tournaments(:grand_master_tournament)
+    gm_tournament.max_players = 8
+    num_old_matches = gm_tournament.matches.length
+
+    assert_difference 'Match.count', 7 - num_old_matches do
+      gm_tournament.save
+    end
+  end
+
+  test "should not update structure if max players unchanged" do
+    gm_tournament = tournaments(:grand_master_tournament)
+    gm_tournament.locked = true
+
+    assert_no_difference 'Match.count' do
+      gm_tournament.save
     end
   end
 end
