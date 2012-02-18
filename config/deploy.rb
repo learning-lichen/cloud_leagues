@@ -1,16 +1,25 @@
+load 'deploy/assets'
+default_run_options[:pty] = true
+
 set :application, 'cloud_leagues'
-set :deploy_to, '/var/www/vhosts/cloud_leagues'
-
-set :repository,  '.'
-set :scm, :none
-set :deploy_via, :copy
-
 set :user, 'max'
+set :domain, 'cloudleagues.com'
+
+set :scm, 'git'
+set :scm_passphrase, 'tyranus2'
+set :repository, 'git@github.com:4stocked/cloud_leagues.git'
+set :branch, 'master'
+
+role :web, domain
+role :app, domain
+role :db, domain, primary: true
+
+set :deploy_to, '/var/www/vhosts/cloud_leagues'
+set :deploy_via, :remote_cache
+
 set :use_sudo, false
-
-server 'ec2-107-21-192-108.compute-1.amazonaws.com', :web, :app, :db, primary: true
-
-ssh_options[:keys] = [File.join(ENV['HOME'], '.ssh', 'id_rsa_ec2')]
+ssh_options[:forward_agent] = true
+ssh_options[:keys] = %w(/Users/max/.ssh/id_rsa_ec2)
 
 # For Passenger
 namespace :deploy do
