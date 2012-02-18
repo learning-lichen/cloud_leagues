@@ -25,3 +25,17 @@ default_grand_master_match_one:
   waiting_player_id: 5
   accepted: false
   contested: false
+
+mod_all_match_two:
+  id: 5
+  match_id: 3
+  waiting_player_id: 4
+  accepted: true
+  contested: false
+
+other_mod_all_match_two:
+  id: 6
+  match_id: 3
+  waiting_player_id: 7
+  accepted: true
+  contested: false

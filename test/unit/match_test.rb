@@ -3,6 +3,7 @@ require 'test_helper'
 class MatchTest < ActiveSupport::TestCase
   test "validity of fixtures" do
     assert matches(:all_match_one).valid?
+    assert matches(:all_match_two).valid?
     assert matches(:grand_master_match_one).valid?
   end
 

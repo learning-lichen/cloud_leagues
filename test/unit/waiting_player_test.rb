@@ -6,6 +6,7 @@ class WaitingPlayerTest < ActiveSupport::TestCase
     assert waiting_players(:admin_waiting_grand_master).valid?
     assert waiting_players(:admin_waiting_all).valid?
     assert waiting_players(:mod_waiting_all).valid?
+    assert waiting_players(:other_mod_waiting_all).valid?
     assert waiting_players(:default_waiting_grand_master).valid?
     assert waiting_players(:admin_waiting_full).valid?
   end

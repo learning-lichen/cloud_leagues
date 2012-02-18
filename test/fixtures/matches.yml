@@ -5,3 +5,8 @@ all_match_one:
 grand_master_match_one:
   id: 2
   tournament_id: 2
+
+all_match_two:
+  id: 3
+  tournament_id: 1
+  winner_id: 4

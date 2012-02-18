@@ -37,4 +37,15 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
 
     assert_equal 1, new_player.matches.length
   end
+
+  test "can delete player" do
+    all_tournament = tournaments(:all_tournament)
+    default_waiting_all = waiting_players(:default_waiting_all)
+    mod_waiting_all = waiting_players(:mod_waiting_all)
+    other_mod_waiting_all = waiting_players(:other_mod_waiting_all)
+    
+    assert all_tournament.can_delete_player?(default_waiting_all)
+    assert !all_tournament.can_delete_player?(mod_waiting_all)
+    assert !all_tournament.can_delete_player?(other_mod_waiting_all)
+  end
 end

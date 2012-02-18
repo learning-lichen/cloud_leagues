@@ -62,7 +62,14 @@ class SingleEliminationTournament < Tournament
     true
   end
 
-  def delete_player(waiting_player)
+  def can_delete_player?(waiting_player)
+    can_delete = false
+
+    if waiting_player.matches.length == 1
+      can_delete = true if waiting_player.matches.first.winner_id.nil?
+    end
+
+    can_delete
   end
 
   protected
