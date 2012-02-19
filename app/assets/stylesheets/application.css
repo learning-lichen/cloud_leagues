@@ -4,5 +4,6 @@
  *= require home
  *= require users
  *= require user_sessions
+ *= require tournaments
  *= require application_bottom
 */

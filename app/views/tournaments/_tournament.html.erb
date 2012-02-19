@@ -2,30 +2,33 @@
   <%= render "shared/error_messages", target: @tournament %>
   
   <fieldset>
-    <ul class="tournamentForm">
-      <li>
-	<%= form.label :league, "League" %>
-	<%= select_tag "tournament[league]", options_for_select(Tournament::LEAGUES.keys.collect { |k| [Tournament::LEAGUES[k], k] }) %>
-      </li>
+    <table>
+      <tr>
+	<td><%= form.label :league, "League" %></td>
+	<td><%= select_tag "tournament[league]", options_for_select(Tournament::LEAGUES.keys.collect { |k| [Tournament::LEAGUES[k], k] }) %></td>
+      </tr>
 
-      <li>
-	<%= form.label :type, "Format" %>
-	<%= select_tag "tournament[type]", options_for_select([["Single Elimination", "SingleEliminationTournament"]]) %>
-      </li>
+      <tr>
+	<td><%= form.label :type, "Format" %></td>
+	<td><%= select_tag "tournament[type]", options_for_select([["Single Elimination", "SingleEliminationTournament"]]) %></td>
+      </tr>
 
-      <li>
-	<%= form.label :start_time, "Start Time" %>
-	<%= form.datetime_select :start_time %>
-      </li>
+      <tr>
+	<td><%= form.label :start_time, "Start Time" %></td>
+	<td><%= form.datetime_select :start_time, default: 1.hours.from_now %></td>
+      </tr>
 
-      <li>
-	<%= form.label :max_players, "Maximum Number of Players" %>
-	<%= form.text_field :max_players %>
-      </li>
+      <tr>
+	<td><%= form.label :registration_time, "Registration Time" %></td>
+	<td><%= form.datetime_select :registration_time, default: Time.now %></td>
+      </tr>
 
-      <li>
-	<%= form.submit "Submit" %>
-      </li>
-    </ul>
+      <tr>
+	<td><%= form.label :max_players, "Max. Players" %></td>
+	<td><%= form.text_field :max_players %></td>
+      </tr>
+
+      <tr><td></td><td><%= form.submit "Submit" %></td></tr>
+    </table>
   </fieldset>
 <% end %>
