@@ -119,6 +119,20 @@ class UserTest < ActiveSupport::TestCase
     assert !guest_user.role?(:moderator)
     assert !guest_user.role?(:admin)
   end
+  
+  test "win loss array" do
+    default_user = users(:default_user)
+    other_user = users(:other_user)
+    admin_user = users(:admin_user)
+    mod_user = users(:moderator_user)
+    other_mod_user = users(:other_moderator_user)
+
+    assert_equal [0, 0], default_user.win_loss_array
+    assert_equal [0, 0], other_user.win_loss_array
+    assert_equal [0, 0], admin_user.win_loss_array
+    assert_equal [1, 0], mod_user.win_loss_array
+    assert_equal [0, 1], other_mod_user.win_loss_array
+  end
 
   test "strip inputs" do
     default_user = users(:default_user)

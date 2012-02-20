@@ -45,6 +45,24 @@ class User < ActiveRecord::Base
     user_is_of_role
   end
 
+  # Returns an array in the form of [wins, losses]
+  def win_loss_array
+    win_count = 0
+    loss_count = 0
+
+    waiting_players.each do |player|
+      player.matches.each do |match| 
+        if match.winner_id == player.id
+          win_count += 1
+        elsif !match.winner_id.nil?
+          loss_count += 1
+        end
+      end
+    end
+    
+    [win_count, loss_count]
+  end
+
   protected
   def strip_inputs
     login.strip! if login
