@@ -1,3 +1,48 @@
-<h1 id="userWelcomeTitle">Welcome Home</h1>
+<h1 id="homeWelcome">Welcome Home</h1>
+
+<div class="homePanel" id="featureSpotlight">
+  <h2>Feature Spotlight</h2>
+  <div id="spotlightExplanation">
+    <h3><a href="http://blog.cloudleagues.com">The Cloud Leagues Blog</a></h3>
+    <p>Introducing the <a href="http://blog.cloudleagues.com">Cloud Leagues Blog</a>! I will be posting information about upcoming features as they come under development. You can post comments with your feedback, and I may incorporate your ideas into the site. I will also be posing a good number of Ruby on Rails information, so check those out if web development interests you.</p>
+  </div>
+</div>
 
 
+<% if current_user.account_information.nil? %>
+  <div class="homePanel" id="accountInfoNotice">
+    <h2>Hey! This is important.</h2>
+    <p style="margin-bottom: 0;">We noticed that we haven't set up a profile yet. In order to use many of the features on this site, you must provide some information about yourself. Don't worry, this isn't as stressful as a police interrogation, but you will need to provide a Starcraft 2 username and character code. If you don't have one, that's OK, you can still look. Here are some great things you can do by creating a profile:</p>
+    
+    <ul>
+      <li>Join Tournaments</li>
+      <li>Access Replays</li>
+      <li>Utilize Our Chat System</li>
+    </ul>
+    
+    <p>
+      We hope you will join us. <%= link_to "Click here to create a new profile.", new_user_profile_path(current_user) %>
+    </p>
+  </div>
+
+  <div class="homePanel">
+    <h2>Tournament Information</h2>
+    <p>Please <%= link_to "create a profile", new_user_profile_path(current_user) %> to view tournament information tailored to you.</p>
+  </div>
+<% else %>
+  <div class="homePanel noSidePadding">
+    <h2>Your Recent Messages</h2>
+  </div>
+
+  <div class="homePanel noSidePadding">
+    <h2>Your Current Tournaments</h2>
+  </div>
+
+  <div class="homePanel noSidePadding">
+    <h2>Open Tournaments for You</h2>
+  </div>
+
+  <div class="homePanel noSidePadding">
+    <h2>Recent High Level Tournaments</h2>
+  </div>
+<% end %>

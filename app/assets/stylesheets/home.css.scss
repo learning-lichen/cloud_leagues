@@ -1,8 +1,54 @@
-#guestWelcome {
+#homeWelcome {
     margin-bottom: 0;
 }
 
-.guestQuestion {
+#featureSpotlight {
+    font-size: 0;
+    margin-top: 10px;
+
+    #spotlightExplanation {
+	background-image: url(/assets/blog_icon.png);
+	background-repeat: no-repeat;
+	padding-left: 90px;
+	min-height: 95px;
+	
+	a {
+	    color: #222222;
+	    &:hover { color: #BB3900; text-decoration: none; }
+	}
+	
+	h3 { 
+	    margin: 0;
+	    font-size: 14px; 
+	}
+    }
+
+    h2 { font-size: 18px; }
+
+    p {
+	margin-top: 0;
+
+	font-size: 12px;
+    }
+}
+
+#accountInfoNotice {
+    background-color: #222222;
+    border-bottom: 1px solid #797470;
+    color: #FFF;
+
+    ul {
+	margin-top: 15px;
+	margin-bottom: 5px;
+    }
+
+    a { 
+	color: #FFF; 
+	&:hover { color: #BB3900; }
+    }
+}
+
+.homePanel {
     background-color: #FFF;
     border-bottom: 1px solid #222;
     padding-top: 15px;
@@ -16,5 +62,14 @@
 
     p {
 	margin-bottom: 20px;
+    }
+}
+
+.noSidePadding {
+    padding-left: 0;
+    padding-right: 0;
+
+    h2 {
+	margin-left: 15px;
     }
 }

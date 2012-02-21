@@ -7,10 +7,34 @@
   </div>
 </div>
 
-<ul>
-  <% @tournaments.each do |tournament| %>
-    <li>
-      <%= link_to "Tournament \##{tournament.id}", tournament_path(tournament) %>
-    </li>
-  <% end %>
-</ul>
+<div class="tournamentPanel" style="margin-top: 10px;">
+  <h2>Tournaments Open to All</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Grand Master Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Master Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Diamond Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Platinum Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Gold Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Silver Tournaments</h2>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Bronze Tournaments</h2>
+</div>

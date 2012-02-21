@@ -1,9 +1,14 @@
-<h2>User List</h2>
+<h1>User List</h1>
 
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <%= link_to user.login, user_path(user) %>
-    </li>
+<div class="userPanel">
+  <h2>Listing All Users</h2>
+
+  <% user_count = 0 %>
+    <% User.all.each do |user| %>
+    <% user_count += 1 %>
+
+    <div class="userRow <%= user_count % 2 == 0 ? "darkRow" : "lightRow" %>">
+      <%= user.login %>
+    </div>
   <% end %>
-</ul>
+</div>

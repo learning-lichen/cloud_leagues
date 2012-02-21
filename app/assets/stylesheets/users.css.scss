@@ -36,3 +36,23 @@
 #userWelcomeTitle {
     margin-bottom: 7px;
 }
+
+.userPanel {
+    background-color: #FFF;
+    border-bottom: 1px solid #222;
+
+    padding-top: 15px;
+    margin-top: 20px;
+
+    h2 {
+	margin-top: 0;
+	margin-left: 15px;
+    }
+
+    .userRow {
+	padding: 10px;
+    }
+    
+    .darkRow { background-color: #FFF; }
+    .lightRow { background-color: #CECDC6; }
+}
