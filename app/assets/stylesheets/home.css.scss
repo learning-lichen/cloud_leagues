@@ -63,6 +63,28 @@
     p {
 	margin-bottom: 20px;
     }
+
+    .tournamentRow {
+	padding: 10px;
+	
+	h3 { margin: 0; margin-bottom: 5px; }
+	
+	table { width: 100% }
+
+	table td {
+	    width: 50%;
+	}
+    }
+
+    .lightRow { 
+	background-color: #F1F1F1;
+	border-left: 7px solid #FFFFFF;
+    }
+    
+    .darkRow { 
+	background-color: #E3E3E3; 
+	border-left: 7px solid #DBDBDB;
+    }
 }
 
 .noSidePadding {

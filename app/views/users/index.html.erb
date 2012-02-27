@@ -4,11 +4,11 @@
   <h2>Listing All Users</h2>
 
   <% user_count = 0 %>
-    <% User.all.each do |user| %>
+  <% User.all.each do |user| %>
     <% user_count += 1 %>
 
-    <div class="userRow <%= user_count % 2 == 0 ? "darkRow" : "lightRow" %>">
-      <%= user.login %>
+    <div class="userRow <%= user_count % 2 == 0 ? "lightRow" : "darkRow" %>">
+      <%= link_to user.login, user_profile_path(user) %>
     </div>
   <% end %>
 </div>

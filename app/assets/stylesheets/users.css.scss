@@ -53,6 +53,13 @@
 	padding: 10px;
     }
     
-    .darkRow { background-color: #FFF; }
-    .lightRow { background-color: #CECDC6; }
+    .lightRow { 
+	background-color: #F1F1F1;
+	border-left: 7px solid #FFFFFF;
+    }
+    
+    .darkRow { 
+	background-color: #E3E3E3; 
+	border-left: 7px solid #DBDBDB;
+    }
 }

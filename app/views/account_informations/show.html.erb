@@ -1,32 +1,35 @@
-<h1><%= "#{@user.login}'s Profile" %></h1>
-<% if @account_information %>
-  <ul>
-    <li>
-      Reddit Name:
-      <%= @account_information.reddit_name %>
-    </li>
-    
-    <li>
-      Starcraft Character Name:
-      <%= @account_information.character_name %>
-    </li>
-    
-    <li>
-      Role:
-      <%= AccountInformation::ROLES[@account_information.role].capitalize %>
-    </li>
+<div id="profileContainer">
+  <% if (@account_information && can?(:update, @account_information)) || (@account_information.nil? && can?(:create, @user.build_account_information)) %>
+    <div class="actionLinksContainer">
+      <div class="actionLinks">
+	<%= link_to "Edit Profile", edit_user_profile_path(@user) if @account_information && can?(:update, @account_information) %>
+	<%= link_to "Add Profile", new_user_profile_path(@user) if @account_information.nil? && can?(:create, @user.build_account_information) %>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="profilePane">
+    <h2><%= "#{@user.login}'s Starcraft Profile" %></h2>
 
-    <li>
-      Race:
-      <%= AccountInformation::RACES[@account_information.race].capitalize %>
-    </li>
-  </ul>
-<% else %>
-  <p>This user does not have a profile yet.</p>
-<% end %>
+    <% if @account_information.nil? %>
+      <h2>This user has not created a profile yet.</h2>
+    <% else %>
+      <dl>
+	<dt>SC2 Name:</dt>
+	  <dd><p><%= @account_information.character_name %></p></dd>
+	
+	<dt>Race:</dt>
+	  <dd><p><%= AccountInformation::RACES[@account_information.race].capitalize %></p></dd>
 
-<% if @account_information && can?(:update, @account_information) %>
-  <p><%= link_to "Edit Profile", edit_user_profile_path(@user) %></p>
-<% elsif @account_information.nil? && can?(:create, @user.build_account_information) %>
-  <p><%= link_to "Add Profile", new_user_profile_path(@user) %></p>
-<% end %>
+	<dt>League:</dt>
+	  <dd><p><%= Tournament::LEAGUES[@account_information.league] %></p></dd>
+	
+	<dt>Wins:</dt>
+	  <dd><p><%= @user.win_loss_array[0] %></p></dd>
+
+	<dt>Losses:</dt>
+	  <dd><p><%= @user.win_loss_array[1] %></p></dd>
+      </dl>
+    <% end %>
+  </div>
+</div>

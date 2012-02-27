@@ -333,8 +333,13 @@ a {
     color: #222222;
     text-decoration: underline;
 
+    &:visited {
+	color: #222222;
+	text-decoration: underline;
+    }
+    
     &:hover {
 	color: #BB3900;
 	text-decoration: none;
-    }
+    }	
 }

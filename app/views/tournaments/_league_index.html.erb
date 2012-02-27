@@ -1,0 +1,20 @@
+<%
+   league ||= Tournament::ALL
+   title ||= "Tournament Open to All"
+%>
+<h2><%= title %></h2>
+<% tournaments = Tournament.where("league = ?", league).limit(5) %>
+<% tournament_count = 0 %>
+<% tournaments.each do |tournament| %>
+  <% tournament_count += 1 %>
+  <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
+    <h3><%= link_to"#{Tournament::LEAGUES[tournament.league]} Tournament ##{tournament.id}", tournament_path(tournament) %></h3>
+    
+    <table>
+      <tr>
+	<td>Start Time: <%= tournament.start_time.to_date %></td>
+	<td>Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
+      </tr>
+    </table>
+  </div>
+<% end %>

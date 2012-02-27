@@ -1,3 +1,58 @@
-// Place all the styles related to the AccountInformations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#profileContainer {
+    .actionLinksContainer {
+	margin-top: 10px;
+    }
+
+    .profilePane {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #222222;
+	
+	margin-top: 10px;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	dl {
+	    margin-bottom: 20px;
+	    border: 3px solid #E3E3E3;
+	    border-top: 1px solid #E3E3E3;
+	    border-bottom: 1px solid #E3E3E3;
+	    width: 100%;
+	    overflow: hidden;
+	
+	    dt { 
+		font-weight: bold;
+		padding-top: 5px;
+		padding-left: 5px;
+	    }
+
+	    dd { 
+		margin: 2px; 
+		margin-left: 0;
+		margin-bottom: 0;
+		padding: 0;
+		padding-left: 10px;
+		width: inherit;
+		background-color: #E3E3E3;
+
+		p {
+		    margin: 0; 
+		    padding: 0; 
+		    padding-left: 10px;
+		    padding-right: 10px;
+		    background-color: #FFF;
+		    display: inline-block;
+		}
+	    }
+	}
+
+	h2 {
+	    margin-top: 0;
+	}
+    }
+    
+    h1 {
+	margin-top: 15px;
+	margin-bottom: 7px;
+    }
+}

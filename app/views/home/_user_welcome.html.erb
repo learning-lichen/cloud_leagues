@@ -35,14 +35,60 @@
   </div>
 
   <div class="homePanel noSidePadding">
-    <h2>Your Current Tournaments</h2>
+    <h2>Your Tournaments</h2>
+    <% tournament_count = 0 %>
+    <% current_user.tournaments.limit(5).each do |tournament| %>
+      <% tournament_count += 1 %>
+      <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
+	<h3><%= link_to"#{Tournament::LEAGUES[tournament.league]} Tournament ##{tournament.id}", tournament_path(tournament) %></h3>
+	
+	<table>
+	  <tr>
+	    <td>Start Time: <%= tournament.start_time.to_date %></td>
+	    <td>Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
+	  </tr>
+	</table>
+      </div>
+    <% end %>
   </div>
 
   <div class="homePanel noSidePadding">
     <h2>Open Tournaments for You</h2>
+    <% open_tournaments = Tournament.where("league = #{Tournament::ALL}").limit(5) %>
+    <% open_tournaments.concat(Tournament.where("league = ?", current_user.account_information.league).limit(5)) %>
+    <% tournament_count = 0 %>
+    <% open_tournaments.each do |tournament| %>
+      <% tournament_count += 1 %>
+      <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
+	<h3><%= link_to"#{Tournament::LEAGUES[tournament.league]} Tournament ##{tournament.id}", tournament_path(tournament) %></h3>
+	
+	<table>
+	  <tr>
+	    <td>Start Time: <%= tournament.start_time.to_date %></td>
+	    <td>Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
+	  </tr>
+	</table>
+      </div>
+    <% end %>
   </div>
 
   <div class="homePanel noSidePadding">
     <h2>Recent High Level Tournaments</h2>
+    <% good_tournaments = Tournament.where("league = #{Tournament::GRAND_MASTER}").limit(5) %>
+    <% open_tournaments.concat(Tournament.where("league = #{Tournament::MASTER}").limit(5)) %>
+    <% tournament_count = 0 %>
+    <% good_tournaments.each do |tournament| %>
+      <% tournament_count += 1 %>
+      <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
+	<h3><%= link_to"#{Tournament::LEAGUES[tournament.league]} Tournament ##{tournament.id}", tournament_path(tournament) %></h3>
+	
+	<table>
+	  <tr>
+	    <td>Start Time: <%= tournament.start_time.to_date %></td>
+	    <td>Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
+	  </tr>
+	</table>
+      </div>
+    <% end %>
   </div>
 <% end %>

@@ -13,8 +13,6 @@ class WaitingPlayer < ActiveRecord::Base
   validate :validate_users_league
   validate :validate_player_acceptance
 
-  # Callbacks
-
   # Attribute Whitelists
   attr_accessible :player_accepted, :user_id, as: :moderator
   attr_accessible :player_accepted, :user_id, as: :admin

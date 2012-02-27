@@ -23,11 +23,11 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to user_path(user_session.user)
   end
 
-  test "should show user" do
+  test "should show user's profile" do
     default_user = users(:default_user)
     get :show, id: default_user.id
 
-    assert_response :success
+    assert_redirected_to user_profile_path(default_user);
   end
 
   test "should get edit" do

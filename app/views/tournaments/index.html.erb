@@ -8,33 +8,33 @@
 </div>
 
 <div class="tournamentPanel" style="margin-top: 10px;">
-  <h2>Tournaments Open to All</h2>
+  <%= render "league_index", league: Tournament::ALL, title: "Tournaments Open to All" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Grand Master Tournaments</h2>
+  <%= render "league_index", league: Tournament::GRAND_MASTER, title: "Grand Master Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Master Tournaments</h2>
+  <%= render "league_index", league: Tournament::MASTER, title: "Master Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Diamond Tournaments</h2>
+  <%= render "league_index", league: Tournament::DIAMOND, title: "Diamond Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Platinum Tournaments</h2>
+  <%= render "league_index", league: Tournament::PLATINUM, title: "Platinum Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Gold Tournaments</h2>
+  <%= render "league_index", league: Tournament::GOLD, title: "Gold Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Silver Tournaments</h2>
+  <%= render "league_index", league: Tournament::SILVER, title: "Silver Tournaments" %>
 </div>
 
 <div class="tournamentPanel">
-  <h2>Bronze Tournaments</h2>
+  <%= render "league_index", league: Tournament::BRONZE, title: "Bronze Tournaments" %>
 </div>
