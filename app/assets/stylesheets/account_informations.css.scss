@@ -11,6 +11,7 @@
 	padding-top: 15px;
 	padding-left: 15px;
 	padding-right: 15px;
+	padding-bottom: 15px;
 
 	dl {
 	    margin-bottom: 20px;
@@ -31,12 +32,13 @@
 		margin-right: 0;
 		margin-bottom: 0;
 		padding: 0;
-		padding-left: 10px;
+		padding-left: 20px;
 		background-color: #CECDC6;
 
 		p {
 		    margin: 0; 
-		    padding: 0; 
+		    padding-bottom: 2px;
+		    padding-top: 5px;
 		    padding-left: 10px;
 		    padding-right: 10px;
 		    background-color: #BB3900;
@@ -46,8 +48,21 @@
 	    }
 	}
 
+	.requiredInformationTable {
+	    margin-bottom: 10px;
+	}
+
+	fieldset label { 
+	    width: 100px; display: block; 
+	    text-align: right;
+	}
+
 	h2 {
 	    margin-top: 0;
+	}
+
+	h3 {
+	    margin: 0;
 	}
     }
     

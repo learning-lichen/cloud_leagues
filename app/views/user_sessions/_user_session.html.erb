@@ -12,8 +12,8 @@
 	<td><%= form.label :password, "Password" %></td>
 	<td><%= form.password_field :password %></td>
       </tr>
-      
-      <tr><td></td><td style="text-align: right;"><%= form.submit "Submit" %></td></tr>
     </table>
+
+    <%= form.submit "Submit", id: "submitButton" %>
   </fieldset>
 <% end %>

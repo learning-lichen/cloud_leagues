@@ -27,8 +27,8 @@
 	<td><%= form.label :max_players, "Max. Players" %></td>
 	<td><%= form.text_field :max_players %></td>
       </tr>
-
-      <tr><td></td><td><%= form.submit "Submit" %></td></tr>
     </table>
+
+    <%= form.submit "Submit", id: "submitButton" %>
   </fieldset>
 <% end %>

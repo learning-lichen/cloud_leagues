@@ -1,31 +1,40 @@
 <%= form_for @account_information, url: user_profile_path(@user) do |form| %>
   <%= render "shared/error_messages", target: @account_information %>
 
+  <h3>Required Stuff</h3>
   <fieldset>
-    <ul class="accountInformationForm">
-      <li>
-	<%= form.label :reddit_name, "Reddit Username" %>
-	<%= form.text_field :reddit_name %>
-      </li>
-      
-      <li>
-	<%= form.label :character_name, "Starcraft Character Name" %>
-	<%= form.text_field :character_name %>
-      </li>
+    <table class="requiredInformationTable">
+      <tr>
+	<td><%= form.label :character_name, "SC2 Name" %></td>
+	<td><%= form.text_field :character_name %></td>
+      </tr>
 
-      <li>
-	<%= form.label :character_code, "Character Code" %>
-	<%= form.text_field :character_code %>
-      </li>
+      <tr>
+	<td><%= form.label :character_code, "Character Code" %></td>
+	<td><%= form.text_field :character_code %></td>
+      </tr>
 
-      <li>
-	<%= form.label :race, "Race" %>
-	<%= select_tag "account_information[race]", options_for_select(AccountInformation::RACES.keys.collect { |k| [AccountInformation::RACES[k], k] }) %>
-      </li>
+      <tr>
+	<td><%= form.label :race, "Race" %></td>
+	<td><%= select_tag "account_information[race]", options_for_select(AccountInformation::RACES.keys.collect { |k| [AccountInformation::RACES[k], k] }) %></td>
+      </tr>
 
-      <li>
-	<%= form.submit "Submit" %>
-      </li>
-    </ul>
+      <tr>
+	<% leagues = Tournament::LEAGUES.keys %>
+	<% leagues.delete Tournament::ALL %>
+	<td><%= form.label :league, "League" %></td>
+	<td><%= select_tag "account_information[league]", options_for_select(leagues.collect { |k| [Tournament::LEAGUES[k], k] }) %></td>
+      </tr>
+    </table>
+
+    <h3>Optional Stuff</h3>
+    <table class="optionInformationTable">
+      <tr>
+	<td><%= form.label :reddit_name, "Reddit Name" %></td>
+	<td><%= form.text_field :reddit_name %></td>
+      </tr>
+    </table>
+
+    <%= form.submit "Submit", id: "submitButton" %>
   </fieldset>
 <% end %>

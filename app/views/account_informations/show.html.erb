@@ -7,28 +7,28 @@
       </div>
     </div>
   <% end %>
-  
+    
   <div class="profilePane">
     <h2><%= "#{@user.login}'s Starcraft Profile" %></h2>
-
+    
     <% if @account_information.nil? %>
-      <h2>This user has not created a profile yet.</h2>
+      <h4>This user has not created a profile yet.</h4>
     <% else %>
       <dl>
 	<dt>SC2 Name:</dt>
-	  <dd><p><%= @account_information.character_name %></p></dd>
+	<dd><p><%= @account_information.character_name %></p></dd>
 	
 	<dt>Race:</dt>
-	  <dd><p><%= AccountInformation::RACES[@account_information.race].capitalize %></p></dd>
-
+	<dd><p><%= AccountInformation::RACES[@account_information.race].capitalize %></p></dd>
+	
 	<dt>League:</dt>
-	  <dd><p><%= Tournament::LEAGUES[@account_information.league] %></p></dd>
+	<dd><p><%= Tournament::LEAGUES[@account_information.league] %></p></dd>
 	
 	<dt>Wins:</dt>
-	  <dd><p><%= @user.win_loss_array[0] %></p></dd>
-
+	<dd><p><%= @user.win_loss_array[0] %></p></dd>
+	
 	<dt>Losses:</dt>
-	  <dd><p><%= @user.win_loss_array[1] %></p></dd>
+	<dd><p><%= @user.win_loss_array[1] %></p></dd>
       </dl>
     <% end %>
   </div>

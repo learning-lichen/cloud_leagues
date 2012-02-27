@@ -22,10 +22,8 @@
 	<td><%= form.label :password_confirmation, "Confirm Password" %></td>
 	<td><%= form.password_field :password_confirmation %></td>
       </tr>
-      
-      <tr>
-	<td></td><td style="text-align: right;"><%= form.submit "Submit" %></td>
-      </tr>
     </table>
+
+    <%= form.submit "Submit", id: "submitButton" %>
   </fieldset>
 <% end %>

@@ -17,10 +17,10 @@ class AccountInformation < ActiveRecord::Base
   ZERG = 3
   
   RACES = {
-    RANDOM => :random,
-    TERRAN => :terran,
-    PROTOSS => :protoss,
-    ZERG => :zerg
+    RANDOM => 'Random',
+    TERRAN => 'Terran',
+    PROTOSS => 'Protoss',
+    ZERG => 'Zerg'
   }
   
   # Associations
@@ -28,7 +28,7 @@ class AccountInformation < ActiveRecord::Base
 
   # Validations
   validates :user_id, presence: true, uniqueness: true
-  validates :reddit_name, presence: true, uniqueness: {
+  validates :reddit_name, allow_nil: true, allow_blank: true, uniqueness: {
     message: 'has already been registered by another user'}
   validates :character_name, presence: true, uniqueness: {
     scope: :character_code, message: 'has already been registered'}
@@ -43,7 +43,7 @@ class AccountInformation < ActiveRecord::Base
 
   # Attribute Whitelists
   attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :new_member
-  attr_accessible :race, as: :member
+  attr_accessible :reddit_name, :race, as: :member
   attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :moderator
   attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, as: :admin
 

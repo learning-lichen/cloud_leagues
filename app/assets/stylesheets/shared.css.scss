@@ -288,6 +288,31 @@ footer {
     }
 }
 
+#submitButton {
+    margin-top: 10px;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+    font-family: Ariel, Sans-Serif;
+    font-weight: bold;
+    font-size: 13px;
+    color: #F1F1EC;
+    
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #222;
+    
+    background-color: #E55718;
+    
+    &:hover {
+	background-color: #CB450A;
+	text-decoration: underline;
+    }
+}
+
 .actionLinksContainer {
     .actionLinks {
 	display: inline-block;

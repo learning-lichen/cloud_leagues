@@ -24,7 +24,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     admin_information.reddit_name = default_information.reddit_name
     default_information.reddit_name = nil
 
-    assert !default_information.valid?
+    assert default_information.valid?
     assert !admin_information.valid?
   end
 
@@ -140,7 +140,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     new_info = AccountInformation.new account_information_params, as: :member
 
     assert_nil new_info.user_id
-    assert_nil new_info.reddit_name
+    assert_equal 'hello', new_info.reddit_name
     assert_nil new_info.character_name
     assert_nil new_info.character_code
     assert_equal 0, new_info.role
