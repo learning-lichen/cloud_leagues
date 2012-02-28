@@ -27,6 +27,7 @@ class Tournament < ActiveRecord::Base
   # Validations
   validates :league, presence: true, inclusion: { in: LEAGUES.keys }
   validates :max_players, presence: true, inclusion: { in: 1..64 }
+  validates :name, presence: true, uniqueness: true, length: { within: 5..25 }
   validate :validate_waiting_players
   validate :validate_type
   validate :validate_times
@@ -36,8 +37,8 @@ class Tournament < ActiveRecord::Base
   after_update :update_structure
 
   # Attribute Whitelists
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, as: :moderator
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, as: :admin
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, as: :moderator
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, as: :admin
 
   def started?
     Time.now >= start_time

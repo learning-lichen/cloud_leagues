@@ -30,7 +30,8 @@ class TournamentsControllerTest < ActionController::TestCase
       post :create, tournament: { league: 0, 
         type: 'SingleEliminationTournament', 
         start_time: start_time, 
-        registration_time: registration_time }
+        registration_time: registration_time,
+        name: 'New Tournament' }
     end
     assert_not_nil tournament = Tournament.find_by_start_time(start_time)
     assert_redirected_to tournament_path(tournament)

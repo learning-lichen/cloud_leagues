@@ -6,6 +6,7 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
     empty_tournament.start_time = 1.hours.from_now
     empty_tournament.registration_time = 2.hours.ago
     empty_tournament.type = 'SingleEliminationTournament'
+    empty_tournament.name = 'New Tournament'
     closest_power = Math.log2(empty_tournament.max_players).ceil
 
     empty_tournament.save

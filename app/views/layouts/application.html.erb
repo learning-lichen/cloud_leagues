@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CloudLeagues</title>
+    <title>Cloud Leagues - <%= content_for?(:title) ? yield(:title) : "Online Starcraft 2 Leagues" %></title>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>

@@ -1,3 +1,4 @@
+<% title "#{@user.login}'s Profile" %>
 <div id="profileContainer">
   <% if (@account_information && can?(:update, @account_information)) || (@account_information.nil? && can?(:create, @user.build_account_information)) %>
     <div class="actionLinksContainer">
@@ -9,7 +10,7 @@
   <% end %>
     
   <div class="profilePane">
-    <h2><%= "#{@user.login}'s Starcraft Profile" %></h2>
+    <h2><%= "#{@user.login}'s Profile" %></h2>
     
     <% if @account_information.nil? %>
       <h4>This user has not created a profile yet.</h4>

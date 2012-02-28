@@ -8,7 +8,7 @@
 <% tournaments.each do |tournament| %>
   <% tournament_count += 1 %>
   <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
-    <h3><%= link_to"#{Tournament::LEAGUES[tournament.league]} Tournament ##{tournament.id}", tournament_path(tournament) %></h3>
+    <h3><%= link_to"#{Tournament::LEAGUES[tournament.league]}: #{tournament.name}", tournament_path(tournament) %></h3>
     
     <table>
       <tr>

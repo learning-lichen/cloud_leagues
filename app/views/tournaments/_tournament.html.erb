@@ -1,8 +1,13 @@
-<%= form_for @tournament do |form| %>
+<% url = tournament_path(@tournament) unless @tournament.new_record? %>
+<%= form_for @tournament, url: url do |form| %>
   <%= render "shared/error_messages", target: @tournament %>
   
   <fieldset>
     <table>
+      <tr>
+	<td><%= form.label :name, "Name" %></td>
+	<td><%= form.text_field :name %></td>
+
       <tr>
 	<td><%= form.label :league, "League" %></td>
 	<td><%= select_tag "tournament[league]", options_for_select(Tournament::LEAGUES.keys.collect { |k| [Tournament::LEAGUES[k], k] }) %></td>

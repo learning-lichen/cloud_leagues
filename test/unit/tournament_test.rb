@@ -6,6 +6,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert tournaments(:grand_master_tournament).valid?
     assert tournaments(:master_tournament).valid?
     assert tournaments(:empty_tournament).valid?
+    assert tournaments(:full_tournament).valid?
   end
 
   test "league validations" do
@@ -39,7 +40,8 @@ class TournamentTest < ActiveSupport::TestCase
     new_tournament_params = {
       start_time: 1.hours.from_now,
       registration_time: Time.now,
-      type: 'SingleEliminationTournament'
+      type: 'SingleEliminationTournament',
+      name: 'New Tournament'
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin
@@ -59,7 +61,8 @@ class TournamentTest < ActiveSupport::TestCase
     new_tournament_params = {
       start_time: 1.hours.from_now,
       registration_time: Time.now,
-      type: 'SingleEliminationTournament'
+      type: 'SingleEliminationTournament',
+      name: 'New Tournament'
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin
@@ -84,6 +87,23 @@ class TournamentTest < ActiveSupport::TestCase
     assert !all_tournament.valid?
     assert !empty_tournament.valid?
     assert !gm_tournament.valid?
+  end
+
+  test "name validations" do
+    all_tournament = tournaments(:all_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
+    master_tournament = tournaments(:master_tournament)
+    empty_tournament = tournaments(:empty_tournament)
+
+    all_tournament.name = nil
+    gm_tournament.name = master_tournament.name
+    master_tournament.name = '123'
+    empty_tournament.name = '123456789012345678901234567890'
+    
+    assert !all_tournament.valid?
+    assert !gm_tournament.valid?
+    assert !master_tournament.valid?
+    assert !empty_tournament.valid?
   end
 
   test "waiting players validations" do

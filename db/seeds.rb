@@ -11,5 +11,6 @@ admin.create_account_information({
   character_name: 'Dimes',
   character_code: '985',
   role: 2,
-  race: 2
+  race: 2,
+  league: 4
 }, as: :admin)

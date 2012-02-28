@@ -72,6 +72,10 @@ class SingleEliminationTournament < Tournament
     can_delete
   end
 
+  def to_partial_path
+    "tournaments/tournament"
+  end
+
   protected
   def find_match_for_new_player
     available_matches = starting_matches
