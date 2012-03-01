@@ -3,12 +3,17 @@
    title ||= "Tournament Open to All"
 %>
 <h2><%= title %></h2>
-<% tournaments = Tournament.where("league = ?", league).limit(5) %>
+<% if league == Tournament::ALL %>
+  <% tournaments = Tournament.where("league = ?", Tournament::ALL).limit(5) %>
+<% else %>
+  <% tournaments = Tournament.where("league & ? = ? AND league != ?", league, league, Tournament::ALL).limit(5) %>
+<% end %>
+
 <% tournament_count = 0 %>
 <% tournaments.each do |tournament| %>
   <% tournament_count += 1 %>
   <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
-    <h3><%= link_to"#{Tournament::LEAGUES[tournament.league]}: #{tournament.name}", tournament_path(tournament) %></h3>
+    <h3><%= link_to"#{tournament.name}", tournament_path(tournament) %></h3>
     
     <table>
       <tr>

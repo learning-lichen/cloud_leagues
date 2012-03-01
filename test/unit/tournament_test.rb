@@ -41,7 +41,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: 1.hours.from_now,
       registration_time: Time.now,
       type: 'SingleEliminationTournament',
-      name: 'New Tournament'
+      name: 'New Tournament',
+      league: Tournament::ALL
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin
@@ -62,7 +63,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: 1.hours.from_now,
       registration_time: Time.now,
       type: 'SingleEliminationTournament',
-      name: 'New Tournament'
+      name: 'New Tournament',
+      league: Tournament::ALL
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin

@@ -20,11 +20,10 @@ class WaitingPlayer < ActiveRecord::Base
   protected
   def validate_users_league
     return if tournament.nil?
-
     errors.add :user, 'must have account information' and return if user.account_information.nil?
     
     user_league = user.account_information.league
-    errors.add :user, 'must be in the tournaments league' unless tournament.league == Tournament::ALL or user_league == tournament.league
+    errors.add :user, 'must be in the tournaments league' unless ((user_league & tournament.league) > 0)
   end
 
   def validate_player_acceptance    

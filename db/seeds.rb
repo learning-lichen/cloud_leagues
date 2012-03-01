@@ -12,5 +12,5 @@ admin.create_account_information({
   character_code: '985',
   role: 2,
   race: 2,
-  league: 4
+  league: Tournament::PLATINUM
 }, as: :admin)

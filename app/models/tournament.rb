@@ -1,13 +1,13 @@
 class Tournament < ActiveRecord::Base
   # Leagues
-  ALL = 0
-  GRAND_MASTER = 1
-  MASTER = 2
-  DIAMOND = 3
-  PLATINUM = 4
-  GOLD = 5
-  SILVER = 6
-  BRONZE = 7
+  ALL = 0b1111111
+  GRAND_MASTER = 0b1000000
+  MASTER = 0b0100000
+  DIAMOND = 0b0010000
+  PLATINUM = 0b0001000
+  GOLD = 0b0000100
+  SILVER = 0b0000010
+  BRONZE = 0b0000001
 
   LEAGUES = {
     ALL => 'All',
@@ -25,7 +25,7 @@ class Tournament < ActiveRecord::Base
   has_many :matches, dependent: :destroy
   
   # Validations
-  validates :league, presence: true, inclusion: { in: LEAGUES.keys }
+  validates :league, presence: true, inclusion: { in: 1..127, message: 'is not valid.' }
   validates :max_players, presence: true, inclusion: { in: 1..64 }
   validates :name, presence: true, uniqueness: true, length: { within: 5..25 }
   validate :validate_waiting_players
@@ -108,12 +108,13 @@ class Tournament < ActiveRecord::Base
   end
 
   def validate_waiting_players
+    return if league.nil?
     accepted_count = 0
     all_players_belong = true
 
     waiting_players.each do |player| 
       accepted_count += 1 if player.player_accepted
-      all_players_belong = false if league != ALL and player.user.account_information.league != league
+      all_players_belong = false if ((player.user.account_information.league & league) == 0)
     end
     
     errors.add(:waiting_players, 'too many accepted') if accepted_count > (max_players || 0)

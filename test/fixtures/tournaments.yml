@@ -1,6 +1,6 @@
 all_tournament:
   id: 1
-  league: 0
+  league: <%= Tournament::ALL %>
   type: SingleEliminationTournament
   start_time: <%= Time.now %>
   registration_time: <%= 2.hours.ago %>
@@ -9,7 +9,7 @@ all_tournament:
 
 grand_master_tournament:
   id: 2
-  league: 1
+  league: <%= Tournament::GRAND_MASTER %>
   type: SingleEliminationTournament
   start_time: <%= 1.hours.from_now %>
   registration_time: <%= Time.now %>
@@ -18,7 +18,7 @@ grand_master_tournament:
 
 master_tournament:
   id: 3
-  league: 2
+  league: <%= Tournament::MASTER %>
   type: SingleEliminationTournament
   start_time: <%= 2.hours.from_now %>
   registration_time: <%= 3.hours.ago %>
@@ -27,7 +27,7 @@ master_tournament:
 
 empty_tournament:
   id: 4
-  league: 0
+  league: <%= Tournament::ALL %>
   type: SingleEliminationTournament
   start_time: <%= 5.hours.from_now %>
   registration_time: <%= 4.hours.from_now %>
@@ -36,7 +36,7 @@ empty_tournament:
 
 full_tournament:
   id: 5
-  league: 0
+  league: <%= Tournament::ALL %>
   type: SingleEliminationTournament
   start_time: <%= 5.hours.from_now %>
   registration_time: <%= 1.hours.ago %>

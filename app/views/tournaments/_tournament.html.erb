@@ -10,7 +10,11 @@
 
       <tr>
 	<td><%= form.label :league, "League" %></td>
-	<td><%= select_tag "tournament[league]", options_for_select(Tournament::LEAGUES.keys.collect { |k| [Tournament::LEAGUES[k], k] }) %></td>
+	<td>
+	  <% Tournament::LEAGUES.keys.each do |key| %>
+	    <%= form.label "league_#{key}", Tournament::LEAGUES[key] %>
+	    <%= check_box_tag "tournament[league][#{key}]", 1, false, class: "leagueCheckBox" %>
+	  <% end %>
       </tr>
 
       <tr>
