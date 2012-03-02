@@ -14,7 +14,7 @@
 
     margin-top: 15px;
 
-    label { margin-right: 6px; }
+    label { padding-right: 6px; }
 }
 
 #editTournament {
@@ -29,7 +29,7 @@
 
     margin-top: 15px;
 
-    label { margin-right: 6px; }
+    label { padding-right: 6px; }
 }
 
 .tournamentPanel {
@@ -52,7 +52,12 @@
 	table { width: 100% }
 
 	table td {
-	    width: 50%;
+	    width: 33%;
+	    padding-top: 2px;
+
+	    &.green { color: #2F7C20; font-weight: bold; }
+	    &.red { color: #7C2020; font-weight: bold; }
+	    &.leagueIcons { text-align: right; padding-top: 0; }
 	}
     }
 
