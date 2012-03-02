@@ -19,7 +19,7 @@
       <tr>
 	<td>Starts In: <b><%= to_time_remaining(tournament.start_time) %></b></td>
 	<% waiting_player_color = tournament.max_players < tournament.waiting_players.count ? "red" : "green" %>
-	<td class="<%= waiting_player_color %>">Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
+	<td class="centerCol <%= waiting_player_color %>">Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
 	<td class="leagueIcons">
 	  <% possible_leagues = Tournament::LEAGUES.keys %>
 	  <% possible_leagues.delete(Tournament::ALL) %>

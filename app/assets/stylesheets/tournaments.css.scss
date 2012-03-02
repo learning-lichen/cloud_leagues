@@ -55,6 +55,7 @@
 	    width: 33%;
 	    padding-top: 2px;
 
+	    &.centerCol { text-align: center; }
 	    &.green { color: #2F7C20; font-weight: bold; }
 	    &.red { color: #7C2020; font-weight: bold; }
 	    &.leagueIcons { text-align: right; padding-top: 0; }
