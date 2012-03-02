@@ -134,6 +134,15 @@ class UserTest < ActiveSupport::TestCase
     assert_equal [0, 1], other_mod_user.win_loss_array
   end
 
+  test "time zone" do
+    default_user = users(:default_user)
+    default_information = account_informations(:default_information)
+    other_user = users(:other_user)
+
+    assert_equal default_information.time_zone, default_user.time_zone
+    assert_nil other_user.time_zone
+  end
+
   test "strip inputs" do
     default_user = users(:default_user)
     default_user.login = '    login    '

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228034211) do
+ActiveRecord::Schema.define(:version => 20120301223953) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120228034211) do
     t.integer  "role",           :default => 0
     t.integer  "race",                          :null => false
     t.integer  "league",                        :null => false
+    t.string   "time_zone",                     :null => false
   end
 
   create_table "chat_messages", :force => true do |t|

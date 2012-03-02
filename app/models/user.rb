@@ -63,6 +63,10 @@ class User < ActiveRecord::Base
     [win_count, loss_count]
   end
 
+  def time_zone
+    account_information.nil? ? nil : account_information.time_zone
+  end
+
   protected
   def strip_inputs
     login.strip! if login

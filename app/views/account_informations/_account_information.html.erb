@@ -15,15 +15,24 @@
       </tr>
 
       <tr>
+	<% user_race = @user.account_information.race unless @user.account_information.nil? %>
 	<td><%= form.label :race, "Race" %></td>
-	<td><%= select_tag "account_information[race]", options_for_select(AccountInformation::RACES.keys.collect { |k| [AccountInformation::RACES[k], k] }) %></td>
+	<td><%= select_tag "account_information[race]", options_for_select(AccountInformation::RACES.keys.map { |k| [AccountInformation::RACES[k], k] }, user_race) %></td>
       </tr>
 
       <tr>
+	<% user_league = @user.account_information.league unless @user.account_information.nil? %>
 	<% leagues = Tournament::LEAGUES.keys %>
 	<% leagues.delete Tournament::ALL %>
 	<td><%= form.label :league, "League" %></td>
-	<td><%= select_tag "account_information[league]", options_for_select(leagues.collect { |k| [Tournament::LEAGUES[k], k] }) %></td>
+	<td><%= select_tag "account_information[league]", options_for_select(leagues.map { |k| [Tournament::LEAGUES[k], k] }, user_league) %></td>
+      </tr>
+
+      <tr>
+	<% user_time_zone = @user.account_information.time_zone unless @user.account_information.nil? %>
+	<% time_zones = ActiveSupport::TimeZone.us_zones %>
+	<td><%= form.label :time_zone, "Time Zone" %></td>
+	<td><%= select_tag "account_information[time_zone]", options_for_select(time_zones.map { |tz| [tz.to_s, tz.name] }, user_time_zone) %></td>
       </tr>
     </table>
 

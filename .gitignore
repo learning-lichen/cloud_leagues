@@ -10,7 +10,3 @@
 
 # Ignore DS Store
 .DS_Store
-
-# Ignore files that have passwords in them
-/db/seeds.rb
-/config/database.yml

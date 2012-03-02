@@ -1,5 +1,5 @@
-<% url = tournament_path(@tournament) unless @tournament.new_record? %>
-<%= form_for @tournament, url: url do |form| %>
+<% @tournament = @tournament.becomes(Tournament) %>
+<%= form_for @tournament do |form| %>
   <%= render "shared/error_messages", target: @tournament %>
   
   <fieldset>
@@ -12,14 +12,23 @@
 	<td><%= form.label :league, "League" %></td>
 	<td>
 	  <% Tournament::LEAGUES.keys.each do |key| %>
+	    <% if @tournament.league == Tournament::ALL %>
+	      <% checked = 'checked' %>
+	    <% elsif key != Tournament::ALL && @tournament.league & key > 0 %>
+	      <% checked = 'checked' %>
+	    <% else %>
+	      <% checked = false %>
+	    <% end %>
+	    
+	    <%= check_box_tag "tournament[league][#{key}]", 1, false, class: "leagueCheckBox", checked: checked %>
 	    <%= form.label "league_#{key}", Tournament::LEAGUES[key] %>
-	    <%= check_box_tag "tournament[league][#{key}]", 1, false, class: "leagueCheckBox" %>
 	  <% end %>
       </tr>
 
       <tr>
+	<% tournament_type = @tournament.type %>
 	<td><%= form.label :type, "Format" %></td>
-	<td><%= select_tag "tournament[type]", options_for_select([["Single Elimination", "SingleEliminationTournament"]]) %></td>
+	<td><%= select_tag "tournament[type]", options_for_select([["Single Elimination", "SingleEliminationTournament"]], tournament_type) %></td>
       </tr>
 
       <tr>

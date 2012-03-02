@@ -37,15 +37,16 @@ class AccountInformation < ActiveRecord::Base
   validates :role, presence: true, inclusion: { in: ROLES.keys }
   validates :race, presence: true, inclusion: { in: RACES.keys }
   validates :league, presence: true, inclusion: { in: Tournament::LEAGUES.keys }, exclusion: { in: [Tournament::ALL] }
+  validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.us_zones.map { |z| z.name } }
 
   # Callbacks
   before_validation :strip_inputs
 
   # Attribute Whitelists
-  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :new_member
-  attr_accessible :reddit_name, :race, as: :member
-  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, as: :moderator
-  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, as: :admin
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, as: :new_member
+  attr_accessible :reddit_name, :race, :time_zone, as: :member
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, as: :moderator
+  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, :time_zone, as: :admin
 
   protected
   def strip_inputs

@@ -82,6 +82,17 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert !mod_information.valid?
   end
 
+  test "time zone validations" do
+    default_information = account_informations(:default_information)
+    admin_information = account_informations(:admin_information)
+
+    default_information.time_zone = nil
+    admin_information.time_zone = 'garbage'
+
+    assert !default_information.valid?
+    assert !admin_information.valid?
+  end
+
   test "guest accessible attributes" do
     account_information_params = {
       user_id: 1,
@@ -90,7 +101,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_code: 555,
       role: 2,
       race: -1,
-      league: -1
+      league: -1,
+      time_zone: 'hey'
     }
 
     new_info = AccountInformation.new account_information_params, as: :guest
@@ -102,6 +114,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 0, new_info.role
     assert_nil new_info.race
     assert_nil new_info.league
+    assert_nil new_info.time_zone
   end
 
   test "new member accessible attributes" do
@@ -112,7 +125,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_code: 555,
       role: 2,
       race: 2,
-      league: 5
+      league: 5,
+      time_zone: 'hey'
     }
 
     new_info = AccountInformation.new account_info_params, as: :new_member
@@ -124,6 +138,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
     assert_equal 5, new_info.league
+    assert_equal 'hey', new_info.time_zone
   end
 
   test "member accessible attributes" do
@@ -134,7 +149,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_code: 555,
       role: 2,
       race: 2,
-      league: 5
+      league: 5,
+      time_zone: 'hey'
     }
 
     new_info = AccountInformation.new account_information_params, as: :member
@@ -146,6 +162,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
     assert_nil new_info.league
+    assert_equal 'hey', new_info.time_zone
   end
 
   test "moderator accessible attributes" do
@@ -156,7 +173,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_code: 555,
       role: 2,
       race: 2,
-      league: 5
+      league: 5,
+      time_zone: 'hey'
     }
 
     new_info = AccountInformation.new account_info_params, as: :moderator
@@ -168,6 +186,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 0, new_info.role
     assert_equal 2, new_info.race
     assert_equal 5, new_info.league
+    assert_equal 'hey', new_info.time_zone
   end
 
   test "admin accessible attributes" do
@@ -178,7 +197,8 @@ class AccountInformationTest < ActiveSupport::TestCase
       character_code: 555,
       role: 2,
       race: 2,
-      league: 5
+      league: 5,
+      time_zone: 'hey'
     }
 
     new_info = AccountInformation.new account_info_params, as: :admin
@@ -190,6 +210,7 @@ class AccountInformationTest < ActiveSupport::TestCase
     assert_equal 2, new_info.role
     assert_equal 2, new_info.race
     assert_equal 5, new_info.league
+    assert_equal 'hey', new_info.time_zone
   end
 
   test "strip inputs" do

@@ -12,5 +12,6 @@ admin.create_account_information({
   character_code: '985',
   role: 2,
   race: 2,
-  league: Tournament::PLATINUM
+  league: Tournament::PLATINUM,
+  time_zone: 'Eastern Time (US & Canada)'
 }, as: :admin)

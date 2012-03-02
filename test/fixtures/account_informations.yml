@@ -6,6 +6,7 @@ default_information:
   role: <%= AccountInformation::MEMBER %>
   race: 0
   league: <%= Tournament::GRAND_MASTER %>
+  time_zone: <%= ActiveSupport::TimeZone.us_zones.first.name %>
 
 admin_information:
   user_id: 3
@@ -15,6 +16,7 @@ admin_information:
   role: <%= AccountInformation::ADMIN %>
   race: 1
   league: <%= Tournament::GRAND_MASTER %>
+  time_zone: <%= ActiveSupport::TimeZone.us_zones.first.name %>
 
 mod_information:
   user_id: 4
@@ -24,6 +26,7 @@ mod_information:
   role: <%= AccountInformation::MODERATOR %>
   race: 2
   league: <%= Tournament::MASTER %>
+  time_zone: <%= ActiveSupport::TimeZone.us_zones.first.name %>
 
 other_mod_information:
   user_id: 5
@@ -33,3 +36,4 @@ other_mod_information:
   role: <%= AccountInformation::MODERATOR %>
   race: 3
   league: <%= Tournament::GOLD %>
+  time_zone: <%= ActiveSupport::TimeZone.us_zones.first.name %>
