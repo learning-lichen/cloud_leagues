@@ -25,4 +25,8 @@ module TournamentsHelper
       "#{neg_flag}#{secs_remaining}s"
     end
   end
+
+  def image_for_league(league_id)
+    "#{Tournament::LEAGUES[league_id].gsub(/ /, '_').underscore}.png"
+  end
 end

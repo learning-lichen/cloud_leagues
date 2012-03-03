@@ -6,6 +6,7 @@ all_tournament:
   registration_time: <%= 2.hours.ago %>
   max_players: 20
   name: All Tournament
+  prize: 0
 
 grand_master_tournament:
   id: 2
@@ -15,6 +16,7 @@ grand_master_tournament:
   registration_time: <%= Time.now %>
   max_players: 25
   name: Grand Master Tournament
+  prize: 4999
 
 master_tournament:
   id: 3
@@ -24,6 +26,7 @@ master_tournament:
   registration_time: <%= 3.hours.ago %>
   max_players: 12
   name: Master Tournament
+  prize: 0
 
 empty_tournament:
   id: 4
@@ -33,6 +36,7 @@ empty_tournament:
   registration_time: <%= 4.hours.from_now %>
   max_players: 20
   name: Empty Tournament
+  prize: 0
 
 full_tournament:
   id: 5
@@ -42,3 +46,4 @@ full_tournament:
   registration_time: <%= 1.hours.ago %>
   max_players: 1
   name: Full Tournament
+  prize: 0

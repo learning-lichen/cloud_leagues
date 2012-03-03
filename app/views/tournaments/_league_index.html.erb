@@ -24,8 +24,7 @@
 	  <% possible_leagues = Tournament::LEAGUES.keys %>
 	  <% possible_leagues.delete(Tournament::ALL) %>
 	  <% possible_leagues.each do |possible_league| %>
-	    <% league_img = "#{Tournament::LEAGUES[possible_league].gsub(/ /, '_').underscore}.png" %>
-	    <%= image_tag league_img if league & possible_league > 0 %>
+	    <%= image_tag image_for_league(possible_league) if tournament.league & possible_league > 0 %>
 	  <% end %>
 	</td>
       </tr>

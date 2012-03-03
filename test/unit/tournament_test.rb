@@ -108,6 +108,20 @@ class TournamentTest < ActiveSupport::TestCase
     assert !empty_tournament.valid?
   end
 
+  test "prize validations" do
+    all_tournament = tournaments(:all_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
+    master_tournament = tournaments(:master_tournament)
+
+    all_tournament.prize = nil
+    gm_tournament.prize = -1
+    master_tournament.prize = 5000
+
+    assert !all_tournament.valid?
+    assert !gm_tournament.valid?
+    assert !master_tournament.valid?
+  end
+
   test "waiting players validations" do
     all_tournament = tournaments(:all_tournament)    
     gm_tournament = tournaments(:grand_master_tournament)
@@ -129,7 +143,8 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'FakeTournament',
       start_time: Time.now,
       registration_time: 1.hours.ago,
-      max_players: 100
+      max_players: 100,
+      prize: 123
     }
 
     new_tournament = Tournament.new tournament_params, as: :guest
@@ -139,6 +154,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_nil new_tournament.start_time
     assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
+    assert_equal 0, new_tournament.prize
   end
 
   test "member accessible attributes" do
@@ -147,7 +163,8 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'FakeTournament',
       start_time: Time.now,
       registration_time: 1.hours.ago,
-      max_players: 100
+      max_players: 100,
+      prize: 123
     }
 
     new_tournament = Tournament.new tournament_params, as: :member
@@ -157,6 +174,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_nil new_tournament.start_time
     assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
+    assert_equal 0, new_tournament.prize
   end
 
   test "moderator accessible attributes" do
@@ -167,7 +185,8 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'TournamentType',
       start_time: start_time,
       registration_time: registration_time,
-      max_players: 100
+      max_players: 100,
+      prize: 123
     }
     
     new_tournament = Tournament.new tournament_params, as: :moderator
@@ -177,6 +196,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal start_time, new_tournament.start_time
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
+    assert_equal 0, new_tournament.prize
   end
 
   test "admin accessible attributes" do
@@ -187,7 +207,8 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'TournamentType',
       start_time: start_time,
       registration_time: registration_time,
-      max_players: 100
+      max_players: 100,
+      prize: 123
     }
     
     new_tournament = Tournament.new tournament_params, as: :admin
@@ -197,6 +218,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal start_time, new_tournament.start_time
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
+    assert_equal 123, new_tournament.prize
   end
 
   test "started method" do

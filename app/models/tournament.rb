@@ -25,9 +25,10 @@ class Tournament < ActiveRecord::Base
   has_many :matches, dependent: :destroy
   
   # Validations
-  validates :league, presence: true, inclusion: { in: 1..127, message: 'is not valid.' }
+  validates :league, presence: true, inclusion: { in: 1..127, message: 'is not valid' }
   validates :max_players, presence: true, inclusion: { in: 1..64 }
   validates :name, presence: true, uniqueness: true, length: { within: 5..25 }
+  validates :prize, presence: true, inclusion: { in: 0..4999, message: 'must be within $0 and $4,999' }
   validate :validate_waiting_players
   validate :validate_type
   validate :validate_times
@@ -38,7 +39,7 @@ class Tournament < ActiveRecord::Base
 
   # Attribute Whitelists
   attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, as: :moderator
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, as: :admin
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :prize, as: :admin
 
   def started?
     Time.now >= start_time

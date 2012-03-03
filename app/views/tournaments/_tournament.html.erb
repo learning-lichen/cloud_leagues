@@ -45,6 +45,11 @@
 	<td><%= form.label :max_players, "Max. Players" %></td>
 	<td><%= form.text_field :max_players %></td>
       </tr>
+
+      <tr>
+	<td><%= form.label :prize, "Prize ($)" %></td>
+	<td><%= form.text_field :prize %></td>
+      </tr>
     </table>
 
     <%= form.submit "Submit", id: "submitButton" %>
