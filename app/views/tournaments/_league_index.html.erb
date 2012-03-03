@@ -1,8 +1,6 @@
 <%
    league ||= Tournament::ALL
-   title ||= "Tournament Open to All"
 %>
-<h2><%= title %></h2>
 <% if league == Tournament::ALL %>
   <% tournaments = Tournament.where("league = ? AND registration_time < ? AND start_time > ?", Tournament::ALL, Time.now, Time.now).limit(5) %>
 <% else %>
@@ -13,21 +11,15 @@
 <% tournaments.each do |tournament| %>
   <% tournament_count += 1 %>
   <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
-    <h3><%= link_to"#{tournament.name}", tournament_path(tournament) %></h3>
-    
-    <table>
-      <tr>
-	<td>Starts In: <b><%= to_time_remaining(tournament.start_time) %></b></td>
-	<% waiting_player_color = tournament.max_players < tournament.waiting_players.count ? "red" : "green" %>
-	<td class="centerCol <%= waiting_player_color %>">Number of Players: <%= tournament.waiting_players.count %>/<%=tournament.max_players %></td>
-	<td class="leagueIcons">
-	  <% possible_leagues = Tournament::LEAGUES.keys %>
-	  <% possible_leagues.delete(Tournament::ALL) %>
-	  <% possible_leagues.each do |possible_league| %>
-	    <%= image_tag image_for_league(possible_league) if tournament.league & possible_league > 0 %>
-	  <% end %>
-	</td>
-      </tr>
-    </table>
+    <div class="tournamentAttribute tournamentStartTime"><%= to_time_remaining tournament.start_time %></div>
+    <div class="tournamentAttribute tournamentOpenSpots"><%= tournament.open_spots %></div>
+    <div class="tournamentAttribute tournamentPrize">$<%= tournament.prize %></div>
+    <div class="tournamentAttribute tournamentName"><%= link_to tournament.name, tournament_path(tournament) %></div>
+  </div>
+<% end %>
+
+<% if tournaments.empty? %>
+  <div class="noTournamentsMessage">
+    There are no joinable tournaments in this category.
   </div>
 <% end %>

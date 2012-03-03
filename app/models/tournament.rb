@@ -45,6 +45,10 @@ class Tournament < ActiveRecord::Base
     Time.now >= start_time
   end
 
+  def open_spots
+    [0, max_players - waiting_players.where(player_accepted: true).count].max
+  end
+
   protected
   def create_structure
     raise ActiveRecord::Rollback unless self.becomes(type.constantize).create_structure

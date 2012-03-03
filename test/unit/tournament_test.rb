@@ -232,6 +232,19 @@ class TournamentTest < ActiveSupport::TestCase
     assert !gm_tournament.started?
   end
 
+  test "open spots" do
+    all_tournament = tournaments(:all_tournament)
+    full_tournament = tournaments(:full_tournament)
+
+    all_open_spots = all_tournament.max_players
+    all_tournament.waiting_players.each do |player|
+      all_open_spots = all_open_spots - 1 if player.player_accepted
+    end
+
+    assert_equal all_open_spots, all_tournament.open_spots
+    assert_equal 0, full_tournament.open_spots
+  end
+
   test "structure not created on arbitrary save" do
     empty_tournament = tournaments(:empty_tournament)
     empty_tournament.start_time = 100.hours.from_now

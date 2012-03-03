@@ -34,12 +34,16 @@
     <h2>Your Recent Messages</h2>
   </div>
 
-  <div class="homePanel noSidePadding">
-    <%= render "tournaments/league_index", league: current_user.account_information.league, title: "Open Tournaments for You" %>
+  <div class="tournamentPanel">
+    <h2>Open Tournaments for You</h2>
+    <%= render "tournaments/column_names" %>
+    <%= render "tournaments/league_index", league: current_user.account_information.league %>
   </div>
 
-  <div class="homePanel noSidePadding">
+  <div class="tournamentPanel">
+    <h2>Recent High Level Tournaments</h2>
     <% league = Tournament::GRAND_MASTER | Tournament::MASTER %>
-    <%= render "tournaments/league_index", league: league, title: "Recent High Level Tournaments" %>
+    <%= render "tournaments/column_names" %>
+    <%= render "tournaments/league_index", league: league %>
   </div>
 <% end %>
