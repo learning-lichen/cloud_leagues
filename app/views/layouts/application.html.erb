@@ -37,15 +37,16 @@
 	  <div id="sidebarAd">
 	    <%= image_tag "sidebar_filler.png" %>
 	  </div>
-	  
+
+	  <div class="ribbonFold">
+	    <%= image_tag "ribbon_fold.png" %>
+	  </div>
 	  
 	  <%= content_for?(:sidebar) ? yield(:sidebar) : render("shared/sidebar") %>
-	</div>
-	
-	<div id="sidebarRibbonFold">
-	  <%= image_tag "ribbon_fold.png" %>
-	  <div style="height: 246px;"></div>
-	  <%= image_tag "ribbon_fold.png"  %>
+
+	  <div id="sidebarFooter">
+	    <div class="sidebarLeft"></div>
+	  </div>
 	</div>
       </div>
       

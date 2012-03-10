@@ -1,0 +1,22 @@
+<%
+   "league ||= Tournament::ALL"
+   "limit ||= 5"
+   tournaments = large_prize_tournaments(league, limit)
+%>
+
+<% tournaments.each do |tournament| %>
+  <div class="largePrizeRow">
+    <%= link_to tournament.name, tournament_path(tournament) %>
+    <div class="largePrizeTournamentInfo">
+      Prize: $<%= tournament.prize %> | 
+      Open Spots: <%= tournament.open_spots %> |
+      Starts In: <%= to_time_remaining tournament.start_time %>
+    </div>
+  </div>
+<% end %>
+
+<% (limit - tournaments.size).times do %>
+  <div class="largePrizeRow noLargePrizeToDisplay">
+    <p>There is no tournament to display.</p>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 <% tournament_count = 0 %>
 <% tournaments.each do |tournament| %>
   <% tournament_count += 1 %>
-  <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow"%>">
+  <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow" %>">
     <div class="tournamentAttribute tournamentStartTime"><%= to_time_remaining tournament.start_time %></div>
     <div class="tournamentAttribute tournamentOpenSpots"><%= tournament.open_spots %></div>
     <div class="tournamentAttribute tournamentPrize">$<%= tournament.prize %></div>

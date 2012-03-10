@@ -58,31 +58,191 @@ header {
 }
 
 #sidebar {
-    width: 250px;
+    width: 254px;
     display: inline-block;
     vertical-align: top;
-    font-size: 12px;
+    font-size: 0;
     margin-top: 5px;
-    border-top: 5px solid #BB3900;
-}
 
-#sidebarAd {
-    height: 250px;
-    overflow: hidden;
-}
+    #sidebarAd {
+	height: 250px;
+	width: 250px;
+	display: inline-block;
+	overflow: hidden;
 
-#sidebarContent {
-    width: $sidebar_width - 2;
-    border: 1px solid #797470;
-    border-top: 0;
-}
+	border-top: 5px solid #BB3900;
+    }
+    
+    #sidebarContent {
+	width: 254px;
 
-#sidebarRibbonFold {
-    width: 4px;
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 5px;
-    height: 268px;
+	.ribbonTitle {
+	    display: inline-block;
+	    width: 250px;
+	    height: 27px;
+	    padding-top: 10px;
+	    background-color: #BB3900;
+	    
+	    text-align: center;
+	    font-size: 10pt;
+	    font-family: georgia, serif;
+	    letter-spacing: 3px;
+	    color: #F1F1EC;
+	}
+
+	#leaderboard {
+	    font-size: 0;
+
+	    #noTopPlayers { 
+		font-size: 12px; 
+		padding: 10px; 
+		background-color: #E3E3E3; 
+	    }
+	    
+	    .topPlayerRow {
+		background-color: #E3E3E3;
+		border-bottom: 1px solid #A3A19B;
+
+		.userPortrait {
+		    display: inline-block;
+		    -moz-border-radius: 2px;
+		    border-radius: 2px;
+		    background-color: #797470;
+		    
+		    height: 35px;
+		    width: 35px;
+		    margin: 3px;
+
+		    overflow: hidden;
+		}
+
+		.leaderboardUserInfo {
+		    display: inline-block;
+		    vertical-align: top;
+
+		    padding-top: 3px;
+		    padding-left: 5px;
+
+		    font-size: 12px;
+
+		    .leaderboardUserStats { 
+			padding-left: 1px;
+			font-size: 10px;
+			font-weight: bold;
+			color: #797470;
+		    }
+
+		    a { 
+			font-size: 16px; 
+			font-weight: bold; 
+			text-decoration: none; 
+
+			&:hover { text-decoration: underline; }
+		    }
+		}
+	    }
+	}
+
+	#biggestPrizePools {
+	    #biggestPrizePoolsMenu {
+		text-align: center;
+		font-size: 0;
+		background-color: #E3E3E3;
+
+		a {
+		    display: inline-block;
+
+		    border-bottom: 1px solid #797470;
+		    border-right: 1px solid #797470;
+
+		    padding-top: 5px;
+		    padding-left: 9px;
+		    padding-right: 9px;
+		    padding-bottom: 5px;
+
+		    &:focus { outline: 0; }
+		}
+
+		#gmTab { padding-left: 11px; }
+		#bronzeTab { border-right: 0; padding-right: 11px; }
+	    }
+	    
+	    .biggestPrizePoolsContent { 
+		font-size: 12px; display: none;
+
+		.largePrizeRow {
+		    height: 31px;
+		    background-color: #E3E3E3;
+		    border-bottom: 1px solid #A3A19B;
+
+		    padding: 5px;
+
+		    .largePrizeTournamentInfo {
+			padding-left: 1px;
+
+			font-size: 10px;
+			font-weight: bold;
+			color: #797470;
+		    }
+
+		    a {
+			font-size: 16px; 
+			font-weight: bold; 
+			text-decoration: none; 
+			
+			&:hover { text-decoration: underline; }
+		    }
+		}
+
+		.noLargePrizeToDisplay {
+		    text-align: center;
+		    color: #BCBCBC;
+		    font-weight: bold;
+
+		    p { margin: 0; padding: 0; margin-top: 8px; }
+		}
+	    }
+	}
+    }
+
+    #additionalLinkList {
+	font-size: 12px;
+	background-color: #E3E3E3;
+
+	ul { margin: 0; padding: 0; list-style: none; }
+	ul li a {
+	    display: block;
+	    padding-top: 10px; 
+	    padding-bottom: 9px;
+	    padding-left: 5px;
+
+	    border-bottom: 1px solid #A3A19B;
+	    text-decoration: none;
+
+	    &:focus { outline: 0; }
+	    &:hover { background-color: #F1F1EC; }
+	}
+    }
+
+    .sidebarLeft {
+	width: 248px;
+	display: inline-block;
+
+	border-left: 1px solid #797470;
+	border-right: 1px solid #797470;
+    }
+
+    .ribbonFold {
+	display: inline-block;
+	vertical-align: top;
+	width: 4px;
+
+	img { position: absolute; }	
+    }
+
+    #sidebarFooter {
+	.sidebarLeft { border-bottom: 1px solid #797470; }
+    }
 }
 
 footer {
@@ -166,6 +326,8 @@ footer {
 	width: 35px;
 	margin-top: 3px;
 	margin-left: 3px;
+
+	overflow: hidden;
     }
 
     .button_outer {

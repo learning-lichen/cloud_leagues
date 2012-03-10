@@ -26,7 +26,7 @@ class MatchTest < ActiveSupport::TestCase
     gm_match_one = matches(:grand_master_match_one)
 
     all_match_one.winner_id = -1
-    gm_match_one.winner_id = gm_match_one.waiting_players.first.id
+    gm_match_one.winner_id = gm_match_one.waiting_players.first.user.id
 
     assert !all_match_one.valid?
     assert gm_match_one.valid?

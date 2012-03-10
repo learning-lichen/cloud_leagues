@@ -1,0 +1,69 @@
+<div id="biggestPrizePools">
+  <div class="ribbonTitle">
+    LARGEST PRIZE POOLS
+  </div>
+
+  <div class="ribbonFold">
+    <%= image_tag "big_ribbon_fold.png" %>
+  </div>
+
+  <div class="sidebarLeft">
+    <div id="biggestPrizePoolsMenu">
+      <a href="#_" title="Grand Master" id="gmTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::GRAND_MASTER) %>
+      </a>
+      
+      <a href="#_" title="Master" id="masterTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::MASTER) %>
+      </a>
+      
+      <a href="#_" title="Diamond" id="diamondTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::DIAMOND) %>
+      </a>
+      
+      <a href="#_" title="Platinum" id="platinumTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::PLATINUM) %>
+      </a>
+      
+      <a href="#_" title="Gold" id="goldTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::GOLD) %>
+      </a>
+      
+      <a href="#_" title="Silver" id="silverTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::SILVER) %>
+      </a>
+      
+      <a href="#_" title="Bronze" id="bronzeTab" class="biggestPrizePoolsTab">
+	<%= image_tag image_for_league(Tournament::BRONZE) %>
+      </a>
+    </div>
+
+    <div id="gmContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::GRAND_MASTER, limit: 5 %>
+    </div>
+    
+    <div id="masterContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::MASTER, limit: 5 %>
+    </div>
+    
+    <div id="diamondContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::DIAMOND, limit: 5 %>
+    </div>
+    
+    <div id="platinumContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::PLATINUM, limit: 5 %>
+    </div>
+    
+    <div id="goldContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::GOLD, limit: 5 %>
+    </div>
+    
+    <div id="silverContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::SILVER, limit: 5 %>
+    </div>
+    
+    <div id="bronzeContent" class="biggestPrizePoolsContent">
+      <%= render "shared/big_prizes_for_league", league: Tournament::BRONZE, limit: 5 %>
+    </div>
+  </div>
+</div>

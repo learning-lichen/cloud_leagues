@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20120303062107) do
     t.string   "reddit_name"
     t.string   "character_name"
     t.string   "character_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "role",           :default => 0
     t.integer  "race",                          :null => false
     t.integer  "league",                        :null => false
@@ -31,23 +31,23 @@ ActiveRecord::Schema.define(:version => 20120303062107) do
     t.string   "recipient_id",                    :null => false
     t.string   "message",                         :null => false
     t.boolean  "read",         :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "chat_profiles", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.string   "chat_id",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "match_links", :force => true do |t|
     t.integer  "match_id"
     t.integer  "next_match_id"
     t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "match_player_relations", :force => true do |t|
@@ -55,29 +55,29 @@ ActiveRecord::Schema.define(:version => 20120303062107) do
     t.integer  "match_id",                             :null => false
     t.boolean  "accepted",          :default => false
     t.boolean  "contested",         :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "matches", :force => true do |t|
     t.integer  "tournament_id", :null => false
     t.integer  "winner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "replays", :force => true do |t|
     t.integer  "match_id",    :null => false
     t.string   "replay_url",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "uploader_id"
   end
 
   create_table "tournaments", :force => true do |t|
     t.integer  "league",            :default => 0,     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.datetime "start_time",                           :null => false
     t.integer  "max_players",       :default => 20,    :null => false
     t.string   "type",                                 :null => false
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(:version => 20120303062107) do
     t.integer  "tournament_id",                      :null => false
     t.integer  "user_id",                            :null => false
     t.boolean  "player_accepted", :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
 end

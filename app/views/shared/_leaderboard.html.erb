@@ -1,0 +1,34 @@
+<div id="leaderboard">
+  <div class="ribbonTitle">
+    LEADERBOARDS
+  </div>
+
+  <div class="ribbonFold">
+    <%= image_tag "big_ribbon_fold.png" %>
+  </div>
+  
+  <div class="sidebarLeft">
+    <% if top_players.empty? %>
+      <div id="noTopPlayers">
+	There are no top players to display.
+      </div>
+    <% else %>
+      <div id="topPlayers">
+	<% top_players.each do |player_id| %>
+	  <div class="topPlayerRow">
+	    <div class="userPortrait"></div>
+	    <div class="leaderboardUserInfo">
+	      <% user = User.find_by_id(player_id) %>
+	      <% win_loss_array = user.win_loss_array %>
+	      <%= link_to user.login, user_path(user) %>
+	      <div class="leaderboardUserStats">
+		Wins - <%= win_loss_array[0] %> |
+		Losses - <%= win_loss_array[1] %>
+	      </div>
+	    </div>
+	  </div>
+	<% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
