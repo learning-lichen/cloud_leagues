@@ -32,6 +32,109 @@
     label { padding-right: 6px; }
 }
 
+#tournamentQuickInfo {
+    display: inline-block;
+    vertical-align: top;
+
+    width: 135px;
+    margin-top: 10px;
+    padding: 15px;
+
+    background-color: #FFFFFF;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #BCBCBC;
+    
+    #hideShowQuickInfo {
+	display: inline-block;
+	vertical-align: top;
+	text-align: right;
+
+	margin-left: 15px;
+	margin-top: 5px;
+	font-size: 10px;
+    }
+
+    #quickInfoContainer {
+	display: none;
+
+	table {
+	    width: 135px;
+	    font-size: 12px;
+	    
+	    tr td {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #222222;
+	    }
+	}
+    }
+    
+    h2 {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 18px;
+    }
+}
+
+#tournamentPlayerList {
+    display: inline-block;
+    vertical-align: top;
+    
+    width: 135px;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 15px;
+
+    background-color: #FFFFFF;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #BCBCBC;
+
+    width: 430px;
+
+    #hideShowPlayerList {
+	display: inline-block;
+	vertical-align: top;
+	text-align: right;
+	
+	margin-left: 15px;
+	margin-top: 5px;
+	font-size: 10px;
+    }
+
+    #playerListContainer {
+	display: none;
+
+	table { 
+	    margin-top: 4px;
+
+	    tr .playerListEntry { 
+		display: inline-block; 
+		width: 86px;
+		
+		margin: 0;
+		border: 0;
+		padding: 0;
+
+		padding-top: 4px;
+		padding-bottom: 4px;
+		
+		text-align: center;
+		font-size: 12px; 
+	    }
+	}
+    }
+
+    h2 {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 18px;
+    }
+}
+
 .tournamentPanel {
     background-color: #FFF;
     border-bottom: 1px solid #222;

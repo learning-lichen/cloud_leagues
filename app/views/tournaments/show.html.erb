@@ -1,48 +1,79 @@
-<h1><%= "Tournament \##{@tournament.id}" %></h1>
-<p>For: <%= Tournament::LEAGUES[@tournament.league] %> League</p>
-<p>Format: <%= @tournament.type %></p>
-<p>Start Time: <%= @tournament.start_time %></p>
-<p>
-  <%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %>
-  <%= button_to "Delete Tournament", { action: :destroy, id: @tournament.id }, method: :delete if can?(:destroy, @tournament) %>
-</p>
+<h1 id="tournamentHeader"><%= @tournament.name %></h1>
 
-<h2>Waiting Players</h2>
-<% if can?(:create, new_player(@tournament, current_user)) %>
-  <%= button_to "Join Tournament", {
-        controller: :waiting_players,
-        action: :create,
-        tournament_id: @tournament.id
-      }
-  %>
-<% end %>
+<% player = current_user_player || new_player(@tournament, current_user) %>
 
-<ul>
-  <% @tournament.waiting_players.each do |player| %>
-    <li>
-      <%= player.user.login %><br />
-      <%= player.player_accepted ? "Accepted" : "Not Accepted Yet" %>
+<div class="actionLinksContainer">
+  <div class="actionLinks">
+    <%= link_to "View Full Bracket", "#_" %>
+    <%= link_to "Join Tournament", tournament_waiting_players_path(@tournament), method: :post, waiting_player: player.to_json if can?(:create, player) && player.new_record?%>
+    <%= link_to "Leave Tournament", tournament_waiting_player_path(@tournament, player), method: :delete if can?(:destroy, player) && !player.id.nil? %>
+  </div>
+</div>
 
-      <% if can?(:update, player) && !player.player_accepted %>
-        <%= button_to "Accept Player", { 
-	      controller: :waiting_players, 
-	      action: :update,
-	      tournament_id: @tournament.id,
-              id: player.id,
-	      waiting_player: { player_accepted: true }
-	    }, method: :put
-        %>
-      <% end %>
+<div class="inlineBlockContainer">
+  <div id="tournamentQuickInfo">
+    <h2>Quick Info</h2>
+    <a href="#_" id="hideShowQuickInfo">Show</a>
+    <div id="quickInfoContainer">
+      <table>
+	<tr><td style="text-align: center;">
+	    <% leagues = Tournament::LEAGUES.keys %>
+	    <% leagues.delete(Tournament::ALL) %>
+	    <% leagues.each do |league| %>
+	      <%= image_tag image_for_league(league) if @tournament.league & league > 0 %>
+	      <% end %>
+	</td></tr>
+	<tr><td>
+	    Starts In: <b><%= to_time_remaining @tournament.start_time %></b>
+	</td></tr>
+	<tr><td>
+	    Spots Open: <b><%= @tournament.open_spots %></b>
+	</td></tr>
+	<tr><td style="border-bottom: 0;">
+	    Prize Pool: <b>$<%= @tournament.prize %></b>
+	</td></tr>
+      </table>
+    </div>
+  </div>
+  
+  <div id="tournamentPlayerList">
+    <h2>Player List</h2>
+    <a href="#_" id="hideShowPlayerList">Show</a>
+    <div id="playerListContainer">
+      <table>
+	<% player_count = 0 %>
+	<% accepted_players = @tournament.waiting_players.where(player_accepted: true) %>
+	<% accepted_players.each do |player| %>
+	  <% if player_count % 5 == 0 %><tr><% end %>
+          <% player_count += 1 %>
+	  <% cell_class = player_count.even? ? "lightCell" : "darkCell" %>
+          <td class="playerListEntry <%= cell_class %>"><%= player.user.login %></td>
+	  <% if player_count % 5 == 0 %></tr><% end %>
+	<% end %>
+	<% if accepted_players.length % 5 != 0 %></tr><% end %>
 
-      <% if can?(:destroy, player) %>
-        <%= button_to "Remove Player", {
-	      controller: :waiting_players,
-	      action: :destroy,
-	      tournament_id: @tournament.id,
-	      id: player.id
-	    }, method: :delete
-	%>
-      <% end %>
-    </li>
+	<% player_count = 0 %>
+	<% @tournament.open_spots.times do %>
+	  <% if player_count % 5 == 0 %><tr><% end %>
+          <% player_count += 1 %>
+	  <% cell_class = player_count.even? ? "lightCell" : "darkCell" %>
+          <td class="playerListEntry <%= cell_class %>">Open Spot</td>
+	  <% if player_count % 5 == 0 %></tr><% end %>
+        <% end %>
+	<% if accepted_players.length % 5 != 0 %></tr><% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="tournamentPanel">
+  <h2>Tournament Bracket</h2>
+
+  <% if @tournament.started? %>
+    <%= render "partial_bracket" %>
+  <% else %>
+    <div class="noTournamentsMessage">
+      Brackets will be generated once the tournament starts.
+    </div>
   <% end %>
-</ul>
+</div>

@@ -4,7 +4,7 @@
 <% if league == Tournament::ALL %>
   <% tournaments = Tournament.where("league = ? AND registration_time < ? AND start_time > ?", Tournament::ALL, Time.now, Time.now).limit(5) %>
 <% else %>
-  <% tournaments = Tournament.where("league & ? = ? AND league != ? AND registration_time < ? AND start_time > ?", league, league, Tournament::ALL, Time.now, Time.now).limit(5) %>
+  <% tournaments = Tournament.where("league & ? > 0 AND league != ? AND registration_time < ? AND start_time > ?", league, Tournament::ALL, Time.now, Time.now).limit(5) %>
 <% end %>
 
 <% tournament_count = 0 %>

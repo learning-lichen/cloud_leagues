@@ -1,4 +1,4 @@
-//= require modernizr-2.0.6.min
+//= require modernizr
 //= require jquery
 //= require jquery_ujs
 //= require shared
