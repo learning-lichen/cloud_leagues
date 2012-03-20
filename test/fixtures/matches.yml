@@ -10,3 +10,7 @@ all_match_two:
   id: 3
   tournament_id: 1
   winner_id: 4
+
+master_match_one:
+  id: 4
+  tournament_id: 3

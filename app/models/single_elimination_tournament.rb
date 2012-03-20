@@ -51,12 +51,14 @@ class SingleEliminationTournament < Tournament
   def add_player(waiting_player)
     waiting_player.player_accepted = true
       
-    if waiting_player.save
+    if waiting_player.valid?
+      waiting_player.update_column :player_accepted, true
+
+      match = find_match_for_new_player
       new_players_relation = find_match_for_new_player.match_player_relations.build
       new_players_relation.waiting_player_id = waiting_player.id
       
-      waiting_player.player_accepted = false unless new_players_relation.save
-      waiting_player.save and return false if waiting_player.player_accepted_changed?
+      waiting_player.update_column(player_accepted, false) unless new_players_relation.save
     end
 
     true

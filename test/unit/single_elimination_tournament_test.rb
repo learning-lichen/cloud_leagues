@@ -35,7 +35,6 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
     new_player = master_tournament.waiting_players.build
     new_player.user_id = mod_user.id
     new_player.save
-    master_tournament.add_player(new_player)
 
     assert_equal 1, new_player.matches.length
   end

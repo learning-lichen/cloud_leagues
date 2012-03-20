@@ -16,12 +16,12 @@
     <a href="#_" id="hideShowQuickInfo">Show</a>
     <div id="quickInfoContainer">
       <table>
-	<tr><td style="text-align: center;">
+	<tr><td style="text-align: center; padding-left: 0;">
 	    <% leagues = Tournament::LEAGUES.keys %>
 	    <% leagues.delete(Tournament::ALL) %>
 	    <% leagues.each do |league| %>
 	      <%= image_tag image_for_league(league) if @tournament.league & league > 0 %>
-	      <% end %>
+	    <% end %>
 	</td></tr>
 	<tr><td>
 	    Starts In: <b><%= to_time_remaining @tournament.start_time %></b>
@@ -50,18 +50,41 @@
           <td class="playerListEntry <%= cell_class %>"><%= player.user.login %></td>
 	  <% if player_count % 5 == 0 %></tr><% end %>
 	<% end %>
-	<% if accepted_players.length % 5 != 0 %></tr><% end %>
+	<% if accepted_players.length % 5 != 0 && @tournament.open_spots == 0 %></tr><% end %>
 
-	<% player_count = 0 %>
 	<% @tournament.open_spots.times do %>
 	  <% if player_count % 5 == 0 %><tr><% end %>
           <% player_count += 1 %>
-	  <% cell_class = player_count.even? ? "lightCell" : "darkCell" %>
+	  <% cell_class = "openSpot" %>
+	  <% cell_class += player_count.even? ? " lightCell" : " darkCell" %>
           <td class="playerListEntry <%= cell_class %>">Open Spot</td>
 	  <% if player_count % 5 == 0 %></tr><% end %>
         <% end %>
 	<% if accepted_players.length % 5 != 0 %></tr><% end %>
       </table>
+
+      <% waiting_list = @tournament.waiting_players.where(player_accepted: false) %>
+      <% if !waiting_list.empty? %>
+        <h3>Waiting List</h3>
+        <table>
+	 <% player_count = 0 %>
+	 <% waiting_list.each do |waiter| %>
+	   <% if player_count % 5 == 0 %><tr><% end %>
+	   <% player_count += 1 %>
+	   <% cell_class = player_count.even? ? "lightCell" : "darkCell" %>
+	   <td class="waitingListEntry <%= cell_class %>"><%= waiter.user.login %></td>
+	   <% if player_count % 5 == 0 %></tr><% end %>
+	 <% end %>
+
+	 <% remaining_cells = (5 - (player_count % 5)) % 5 %>
+	 <% remaining_cells.times do %>
+	   <% player_count += 1 %>
+	   <% cell_class = player_count.even? ? "lightCell" : "darkCell" %>
+	   <td class="waitingListEntry openSpot <%= cell_class %>">N/A</td>
+	 <% end %>
+	 <% if remaining_cells > 0 %></tr><% end %>
+	</table>
+      <% end %>
     </div>
   </div>
 </div>

@@ -13,6 +13,9 @@ class WaitingPlayer < ActiveRecord::Base
   validate :validate_users_league
   validate :validate_player_acceptance
 
+  # Callbacks
+  after_create :notify_tournament_of_add
+
   # Attribute Whitelists
   attr_accessible :player_accepted, :user_id, as: :moderator
   attr_accessible :player_accepted, :user_id, as: :admin
@@ -30,5 +33,9 @@ class WaitingPlayer < ActiveRecord::Base
     if (player_accepted_changed? && player_accepted) || (new_record? && player_accepted)
       errors.add :player_accepted, 'too many' if tournament.waiting_players.where(player_accepted: true).length >= tournament.max_players
     end
+  end
+
+  def notify_tournament_of_add
+    tournament.add_player(self)
   end
 end

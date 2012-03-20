@@ -49,6 +49,19 @@ class Tournament < ActiveRecord::Base
     [0, max_players - waiting_players.where(player_accepted: true).count].max
   end
 
+  def starting_matches
+    match_list = matches
+    start_matches = matches
+    
+    match_list.each do |match|
+      match.match_links.each do |match_link|
+        start_matches = start_matches.where("id != ?", match_link.next_match_id)
+      end
+    end
+    
+    start_matches
+  end
+
   protected
   def create_structure
     raise ActiveRecord::Rollback unless self.becomes(type.constantize).create_structure
@@ -97,19 +110,6 @@ class Tournament < ActiveRecord::Base
 
   def destroy_structure
     matches.each { |match| match.destroy }
-  end
-
-  def starting_matches
-    match_list = matches
-    start_matches = matches
-    
-    match_list.each do |match|
-      match.match_links.each do |match_link|
-        start_matches.delete_if { |x| x.id == match_link.next_match_id }
-      end
-    end
-    
-    start_matches
   end
 
   def validate_waiting_players

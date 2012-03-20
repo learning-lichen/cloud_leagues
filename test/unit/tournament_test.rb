@@ -272,4 +272,16 @@ class TournamentTest < ActiveSupport::TestCase
       gm_tournament.save
     end
   end
+
+  test "starting matches" do
+    all_tournament = tournaments(:all_tournament)
+    gm_tournament = tournaments(:grand_master_tournament)
+    empty_tournament = tournaments(:empty_tournament)
+    
+    first_all_match = matches(:all_match_one)
+
+    assert_equal 2, all_tournament.starting_matches.length
+    assert_equal 1, gm_tournament.starting_matches.length
+    assert_equal 0, empty_tournament.starting_matches.length
+  end
 end
