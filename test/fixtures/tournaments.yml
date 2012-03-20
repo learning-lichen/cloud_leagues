@@ -2,7 +2,7 @@ all_tournament:
   id: 1
   league: <%= Tournament::ALL %>
   type: SingleEliminationTournament
-  start_time: <%= Time.now %>
+  start_time: <%= 1.hours.from_now %>
   registration_time: <%= 2.hours.ago %>
   max_players: 20
   name: All Tournament
@@ -46,4 +46,14 @@ full_tournament:
   registration_time: <%= 1.hours.ago %>
   max_players: 1
   name: Full Tournament
+  prize: 0
+
+started_tournament:
+  id: 6
+  league: <%= Tournament::ALL %>
+  type: SingleEliminationTournament
+  start_time: <%= 1.hours.ago %>
+  registration_time: <%= 2.hours.ago %>
+  max_players: 16
+  name: Started Tournament
   prize: 0

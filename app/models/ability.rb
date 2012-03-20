@@ -18,7 +18,7 @@ class Ability
 
       # Certain features require account information.
       if user.account_information
-        can :create, WaitingPlayer, valid?: true, user_id: user.id
+        can :create, WaitingPlayer, valid?: true, user_id: user.id, tournament: { started?: false }
         can :destroy, WaitingPlayer, user_id: user.id
       end
       

@@ -432,6 +432,19 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.cannot?(:create, new_player)
   end
 
+  test "member cannot create waiting player for started tournament" do
+    default_user = users(:default_user)
+    ability = Ability.new(default_user)
+
+    started_tournament = tournaments(:started_tournament)
+    new_player = started_tournament.waiting_players.build
+    new_player.user_id = default_user.id
+
+    assert started_tournament.valid?
+    assert started_tournament.started?
+    assert ability.cannot?(:create, new_player)
+  end
+
   test "memeber cannot update waiting player" do
     ability = Ability.new(users(:default_user))
 
