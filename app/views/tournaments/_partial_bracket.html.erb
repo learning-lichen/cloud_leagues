@@ -1,5 +1,39 @@
-<% number_of_levels = Math.log2(@tournament.max_players).ceil %>
+<%
+  content_width = 650
+  number_width = 30
+  title_padding = 15
+  number_of_rounds = Math.log2(@tournament.max_players).ceil 
+
+  total_selection_width = (number_width + 2) * number_of_rounds
+  title_width = (content_width - total_selection_width) / 2 - title_padding
+  after_width = content_width - (total_selection_width + title_width) - title_padding - 1
+%>
 
 <div id="partialBracketContainer">
-  Hello
+  <div id="roundSelector">
+    <div id="roundSelectionTitle" style="width: <%= title_width %>px;">
+      Round #
+    </div>
+
+    <% for i in 1..number_of_rounds %>
+      <div class="roundSelectionNumber" id="round<%= i %>" style="width: <%= number_width %>px;">
+	<%= i %>
+      </div>
+    <% end %>
+
+    <div id="afterSelectionNumbers" style="width: <%= after_width %>px;">
+      &nbsp;
+    </div>
+  </div>
+
+  <div id="partialBracketDisplay">
+    <% levels = match_levels @tournament %>
+    <% for i in 1..number_of_rounds %>
+      <div id="round<%= i %>Content" class="roundContent">
+	<% levels[i - 1].each do |match| %>
+	  <%= render "match", match: match %>
+	<% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

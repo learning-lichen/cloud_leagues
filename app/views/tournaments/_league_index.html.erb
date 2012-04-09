@@ -2,16 +2,17 @@
    league ||= Tournament::ALL
 %>
 <% if league == Tournament::ALL %>
-  <% tournaments = Tournament.where("league = ? AND registration_time < ? AND start_time > ?", Tournament::ALL, Time.now, Time.now).limit(5) %>
+  <% tournaments = Tournament.where("league = ? AND registration_time < ?", Tournament::ALL, Time.now).order("start_time DESC").limit(5) %>
 <% else %>
-  <% tournaments = Tournament.where("league & ? > 0 AND league != ? AND registration_time < ? AND start_time > ?", league, Tournament::ALL, Time.now, Time.now).limit(5) %>
+  <% tournaments = Tournament.where("league & ? > 0 AND league != ? AND registration_time < ?", league, Tournament::ALL, Time.now).order("start_time DESC").limit(5) %>
 <% end %>
 
 <% tournament_count = 0 %>
 <% tournaments.each do |tournament| %>
   <% tournament_count += 1 %>
   <div class="tournamentRow <%= tournament_count % 2 == 0 ? "lightRow" : "darkRow" %>">
-    <div class="tournamentAttribute tournamentStartTime"><%= to_time_remaining tournament.start_time %></div>
+    <% start_time = tournament.start_time < Time.now ? "X" : to_time_remaining(tournament.start_time) %>
+    <div class="tournamentAttribute tournamentStartTime"><%= start_time %></div>
     <div class="tournamentAttribute tournamentOpenSpots"><%= tournament.open_spots %></div>
     <div class="tournamentAttribute tournamentPrize">$<%= tournament.prize %></div>
     <div class="tournamentAttribute tournamentName"><%= link_to tournament.name, tournament_path(tournament) %></div>

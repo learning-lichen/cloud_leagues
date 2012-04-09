@@ -1,0 +1,18 @@
+<div class="matchDisplay">
+  <% player_relations = match.match_player_relations %>
+  <div class="matchPlayer top">
+    <% if player_relations[0] %>
+      <%= player_relations[0].waiting_player.user.login %>
+    <% else %>
+      TDB
+    <% end %>
+  </div>
+	    
+  <div class="matchPlayer">
+    <% if player_relations[1] %>
+      <%= player_relations[1].waiting_player.user.login %>
+    <% else %>
+      TDB
+    <% end %>
+  </div>
+</div>

@@ -13,7 +13,7 @@
 <div class="inlineBlockContainer">
   <div id="tournamentQuickInfo">
     <h2>Quick Info</h2>
-    <a href="#_" id="hideShowQuickInfo">Show</a>
+    <a href="javascript:void(0)" id="hideShowQuickInfo">Show</a>
     <div id="quickInfoContainer">
       <table>
 	<tr><td style="text-align: center; padding-left: 0;">
@@ -38,7 +38,7 @@
   
   <div id="tournamentPlayerList">
     <h2>Player List</h2>
-    <a href="#_" id="hideShowPlayerList">Show</a>
+    <a href="javascript:void(0)" id="hideShowPlayerList">Show</a>
     <div id="playerListContainer">
       <table>
 	<% player_count = 0 %>
@@ -89,7 +89,8 @@
   </div>
 </div>
 
-<div class="tournamentPanel">
+<% style = @tournament.started? ? "padding-bottom: 0px;" : "" %>
+<div class="tournamentPanel" style="<%= style %>">
   <h2>Tournament Bracket</h2>
 
   <% if @tournament.started? %>

@@ -8,7 +8,7 @@ module TournamentsHelper
 
   def to_time_remaining(tournament_start_time)
     secs_remaining = (tournament_start_time - Time.now).to_i
-    neg_flag = secs_remaining < 0 ? '-' : ''
+    neg_flag = secs_remaining < 0 ? ' ago' : ''
     secs_remaining = secs_remaining.abs
 
     mins_remaining = secs_remaining / 60
@@ -16,17 +16,40 @@ module TournamentsHelper
     days_remaining = hours_remaining / 24
 
     if days_remaining > 0 
-      "#{neg_flag}#{days_remaining}d"
+      "#{days_remaining}d#{neg_flag}"
     elsif hours_remaining > 0
-      "#{neg_flag}#{hours_remaining}h"
+      "#{neg_flag}#{hours_remaining}h#{neg_flag}"
     elsif mins_remaining > 0
-      "#{neg_flag}#{mins_remaining}m"
+      "#{neg_flag}#{mins_remaining}m#{neg_flag}"
     else secs_remaining >= 0
-      "< 1m"
+      "< 1m#{neg_flag}"
     end
   end
 
   def image_for_league(league_id)
     "#{Tournament::LEAGUES[league_id].gsub(/ /, '_').underscore}.png"
+  end
+
+  def match_levels(tournament)
+    num_levels = Math.log2(tournament.max_players).ceil
+    levels = []
+    
+    levels.push tournament.starting_matches
+    last_levels = levels[0]
+    
+    (num_levels - 1).times do 
+      new_levels = last_levels.map do |match|
+        match.match_links.map do |ml|
+          Match.find ml.next_match_id
+        end
+      end
+
+      new_levels.flatten!
+      new_levels = new_levels | new_levels
+      levels.push new_levels
+      last_levels = new_levels
+    end
+
+    levels
   end
 end
