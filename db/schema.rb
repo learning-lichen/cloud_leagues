@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410005550) do
+ActiveRecord::Schema.define(:version => 20120410160841) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20120410005550) do
     t.string   "chat_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "maps", :force => true do |t|
+    t.string   "name",                         :null => false
+    t.string   "image_url",    :default => "", :null => false
+    t.string   "download_url",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "match_links", :force => true do |t|

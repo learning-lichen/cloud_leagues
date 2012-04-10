@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   before_validation :strip_inputs
 
   # Attribute Whitelists
-  attr_accessible :login, :email, :password, :password_confirmation, :as => :guest
-  attr_accessible :email, :password, :password_confirmation, :as => :member
-  attr_accessible :email, :password, :password_confirmation, :as => :moderator
-  attr_accessible :login, :email, :password, :password_confirmation, :as => :admin
+  attr_accessible :login, :email, :password, :password_confirmation, as: :guest
+  attr_accessible :email, :password, :password_confirmation, as: :member
+  attr_accessible :email, :password, :password_confirmation, as: :moderator
+  attr_accessible :login, :email, :password, :password_confirmation, as: :admin
 
   def role
     if new_record?

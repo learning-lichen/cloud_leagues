@@ -1,0 +1,17 @@
+shattered_temple:
+  id: 1
+  name: Shatterd Temple
+  image_url: http://shatteredtemple.com/image.jpg
+  download_url: http://shatteredtemple.com
+
+shakuras_plateau:
+  id: 2
+  name: Shakuras Plateau
+  image_url: http://shakurasplateau.com/image.jpg
+  download_url: http://shakurasplateau.com
+
+lost_temple:
+  id: 3
+  name: Lost Temple
+  image_url: http://losttemple.com/image.jpg
+  download_url: http://losttemple.com

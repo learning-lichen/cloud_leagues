@@ -1,0 +1,11 @@
+<div class="tournamentPanel" id="playerActions">
+  <h2>Player Actions</h2>
+
+  <% if !@waiting_player.player_accepted %>
+    <p>You are on the waiting list. You have no available actions.</p>
+  <% elsif !@tournament.started? %>
+    <p>You are currently registered for this tournament. You will be able to use this section once the tournament starts.</p>
+  <% else %>
+    <%= match = current_match(@tournament, @waiting_player).id %>
+  <% end %>
+</div>

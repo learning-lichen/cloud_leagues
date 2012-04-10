@@ -89,6 +89,10 @@
   </div>
 </div>
 
+<% if @waiting_player %>
+  <%= render "player_actions" %>
+<% end %>
+
 <% style = @tournament.started? ? "padding-bottom: 0px;" : "" %>
 <div class="tournamentPanel" style="<%= style %>">
   <h2>Tournament Bracket</h2>

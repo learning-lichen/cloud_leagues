@@ -7,8 +7,11 @@ class TournamentsController < ApplicationController
   end
 
   def show
+    if current_user
+      @waiting_player = current_user.waiting_players.where(tournament_id: @tournament.id).first
+    end
   end
-
+    
   def new
     @tournament = Tournament.new
   end
