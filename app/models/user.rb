@@ -67,6 +67,11 @@ class User < ActiveRecord::Base
     account_information.nil? ? nil : account_information.time_zone
   end
 
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    Notifier.deliver_password_reset_instructions(self)
+  end
+
   protected
   def strip_inputs
     login.strip! if login

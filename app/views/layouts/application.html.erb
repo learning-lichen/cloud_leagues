@@ -25,6 +25,18 @@
       </header>
       
       <div id="mainContainer">
+	<% if flash[:notice] %>
+	  <div id="noticeContainer">
+	    <div id="notice">
+	      <%= flash[:notice] %>
+	    </div>
+
+	    <div id="closeNotice">
+	      <%= link_to image_tag("close_notice.png"), "javascript:void(0)", id: "closeNoticeButton" %>
+	    </div>
+	  </div>
+	<% end %>
+
 	<div id="mainContent">
 	  <%= yield %>
 

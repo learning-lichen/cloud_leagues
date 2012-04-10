@@ -36,7 +36,7 @@ class UserSessionsControllerTest < ActionController::TestCase
     
     assert user_session = UserSession.find
     assert_equal default_user, user_session.user
-    assert_redirected_to user_path(default_user)
+    assert_redirected_to root_path
   end
 
   test "should redirect destroy for guest" do

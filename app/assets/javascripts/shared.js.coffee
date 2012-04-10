@@ -28,3 +28,7 @@ $ ->
 
         $(this).css('border-bottom', 0)
         $(content_id).css('display', 'block')
+
+$ ->
+    $('#closeNoticeButton').click ->
+        $('#noticeContainer').slideUp(500)

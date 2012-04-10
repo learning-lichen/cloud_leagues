@@ -46,6 +46,37 @@ header {
     width: $site_width + 4;
     margin: auto;
     font-size: 0;
+
+    #noticeContainer {
+	width: $site_width - 2;
+	margin-top: 5px;
+
+	border: 1px solid #FF9E74;
+	background-color: #FFF1EB;
+
+	#notice {
+	    width: $site_width - 55;
+	    display: inline-block;
+	    padding: 15px;
+
+	    font-size: 12px;
+	    color: #E37241;
+	}
+
+	#closeNotice {
+	    display: inline-block;
+	    vertical-align: top;
+	    margin-top: 5px;
+	    margin-left: 5px;
+
+	    font-size: 12px;
+
+	    a { 
+		display: block; 
+		&:focus { outline: 0; }
+	    }
+	}
+    }
 }
 
 #mainContent {

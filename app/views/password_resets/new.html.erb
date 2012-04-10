@@ -1,0 +1,22 @@
+<% title "Forgotten Password" %>
+<div id="lostPasswordTitle">
+  <h1>Lost Password?</h1>
+  <h2>Let us find that for you.</h2>
+</div>
+
+<div id="lostPassword">
+  <h2>Enter Your Email</h2>
+  
+  <%= form_tag password_resets_path do %>
+    <fieldset>
+      <table>
+	<tr>
+	  <td><%= label_tag :email, "Email" %></td>
+	  <td><%= email_field_tag :email %></td>
+	</tr>
+      </table>
+
+      <%= submit_tag "Submit", id: "submitButton" %>
+    </fieldset>
+  <% end %>
+</div>

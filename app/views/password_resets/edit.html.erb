@@ -1,0 +1,27 @@
+<% title "Reset Your Password" %>
+<div id="lostPasswordTitle">
+  <h1>Reset Your Password</h1>
+  <h2>We're glad we didn't lose you</h2>
+</div>
+
+<div id="lostPassword">
+  <h2>Enter Your New Password</h2>
+
+  <%= form_tag password_resets_path, method: :put do %>
+    <fieldset>
+      <table>
+	<tr>
+	  <td><%= label_tag :password, "Password" %></td>
+	  <td><%= password_field_tag :password %></td>
+	</tr>
+
+	<tr>
+	  <td><%= label_tag :password_confirmation, "Confirm Password" %></td>
+	  <td><%= password_field_tag :password_confirmation %></td>
+	</tr>
+      </table>
+
+      <%= submit_tag "Submit", id: "submitButton" %>
+    </fieldset>
+  <% end %>
+</div>

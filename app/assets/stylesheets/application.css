@@ -6,5 +6,6 @@
  *= require user_sessions
  *= require tournaments
  *= require account_informations
+ *= require password_resets
  *= require application_bottom
 */
