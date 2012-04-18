@@ -33,7 +33,9 @@ class TournamentsControllerTest < ActionController::TestCase
         registration_time: registration_time,
         name: 'New Tournament',
         league: {Tournament::ALL => 1},
-        prize: 123}
+        prize: 123,
+        map_lists_attributes: [{map_id: 1, map_order: 1}]
+      }
     end
     assert_not_nil tournament = Tournament.find_by_start_time(start_time)
     assert_redirected_to tournament_path(tournament)

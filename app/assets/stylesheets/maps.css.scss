@@ -1,0 +1,55 @@
+#mapHeader {
+    margin-bottom: 7px;
+}
+
+#newMap {
+    background-color: #FFF;
+    border-bottom: 1px solid #222;
+
+    padding: 15px;
+    margin-top: 15px;
+
+    label { padding-right: 6px; }
+}
+
+#editMap {
+    background-color: #FFF;
+    border-bottom: 1px solid #222;
+
+    padding: 15px;
+    margin-top: 15px;
+
+    label { padding-right: 6px; }
+}
+
+.mapPanel {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #222222;
+
+    padding-top: 15px;
+    margin-top: 20px;
+
+    h2 {
+	margin-top: 0;
+	margin-left: 15px;
+    }
+
+    .mapInformation {
+	margin-left: 15px;
+	margin-bottom: 15px;
+    }
+
+    .mapRow {
+	padding: 10px;
+    }
+
+    .lightRow {
+	background-color: #F1F1F1;
+	border-left: 7px solid #FFFFFF;
+    }
+
+    .darkRow {
+	background-color: #E3E3E3;
+	border-left: 7px solid #DBDBDB;
+    }
+}

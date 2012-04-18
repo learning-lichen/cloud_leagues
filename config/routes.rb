@@ -12,5 +12,7 @@ CloudLeagues::Application.routes.draw do
     resources :waiting_players, only: [:create, :update, :destroy], path: :players
   end
 
+  resources :maps
+
   root to: 'home#index'
 end

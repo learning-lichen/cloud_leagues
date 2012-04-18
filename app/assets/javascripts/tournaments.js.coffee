@@ -39,3 +39,63 @@ $ ->
         $(this).addClass('roundSelected')
         $('.roundContentSelected').toggleClass('roundContentSelected')
         $('#' + this.id + 'Content').toggleClass('roundContentSelected')
+
+    if $('.activeMapListRow').length == 1
+        $('.removeMapList').css('display', 'none')
+
+    $('.removeMapList').click ->
+        $(this).prev('input[type=hidden]').val('1')
+        $(this).closest('tr').fadeOut(250)
+        $(this).closest('tr').removeClass('activeMapListRow')
+        $(this).closest('tr').addClass('removedMapListRow')
+
+        if $('.activeMapListRow').length == 1
+            $('.activeMapListRow .removeMapList').fadeOut(250)
+
+        # Rename / reorder all of the active maps.
+        counter = 1
+        $('.activeMapListRow').each ->
+            label_column = $(this).children('.labelColumn')
+            label_column.children('input[type=hidden]').val(counter)
+            label_column.children('label').text('Map ' + counter)
+            counter += 1
+
+        if $('.activeMapListRow').length < 20
+            $('#addMapListRow').css('display', 'inline')
+
+    if $('.activeMapListRow').length == 20
+        $('#addMapListRow').css('display', 'none')
+
+    $('#addMapList').click ->
+        $('.activeMapListRow .removeMapList').css('display', 'inline')
+        row_num = $('.mapListRow').length
+        active_num = $('.activeMapListRow').length + 1
+        row = $('.activeMapListRow').first().clone(true)
+
+        label_column = row.children('.labelColumn')
+        select_column = row.children('.selectColumn')
+
+        label = label_column.children('label')
+        label.text('Map ' + active_num)
+        label.attr('for', label.attr('for').replace(/_[0-9]*_/, '_' + row_num + '_'))
+
+        map_order = label_column.children('input[type=hidden]')
+        map_order.val(active_num)
+        map_order.attr('id', map_order.attr('id').replace(/_[0-9]*_/, '_' + row_num + '_'))
+        map_order.attr('name', map_order.attr('name').replace(/\[[0-9]*\]/, '[' + row_num + ']'))
+
+        select_menu = select_column.children('select')
+        select_menu.attr('id', select_menu.attr('id').replace(/_[0-9]*_/, '_' + row_num + '_'))
+        select_menu.attr('name', select_menu.attr('name').replace(/\[[0-9]*\]/, '[' + row_num + ']'))
+
+        del_field = select_column.children('input[type=hidden]')
+        del_field.val(active_num)
+        del_field.attr('id', del_field.attr('id').replace(/_[0-9]*_/, '_' + row_num + '_'))
+        del_field.attr('name', del_field.attr('name').replace(/\[[0-9]*\]/, '[' + row_num + ']'))
+
+        row.css('display', 'none')
+        $(row).insertBefore($('#addMapListRow'))
+        row.fadeIn(250)
+
+        if $('.activeMapListRow').length == 20
+            $('#addMapListRow').fadeOut(250)

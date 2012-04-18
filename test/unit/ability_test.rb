@@ -511,4 +511,103 @@ class AbilityTest < ActiveSupport::TestCase
 
     assert ability.can?(:destroy, WaitingPlayer)
   end
+
+  ##############################################################################
+  # Map Modification Abilities                                                 #
+  ##############################################################################
+  test "guest can read maps" do
+    ability = Ability.new(nil)
+
+    assert ability.can?(:read, Map)
+  end
+
+  test "guest cannot create maps" do
+    ability = Ability.new(nil)
+
+    assert ability.cannot?(:create, Map)
+  end
+
+  test "guest cannot update maps" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:update, Map)
+  end
+
+  test "guest cannot destroy maps" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:destroy, Map)
+  end
+
+  test "member can read maps" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.can?(:read, Map)
+  end
+
+  test "member cannot create maps" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.cannot?(:create, Map)
+  end
+
+  test "member cannot update maps" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.cannot?(:update, Map)
+  end
+
+  test "member cannot destroy maps" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.cannot?(:destroy, Map)
+  end
+
+  test "moderator can read maps" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.can?(:read, Map)
+  end
+
+  test "moderator cannot create maps" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.cannot?(:create, Map)
+  end
+
+  test "moderator cannot update maps" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.cannot?(:update, Map)
+  end
+
+  test "moderator cannot destroy maps" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.cannot?(:destroy, Map)
+  end
+
+  test "admin can read maps" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:read, Map)
+  end
+
+  test "admin cannot create maps" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:create, Map)
+  end
+
+  test "admin cannot update maps" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:update, Map)
+  end
+
+  test "admin cannot destroy maps" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:destroy, Map)
+  end
 end

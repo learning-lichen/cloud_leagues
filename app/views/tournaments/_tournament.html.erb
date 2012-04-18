@@ -1,5 +1,9 @@
-<% @tournament = @tournament.becomes(Tournament) %>
-<%= form_for @tournament do |form| %>
+<% 
+  options = {}
+  options[:url] = tournament_path @tournament unless @tournament.new_record?
+%>
+
+<%= form_for @tournament, options do |form| %>
   <%= render "shared/error_messages", target: @tournament %>
   
   <fieldset>
@@ -7,7 +11,8 @@
       <tr>
 	<td><%= form.label :name, "Name" %></td>
 	<td><%= form.text_field :name %></td>
-
+      </tr>
+      
       <tr>
 	<td><%= form.label :league, "League" %></td>
 	<td>
@@ -49,6 +54,23 @@
       <tr>
 	<td><%= form.label :prize, "Prize ($)" %></td>
 	<td><%= form.text_field :prize %></td>
+      </tr>
+
+      <%= form.fields_for :map_lists do |builder| %>
+      <tr class="mapListRow activeMapListRow">
+	<td class="labelColumn">
+	  <%= builder.hidden_field :map_order %>
+	  <%= builder.label :map_id, "Map #{builder.object.map_order}" %>
+	</td>
+	<td class="selectColumn">
+	  <%= builder.select :map_id, Map.all.collect { |m| [m.name, m.id] }, { include_blank: 'Select Map' } %>
+	  <%= builder.hidden_field :_destroy %>
+	  <%= link_to "Remove", "javascript:void(0)", class: "removeMapList" %>
+	</td>
+      </tr>
+      <% end %>
+      <tr id="addMapListRow">
+	<td></td><td><%= link_to "Add Map", "javascript:void(0)", id: "addMapList" %></td>
       </tr>
     </table>
 

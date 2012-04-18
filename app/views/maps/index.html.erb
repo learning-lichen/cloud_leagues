@@ -1,0 +1,15 @@
+<% title "Map List" %>
+<h1>Map List</h1>
+
+<div class="mapPanel">
+  <h2>Listing All Maps</h2>
+
+  <% map_count = 0 %>
+  <% @maps.each do |map| %>
+    <% map_count += 1 %>
+
+    <div class="mapRow <%= map_count % 2 == 0 ? "lightRow" : "darkRow" %>">
+      <%= link_to map.name, map_path(map) %>
+    </div>
+  <% end %>
+</div>

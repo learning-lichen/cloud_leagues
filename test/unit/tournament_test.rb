@@ -42,7 +42,8 @@ class TournamentTest < ActiveSupport::TestCase
       registration_time: Time.now,
       type: 'SingleEliminationTournament',
       name: 'New Tournament',
-      league: Tournament::ALL
+      league: Tournament::ALL,
+      map_lists_attributes: [{map_order: 1, map_id: 1}]
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin
@@ -64,7 +65,8 @@ class TournamentTest < ActiveSupport::TestCase
       registration_time: Time.now,
       type: 'SingleEliminationTournament',
       name: 'New Tournament',
-      league: Tournament::ALL
+      league: Tournament::ALL,
+      map_lists_attributes: [{map_order: 1, map_id: 1}]
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
     control_tournament = Tournament.new new_tournament_params, as: :admin
@@ -137,6 +139,13 @@ class TournamentTest < ActiveSupport::TestCase
     assert !gm_tournament.valid?
   end
 
+  test "map list validations" do
+    all_tournament = tournaments(:all_tournament)
+    all_tournament.map_lists.where(map_order: 1).first.destroy
+
+    assert !all_tournament.valid?
+  end
+
   test "guest accessible attributes" do
     tournament_params = {
       league: -1,
@@ -144,7 +153,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: Time.now,
       registration_time: 1.hours.ago,
       max_players: 100,
-      prize: 123
+      prize: 123,
+      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
 
     new_tournament = Tournament.new tournament_params, as: :guest
@@ -155,6 +165,22 @@ class TournamentTest < ActiveSupport::TestCase
     assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
     assert_equal 0, new_tournament.prize
+    assert new_tournament.map_lists.empty?
+  end
+
+  test "cannot assign map lists across tournaments" do
+    map = maps :shattered_temple
+    all_tournament = tournaments :all_tournament
+    master_tournament = tournaments :master_tournament
+    old_map_num = all_tournament.map_lists.length
+
+    new_map_lists = {
+      map_lists_attributes: [{map_id: 1, map_order: old_map_num + 1, tournament_id: all_tournament.id}]
+    }
+    master_tournament.update_attributes new_map_lists, as: :admin
+    all_tournament.reload
+
+    assert_equal old_map_num, all_tournament.map_lists.length
   end
 
   test "member accessible attributes" do
@@ -164,7 +190,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: Time.now,
       registration_time: 1.hours.ago,
       max_players: 100,
-      prize: 123
+      prize: 123,
+      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
 
     new_tournament = Tournament.new tournament_params, as: :member
@@ -175,6 +202,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
     assert_equal 0, new_tournament.prize
+    assert new_tournament.map_lists.empty?
   end
 
   test "moderator accessible attributes" do
@@ -186,7 +214,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: start_time,
       registration_time: registration_time,
       max_players: 100,
-      prize: 123
+      prize: 123,
+      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
     
     new_tournament = Tournament.new tournament_params, as: :moderator
@@ -197,6 +226,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
     assert_equal 0, new_tournament.prize
+    assert_equal 1, new_tournament.map_lists.length
   end
 
   test "admin accessible attributes" do
@@ -208,7 +238,8 @@ class TournamentTest < ActiveSupport::TestCase
       start_time: start_time,
       registration_time: registration_time,
       max_players: 100,
-      prize: 123
+      prize: 123,
+      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
     
     new_tournament = Tournament.new tournament_params, as: :admin
@@ -219,6 +250,25 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
     assert_equal 123, new_tournament.prize
+    assert_equal 1, new_tournament.map_lists.length
+  end
+
+  test "map list rejected if map id is blank" do
+    start_time = Time.now
+    registration_time = 1.hours.ago
+    tournament_params = {
+      league: -1,
+      type: 'TournamentType',
+      start_time: start_time,
+      registration_time: registration_time,
+      max_players: 100,
+      prize: 123,
+      map_lists_attributes: [{ map_order: 1 }]
+    }
+    
+    new_tournament = Tournament.new tournament_params, as: :admin
+
+    assert new_tournament.map_lists.empty?
   end
 
   test "started method" do
@@ -243,6 +293,15 @@ class TournamentTest < ActiveSupport::TestCase
 
     assert_equal all_open_spots, all_tournament.open_spots
     assert_equal 0, full_tournament.open_spots
+  end
+
+  test "strip inputs" do
+    tournament = tournaments :grand_master_tournament
+    tournament.name = '   Names   '
+    tournament.save
+    tournament.reload
+
+    assert_equal 'Names', tournament.name
   end
 
   test "structure not created on arbitrary save" do

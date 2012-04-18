@@ -1,3 +1,4 @@
+<% title "Starcraft 2 Tournament - #{@tournament.name}" %>
 <h1 id="tournamentHeader"><%= @tournament.name %></h1>
 
 <% player = current_user_player || new_player(@tournament, current_user) %>
@@ -7,6 +8,7 @@
     <%= link_to "View Full Bracket", "#_" %>
     <%= link_to "Join Tournament", tournament_waiting_players_path(@tournament), method: :post, waiting_player: player.to_json if can?(:create, player) && player.new_record?%>
     <%= link_to "Leave Tournament", tournament_waiting_player_path(@tournament, player), method: :delete if can?(:destroy, player) && !player.id.nil? %>
+    <%= link_to "Edit Tournament", edit_tournament_path(@tournament) if can?(:update, @tournament) %>
   </div>
 </div>
 

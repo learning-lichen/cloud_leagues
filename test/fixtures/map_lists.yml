@@ -1,0 +1,53 @@
+all_map_one:
+  id: 1
+  map_id: 1
+  tournament_id: 1
+  map_order: 1
+
+all_map_two:
+  id: 2
+  map_id: 2
+  tournament_id: 1
+  map_order: 2
+
+all_map_three:
+  id: 3
+  map_id: 1
+  tournament_id: 1
+  map_order: 3
+
+all_map_four:
+  id: 4
+  map_id: 2
+  tournament_id: 1
+  map_order: 4
+
+gm_map_one:
+  id: 5
+  map_id: 1
+  tournament_id: 2
+  map_order: 1
+
+master_map_one:
+  id: 6
+  map_id: 1
+  tournament_id: 3
+  map_order: 1
+
+empty_map_one:
+  id: 7
+  map_id: 1
+  tournament_id: 4
+  map_order: 1
+
+full_map_one:
+  id: 8
+  map_id: 1
+  tournament_id: 5
+  map_order: 1
+
+started_map_one:
+  id: 9
+  map_id: 1
+  tournament_id: 6
+  map_order: 1

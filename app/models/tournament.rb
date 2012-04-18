@@ -23,6 +23,8 @@ class Tournament < ActiveRecord::Base
   # Associations
   has_many :waiting_players, dependent: :destroy
   has_many :matches, dependent: :destroy
+  has_many :map_lists, order: 'map_order ASC', dependent: :destroy
+  has_many :maps, through: :map_lists
   
   # Validations
   validates :league, presence: true, inclusion: { in: 1..127, message: 'is not valid' }
@@ -32,14 +34,19 @@ class Tournament < ActiveRecord::Base
   validate :validate_waiting_players
   validate :validate_type
   validate :validate_times
+  validate :validate_map_list
 
   # Callbacks
+  before_validation :strip_inputs
   after_create :create_structure
   after_update :update_structure
 
   # Attribute Whitelists
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, as: :moderator
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :prize, as: :admin
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :map_lists_attributes, as: :moderator
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :prize, :map_lists_attributes, as: :admin
+
+  # Nested Attributes
+  accepts_nested_attributes_for :map_lists, allow_destroy: true, reject_if: lambda { |a| a[:map_id].blank? }
 
   def started?
     Time.now >= start_time
@@ -63,6 +70,10 @@ class Tournament < ActiveRecord::Base
   end
 
   protected
+  def strip_inputs
+    name.strip! if name
+  end
+
   def create_structure
     raise ActiveRecord::Rollback unless self.becomes(type.constantize).create_structure
   end
@@ -145,5 +156,9 @@ class Tournament < ActiveRecord::Base
     errors.add(:start_time, 'must be in the future') and return if new_record? and start_time <= Time.now
     errors.add(:registration_time, 'must be present') and return if registration_time.nil?
     errors.add(:registration_time, 'must be before start time') and return if registration_time >= start_time
+  end
+
+  def validate_map_list
+    errors.add :map_lists, 'must have a map with order 1' if map_lists.select { |ml| ml.map_order == 1 }.empty?
   end
 end

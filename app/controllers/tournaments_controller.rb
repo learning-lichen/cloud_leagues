@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
     
   def new
     @tournament = Tournament.new
+    (1..3).each { |i| @tournament.map_lists.build.map_order = i }
   end
 
   def create

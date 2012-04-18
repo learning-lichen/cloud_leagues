@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410160841) do
+ActiveRecord::Schema.define(:version => 20120415002617) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20120410160841) do
     t.string   "chat_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "map_lists", :force => true do |t|
+    t.integer  "tournament_id", :null => false
+    t.integer  "map_id",        :null => false
+    t.integer  "map_order",     :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "maps", :force => true do |t|

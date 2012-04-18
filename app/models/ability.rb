@@ -48,5 +48,7 @@ class Ability
     can :read, AccountInformation
 
     can :read, Tournament
+
+    can :read, Map
   end
 end

@@ -1,0 +1,12 @@
+<% title "Map: #{@map.name}" %>
+<h1><%= @map.name %></h1>
+<div class="mapPanel">
+  <h2>Map Information</h2>
+
+  <table class="mapInformation">
+    <tr>
+      <td><%= image_tag @map.image_url %></td>
+      <td><%= link_to @map.download_url, "Download" %></td>
+    </tr>
+  </table>
+</div>

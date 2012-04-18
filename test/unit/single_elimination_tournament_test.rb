@@ -2,12 +2,16 @@ require 'test_helper'
 
 class SingleEliminationTournamentTest < ActiveSupport::TestCase
   test "create structure" do
-    empty_tournament = Tournament.new
-    empty_tournament.start_time = 1.hours.from_now
-    empty_tournament.registration_time = 2.hours.ago
-    empty_tournament.type = 'SingleEliminationTournament'
-    empty_tournament.name = 'New Tournament'
-    empty_tournament.league = Tournament::ALL
+    tournament_params = {
+      start_time: 1.hours.from_now,
+      registration_time: 2.hours.ago,
+      type: 'SingleEliminationTournament',
+      name: 'New Tournament',
+      league: Tournament::ALL,
+      map_lists_attributes: [{ map_id: 1, map_order: 1 }]
+    }
+
+    empty_tournament = Tournament.create tournament_params, as: :admin
     closest_power = Math.log2(empty_tournament.max_players).ceil
 
     empty_tournament.save
