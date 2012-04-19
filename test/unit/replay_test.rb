@@ -5,6 +5,7 @@ class ReplayTest < ActiveSupport::TestCase
     assert replays(:all_match_replay_one).valid?
     assert replays(:all_match_replay_two).valid?
     assert replays(:grand_master_match_replay_one).valid?
+    assert replays(:grand_master_match_replay_two).valid?
   end
 
   test "match id validations" do
@@ -26,5 +27,17 @@ class ReplayTest < ActiveSupport::TestCase
     replay.uploader_id = nil
     
     assert !replay.valid?
+  end
+
+  test "game number validations" do
+    all_replay = replays :all_match_replay_one
+    gm_replay_one = replays :grand_master_match_replay_one
+    gm_replay_two = replays :grand_master_match_replay_two
+
+    all_replay.game_number = nil
+    gm_replay_two.game_number = gm_replay_one.game_number
+
+    assert !all_replay.valid?
+    assert !gm_replay_two.valid?
   end
 end

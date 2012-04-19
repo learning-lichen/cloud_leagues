@@ -95,12 +95,21 @@ class MapsControllerTest < ActionController::TestCase
     assert_redirected_to maps_path
   end
 
-  test "should not delete tournament" do
+  test "should not delete map" do
     login :moderator_user
     map = maps(:lost_temple)
     delete :destroy, id: map.id
 
     assert_not_nil Map.find_by_id(map.id)
     assert_redirected_to root_path
+  end
+
+  test "should not delete map in use" do
+    login :admin_user
+    map = maps :shakuras_plateau
+    delete :destroy, id: map.id
+
+    assert_not_nil Map.find_by_id map.id
+    assert_redirected_to map_path(@map)
   end
 end

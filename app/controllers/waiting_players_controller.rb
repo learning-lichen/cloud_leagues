@@ -24,6 +24,10 @@ class WaitingPlayersController < ApplicationController
   
   def destroy
     @waiting_player.destroy
+
+    next_player = @tournament.waiting_players.where(player_accepted: false).first
+    @tournament.add_player next_player unless next_player.nil? || @tournament.started?
+
     redirect_to tournament_path(@tournament)
   end
 

@@ -1,4 +1,7 @@
 class Map < ActiveRecord::Base
+  # Associations
+  has_many :map_lists
+  
   # Validations
   validates :name, uniqueness: true, presence: true
   validates :download_url, uniqueness: true, presence: true

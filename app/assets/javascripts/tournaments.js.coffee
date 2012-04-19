@@ -61,19 +61,21 @@ $ ->
             counter += 1
 
         if $('.activeMapListRow').length < 20
-            $('#addMapListRow').css('display', 'inline')
+            $('#addMapListRow').fadeIn(250)
 
     if $('.activeMapListRow').length == 20
         $('#addMapListRow').css('display', 'none')
 
     $('#addMapList').click ->
-        $('.activeMapListRow .removeMapList').css('display', 'inline')
+        $('.activeMapListRow .removeMapList').first().fadeIn()
         row_num = $('.mapListRow').length
         active_num = $('.activeMapListRow').length + 1
         row = $('.activeMapListRow').first().clone(true)
 
         label_column = row.children('.labelColumn')
         select_column = row.children('.selectColumn')
+        select_column.children('.removeMapList').css('display', 'inline')
+        select_column.children('.removeMapList').css('opacity', '100')
 
         label = label_column.children('label')
         label.text('Map ' + active_num)
@@ -98,4 +100,4 @@ $ ->
         row.fadeIn(250)
 
         if $('.activeMapListRow').length == 20
-            $('#addMapListRow').fadeOut(250)
+            $('#addMapListRow').css('display', 'none')

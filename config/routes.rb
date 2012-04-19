@@ -10,6 +10,9 @@ CloudLeagues::Application.routes.draw do
 
   resources :tournaments do
     resources :waiting_players, only: [:create, :update, :destroy], path: :players
+    resources :matches, only: [:index, :show, :edit, :update] do
+      resources :match_player_relations, only: [:update]
+    end
   end
 
   resources :maps

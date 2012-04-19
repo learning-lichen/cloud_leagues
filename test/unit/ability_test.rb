@@ -610,4 +610,91 @@ class AbilityTest < ActiveSupport::TestCase
 
     assert ability.can?(:destroy, Map)
   end
+
+  ##############################################################################
+  # Match Modification Abilities                                               #
+  ##############################################################################
+  test "guests can read matches" do
+    ability = Ability.new nil
+
+    assert ability.can?(:read, Match)
+  end
+
+  test "guest cannot update matches" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:update, Match)
+  end
+
+  test "members can read matches" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.can?(:read, Match)
+  end
+
+  test "members cannot update matches" do
+    ability = Ability.new users(:default_user)
+    match = matches :grand_master_match_one
+
+    assert ability.cannot? :update, match
+  end
+
+  test "moderators can read matches" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.can? :read, Match
+  end
+
+  test "moderators can update matches" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.can? :update, Match
+  end
+
+  test "admins can read matches" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can? :read, Match
+  end
+
+  test "admins can update matches" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can? :update, Match
+  end
+
+  ##############################################################################
+  # Match Player Relation Modification Abilities                               #
+  ##############################################################################
+  test "guest cannot update match player relations" do
+    ability = Ability.new nil
+
+    assert ability.cannot? :update, MatchPlayerRelation
+  end
+
+  test "members can update their match player relations" do
+    ability = Ability.new users(:default_user)
+    mpr = match_player_relations :default_all_match_one
+
+    assert ability.can? :update, mpr
+  end
+
+  test "members cannot update other match player relations" do
+    ability = Ability.new users(:default_user)
+    mpr = match_player_relations :admin_all_match_one    
+    
+    assert ability.cannot? :update, mpr
+  end
+
+  test "moderators can update match player relations" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.can? :update, MatchPlayerRelation
+  end
+
+  test "admins can update match player relations" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can? :update, MatchPlayerRelation
+  end
 end

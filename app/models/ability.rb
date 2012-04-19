@@ -21,6 +21,10 @@ class Ability
         can :create, WaitingPlayer, valid?: true, user_id: user.id, tournament: { started?: false }
         can :destroy, WaitingPlayer, user_id: user.id
       end
+
+      can :update, MatchPlayerRelation do |mpr|
+        user.waiting_players.include? mpr.waiting_player
+      end
       
     elsif user.role? :moderator
       can :update, User do |user|
@@ -38,6 +42,10 @@ class Ability
 
       can :update, Tournament
 
+      can :update, Match
+
+      can :update, MatchPlayerRelation
+
     elsif user.role? :admin
       can :manage, :all
     end
@@ -48,6 +56,8 @@ class Ability
     can :read, AccountInformation
 
     can :read, Tournament
+
+    can :read, Match
 
     can :read, Map
   end

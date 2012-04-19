@@ -14,8 +14,9 @@ class Match < ActiveRecord::Base
   validates :winner_id, inclusion: { 
     in: lambda { |match| match.waiting_players.map { |player| player.user.id } }
   }, if: :winner_id
-  
+       
   # Attribute Whitelists
+  attr_accessible :winner_id, as: :member
   attr_accessible :winner_id, as: :moderator
   attr_accessible :winner_id, as: :admin
 end

@@ -36,8 +36,13 @@ class MapsController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = 'Tournament destroyed successfully.'
-    @map.destroy
-    redirect_to maps_path
+    if @map.map_lists.empty?
+      flash[:notice] = 'Tournament destroyed successfully.'
+      @map.destroy
+      redirect_to maps_path
+    else
+      flash[:notice] = 'There are tournaments that use this map. Cannot delete.'
+      redirect_to map_path(@map)
+    end
   end
 end
