@@ -34,6 +34,7 @@ class TournamentsControllerTest < ActionController::TestCase
         name: 'New Tournament',
         league: {Tournament::ALL => 1},
         prize: 123,
+        default_best_of: 3,
         map_lists_attributes: [{map_id: 1, map_order: 1}]
       }
     end

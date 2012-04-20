@@ -43,6 +43,7 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'SingleEliminationTournament',
       name: 'New Tournament',
       league: Tournament::ALL,
+      default_best_of: 3,
       map_lists_attributes: [{map_order: 1, map_id: 1}]
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
@@ -66,6 +67,7 @@ class TournamentTest < ActiveSupport::TestCase
       type: 'SingleEliminationTournament',
       name: 'New Tournament',
       league: Tournament::ALL,
+      default_best_of: 3,
       map_lists_attributes: [{map_order: 1, map_id: 1}]
     }
     new_tournament = Tournament.new new_tournament_params, as: :admin
@@ -124,6 +126,17 @@ class TournamentTest < ActiveSupport::TestCase
     assert !master_tournament.valid?
   end
 
+  test "default best of validations" do
+    all_t = tournaments :all_tournament
+    gm_t = tournaments :grand_master_tournament
+
+    all_t.default_best_of = nil
+    gm_t.default_best_of = 2
+
+    assert !all_t.valid?
+    assert !gm_t.valid?
+  end
+
   test "waiting players validations" do
     all_tournament = tournaments(:all_tournament)    
     gm_tournament = tournaments(:grand_master_tournament)
@@ -137,35 +150,6 @@ class TournamentTest < ActiveSupport::TestCase
 
     assert !all_tournament.valid?
     assert !gm_tournament.valid?
-  end
-
-  test "map list validations" do
-    all_tournament = tournaments(:all_tournament)
-    all_tournament.map_lists.where(map_order: 1).first.destroy
-
-    assert !all_tournament.valid?
-  end
-
-  test "guest accessible attributes" do
-    tournament_params = {
-      league: -1,
-      type: 'FakeTournament',
-      start_time: Time.now,
-      registration_time: 1.hours.ago,
-      max_players: 100,
-      prize: 123,
-      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
-    }
-
-    new_tournament = Tournament.new tournament_params, as: :guest
-
-    assert_equal 0, new_tournament.league
-    assert_nil new_tournament.type
-    assert_nil new_tournament.start_time
-    assert_nil new_tournament.registration_time
-    assert_equal 20, new_tournament.max_players
-    assert_equal 0, new_tournament.prize
-    assert new_tournament.map_lists.empty?
   end
 
   test "cannot assign map lists across tournaments" do
@@ -183,6 +167,37 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal old_map_num, all_tournament.map_lists.length
   end
 
+  test "map list validations" do
+    all_tournament = tournaments(:all_tournament)
+    all_tournament.map_lists.where(map_order: 1).first.destroy
+
+    assert !all_tournament.valid?
+  end
+
+  test "guest accessible attributes" do
+    tournament_params = {
+      league: -1,
+      type: 'FakeTournament',
+      start_time: Time.now,
+      registration_time: 1.hours.ago,
+      max_players: 100,
+      prize: 123,
+      default_best_of: 3,
+      map_lists_attributes: [{ map_order: 1, map_id: 1 }]
+    }
+
+    new_tournament = Tournament.new tournament_params, as: :guest
+
+    assert_equal 0, new_tournament.league
+    assert_nil new_tournament.type
+    assert_nil new_tournament.start_time
+    assert_nil new_tournament.registration_time
+    assert_equal 20, new_tournament.max_players
+    assert_equal 0, new_tournament.prize
+    assert_nil new_tournament.default_best_of
+    assert new_tournament.map_lists.empty?
+  end
+
   test "member accessible attributes" do
     tournament_params = {
       league: -1,
@@ -191,6 +206,7 @@ class TournamentTest < ActiveSupport::TestCase
       registration_time: 1.hours.ago,
       max_players: 100,
       prize: 123,
+      default_best_of: 3,
       map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
 
@@ -202,6 +218,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_nil new_tournament.registration_time
     assert_equal 20, new_tournament.max_players
     assert_equal 0, new_tournament.prize
+    assert_nil new_tournament.default_best_of
     assert new_tournament.map_lists.empty?
   end
 
@@ -215,6 +232,7 @@ class TournamentTest < ActiveSupport::TestCase
       registration_time: registration_time,
       max_players: 100,
       prize: 123,
+      default_best_of: 3,
       map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
     
@@ -226,6 +244,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
     assert_equal 0, new_tournament.prize
+    assert_equal 3, new_tournament.default_best_of
     assert_equal 1, new_tournament.map_lists.length
   end
 
@@ -239,6 +258,7 @@ class TournamentTest < ActiveSupport::TestCase
       registration_time: registration_time,
       max_players: 100,
       prize: 123,
+      default_best_of: 3,
       map_lists_attributes: [{ map_order: 1, map_id: 1 }]
     }
     
@@ -250,6 +270,7 @@ class TournamentTest < ActiveSupport::TestCase
     assert_equal registration_time, new_tournament.registration_time
     assert_equal 100, new_tournament.max_players
     assert_equal 123, new_tournament.prize
+    assert_equal 3, new_tournament.default_best_of
     assert_equal 1, new_tournament.map_lists.length
   end
 

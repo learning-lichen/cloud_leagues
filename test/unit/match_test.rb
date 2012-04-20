@@ -4,6 +4,7 @@ class MatchTest < ActiveSupport::TestCase
   test "validity of fixtures" do
     assert matches(:all_match_one).valid?
     assert matches(:all_match_two).valid?
+    assert matches(:master_match_one).valid?
     assert matches(:grand_master_match_one).valid?
   end
 
@@ -11,6 +12,17 @@ class MatchTest < ActiveSupport::TestCase
     all_match_one = matches(:all_match_one)
     all_match_one.tournament_id = nil
 
+    assert !all_match_one.valid?
+  end
+
+  test "best of validations" do
+    all_match_one = matches :all_match_one
+    all_match_two = matches :all_match_two
+
+    all_match_one.best_of = nil
+    all_match_two.best_of = 2
+
+    assert !all_match_one.valid?
     assert !all_match_one.valid?
   end
 

@@ -31,6 +31,7 @@ class Tournament < ActiveRecord::Base
   validates :max_players, presence: true, inclusion: { in: 1..64 }
   validates :name, presence: true, uniqueness: true, length: { within: 5..25 }
   validates :prize, presence: true, inclusion: { in: 0..4999, message: 'must be within $0 and $4,999' }
+  validates :default_best_of, presence: true, inclusion: { in: [1, 3, 5, 7, 9, 11] }
   validate :validate_waiting_players
   validate :validate_type
   validate :validate_times
@@ -42,8 +43,8 @@ class Tournament < ActiveRecord::Base
   after_update :update_structure
 
   # Attribute Whitelists
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :map_lists_attributes, as: :moderator
-  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :prize, :map_lists_attributes, as: :admin
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :map_lists_attributes, :default_best_of, as: :moderator
+  attr_accessible :league, :type, :start_time, :registration_time, :max_players, :name, :prize, :map_lists_attributes, :default_best_of, as: :admin
 
   # Nested Attributes
   accepts_nested_attributes_for :map_lists, allow_destroy: true, reject_if: lambda { |a| a[:map_id].blank? }

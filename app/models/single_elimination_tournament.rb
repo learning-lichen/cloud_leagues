@@ -15,6 +15,7 @@ class SingleEliminationTournament < Tournament
       
       for i in 0..(match_list[match_level].length - 1)
         new_match = self.matches.build
+        new_match.best_of = default_best_of
         
         if new_match.save 
           match_list[match_level][i] = new_match 

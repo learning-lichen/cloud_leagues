@@ -1,16 +1,20 @@
 all_match_one:
   id: 1
   tournament_id: 1
+  best_of: 3
 
 grand_master_match_one:
   id: 2
   tournament_id: 2
+  best_of: 5
 
 all_match_two:
   id: 3
   tournament_id: 1
   winner_id: 4
+  best_of: 1
 
 master_match_one:
   id: 4
   tournament_id: 3
+  best_of: 9

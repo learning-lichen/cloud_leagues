@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418173408) do
+ActiveRecord::Schema.define(:version => 20120420163427) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20120418173408) do
     t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "best_of",       :null => false
   end
 
   create_table "replays", :force => true do |t|
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20120418173408) do
     t.datetime "registration_time",                    :null => false
     t.string   "name",                                 :null => false
     t.integer  "prize",             :default => 0,     :null => false
+    t.integer  "default_best_of"
   end
 
   create_table "users", :force => true do |t|

@@ -56,6 +56,11 @@
 	<td><%= form.text_field :prize %></td>
       </tr>
 
+      <tr>
+	<td><%= form.label :default_best_of, "Best Of" %></td>
+	<td><%= form.select :default_best_of, [[1, 1], [3, 3], [5, 5], [7, 7], [9, 9], [11, 11]] %></td>
+      </tr>
+
       <%= form.fields_for :map_lists do |builder| %>
       <tr class="mapListRow activeMapListRow">
 	<td class="labelColumn">
@@ -63,7 +68,7 @@
 	  <%= builder.label :map_id, "Map #{builder.object.map_order}" %>
 	</td>
 	<td class="selectColumn">
-	  <%= builder.select :map_id, Map.all.collect { |m| [m.name, m.id] }, { include_blank: 'Select Map' } %>
+	  <%= builder.select :map_id, Map.all.map { |m| [m.name, m.id] }, { include_blank: 'Select Map' } %>
 	  <%= builder.hidden_field :_destroy %>
 	  <%= link_to "Remove", "javascript:void(0)", class: "removeMapList" %>
 	</td>

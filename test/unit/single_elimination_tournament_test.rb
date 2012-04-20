@@ -8,6 +8,7 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
       type: 'SingleEliminationTournament',
       name: 'New Tournament',
       league: Tournament::ALL,
+      default_best_of: 3,
       map_lists_attributes: [{ map_id: 1, map_order: 1 }]
     }
 
