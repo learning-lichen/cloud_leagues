@@ -22,6 +22,10 @@ class Ability
         can :destroy, WaitingPlayer, user_id: user.id
       end
 
+      can :update, Match do |match|
+        !(match.waiting_players & user.waiting_players).empty?
+      end
+
       can :update, MatchPlayerRelation do |mpr|
         user.waiting_players.include? mpr.waiting_player
       end

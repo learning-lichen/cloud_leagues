@@ -632,9 +632,16 @@ class AbilityTest < ActiveSupport::TestCase
     assert ability.can?(:read, Match)
   end
 
-  test "members cannot update matches" do
+  test "members can update their matches" do
     ability = Ability.new users(:default_user)
-    match = matches :grand_master_match_one
+    match = matches :all_match_one
+
+    assert ability.can? :update, match
+  end
+
+  test "members cannot update others matches" do
+    ability = Ability.new users(:default_user)
+    match = matches :all_match_two
 
     assert ability.cannot? :update, match
   end
