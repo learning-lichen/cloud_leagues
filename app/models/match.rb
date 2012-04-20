@@ -4,7 +4,8 @@ class Match < ActiveRecord::Base
   
   has_many :match_player_relations, dependent: :destroy
   has_many :waiting_players, through: :match_player_relations
-  has_many :replays, dependent: :destroy
+  has_many :games, dependent: :destroy
+  has_many :replays, through: :games
   has_many :match_links, dependent: :destroy
   has_many :winner_match_links, dependent: :destroy
 
@@ -17,7 +18,6 @@ class Match < ActiveRecord::Base
   }, if: :winner_id
        
   # Attribute Whitelists
-  attr_accessible :winner_id, as: :member
   attr_accessible :winner_id, as: :moderator
   attr_accessible :winner_id, as: :admin
 end

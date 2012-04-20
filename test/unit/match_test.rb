@@ -65,7 +65,7 @@ class MatchTest < ActiveSupport::TestCase
     new_match = Match.new new_match_params, as: :member
 
     assert_nil new_match.tournament_id
-    assert_equal 2, new_match.winner_id
+    assert_nil new_match.winner_id
   end
 
   test "moderator accessible attributes" do

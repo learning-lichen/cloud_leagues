@@ -1,27 +1,17 @@
 all_match_replay_one:
   id: 1
-  match_id: 1
+  game_id: 1
   replay_url: www.all_match_replay_one.com
   uploader_id: 3
-  game_number: 1
 
 all_match_replay_two:
   id: 2
-  match_id: 1
+  game_id: 3
   replay_url: www.all_match_replay_two.com
   uploader_id: 4
-  game_number: 1
 
 grand_master_match_replay_one:
   id: 3
-  match_id: 2
+  game_id: 3
   replay_url: www.gm_match_replay_one.com
   uploader_id: 3
-  game_number: 1
-
-grand_master_match_replay_two:
-  id: 4
-  match_id: 2
-  replay_url: www.gm_match_replay_two.com
-  uploader_id: 3
-  game_number: 2

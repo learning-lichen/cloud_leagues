@@ -1,10 +1,9 @@
 class Replay < ActiveRecord::Base
   # Associations
-  belongs_to :match
+  belongs_to :game
   
   # Validations
-  validates :match_id, presence: true
+  validates :game_id, presence: true
   validates :replay_url, presence: true
-  validates :uploader_id, presence: true
-  validates :game_number, presence: true, uniqueness: { scope: [:match_id, :uploader_id] }
+  validates :uploader_id, presence: true, uniqueness: { scope: :game_id }
 end
