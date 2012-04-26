@@ -165,6 +165,68 @@
 }
 
 #playerActions {
+    #matchInfo {
+	width: 100%;
+	tbody tr td { width: 33%; p { padding: 0; } }
+    }
+
+    #matchInfoActionContainer {
+	font-size: 0;
+	
+	#matchChatContainer {
+	    display: inline-block;
+	    font-size: 12px;
+	}
+
+	#matchMapContainer {
+	    display: inline-block;
+	    font-size: 12px;
+	}
+
+	#matchActionContainer {
+	    padding-left: 15px;
+
+	    .actionButton {
+		font-size: 12px;
+		margin-top: 10px;
+		margin-right: 7px;
+
+		padding-left: 7px;
+		padding-right: 7px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+
+		font-family: Ariel, Sans-Serif;
+		font-weight: bold;
+		font-size: 12px;
+
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		border: 1px solid #222;
+	    }
+
+	    .disabledAction {
+		display: inline-block;
+		border: 1px solid #A3A19B;
+		background-color: #E3E3E3;
+		color: #A3A19B;
+	    }
+
+	    .activeAction {
+		color: #F1F1EC;
+		background-color: #CB450A;
+		&:hover { 
+		    background-color: #E55718; 
+		    text-decoration: underline;
+		}
+	    }
+
+	    form {
+		display: inline-block;
+	    }
+	}
+    }
+
     p {
 	margin: 0px;
 	padding-left: 15px;
@@ -217,12 +279,16 @@
 	    font-size: 12px;
 	    font-weight: bold;
 
-	    cursor: pointer; cursor: hand
+	    cursor: pointer; cursor: hand;
+
+	    &:hover { background-color: #F1F1EC; }
 	}
 
 	.roundSelected {
 	    background-color: #FFFFFF;
 	    border-bottom: 1px solid #FFFFFF;
+
+	    &:hover { background-color: #FFF; }
 	}
     }
 

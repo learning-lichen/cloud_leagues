@@ -463,6 +463,7 @@ class AbilityTest < ActiveSupport::TestCase
     ability = Ability.new(moderator_user)
 
     master_tournament = tournaments(:master_tournament)
+    master_tournament.waiting_players.each { |wp| wp.destroy }
     new_player = master_tournament.waiting_players.build
     new_player.user_id = moderator_user.id
 
@@ -635,14 +636,45 @@ class AbilityTest < ActiveSupport::TestCase
   test "members can update their matches" do
     ability = Ability.new users(:default_user)
     match = matches :all_match_one
+    
+    admin_all_m1 = match_player_relations :admin_all_match_one
+    admin_all_m1.accepted = true
+    admin_all_m1.save
 
     assert ability.can? :update, match
+  end
+
+  test "members cannot update matches if both players have not accepted" do
+    ability = Ability.new users(:default_user)
+    match = matches :all_match_one
+
+    assert ability.cannot? :update, match
   end
 
   test "members cannot update others matches" do
     ability = Ability.new users(:default_user)
     match = matches :all_match_two
 
+    assert ability.cannot? :update, match
+  end
+
+  test "members cannot update contested matches" do
+    ability = Ability.new users :default_user
+    match = matches :all_match_one
+    
+    player_rel = match.match_player_relations.first
+    player_rel.contested = true
+    
+    assert player_rel.save
+    assert ability.cannot :update, match
+  end
+
+  test "members cannot update won matches" do
+    ability = Ability.new users(:default_user)
+    match = matches :all_match_one
+    match.winner_id = users(:default_user).id
+    
+    assert match.save
     assert ability.cannot? :update, match
   end
 

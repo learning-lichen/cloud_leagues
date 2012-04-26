@@ -20,7 +20,7 @@ class GameTest < ActiveSupport::TestCase
     gm_m1g1 = games :grand_master_match_one_game_one
 
     all_m1g1.winner_id = -1
-    gm_m1g1.winner_id = gm_m1g1.match.waiting_players.first.user.id
+    gm_m1g1.winner_id = gm_m1g1.match.waiting_players.first.id
 
     assert !all_m1g1.valid?
     assert gm_m1g1.valid?

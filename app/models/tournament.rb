@@ -23,6 +23,7 @@ class Tournament < ActiveRecord::Base
   # Associations
   has_many :waiting_players, dependent: :destroy
   has_many :matches, dependent: :destroy
+  has_many :games, through: :matches
   has_many :map_lists, order: 'map_order ASC', dependent: :destroy
   has_many :maps, through: :map_lists
   

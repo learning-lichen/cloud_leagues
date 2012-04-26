@@ -6,6 +6,62 @@
   <% elsif !@tournament.started? %>
     <p>You are currently registered for this tournament. You will be able to use this section once the tournament starts.</p>
   <% else %>
-    <%= match = current_match(@tournament, @waiting_player).id %>
+    <% match = current_match(@tournament, @waiting_player) %>
+    <% player_relation = match.match_player_relations.where(waiting_player_id: @waiting_player.id).first %>
+    <% other_relation = match.match_player_relations.where("waiting_player_id != ?", @waiting_player.id).first %>
+    <% game = match.games.last %>
+
+    <table id="matchInfo">
+      <tr style="font-weight: bold;">
+	<td><p style="padding-left: 15px;">Current Match</p></td>
+	<td style="text-align: center;"><p>Score</p></td>
+	<td style="text-align: right;"><p style="padding-right: 15px;">Best Of</p></td>
+      </tr>
+      <tr>
+	<% other_player = other_relation.nil? ? "N/A" : other_relation.waiting_player.user.login %>
+	<% other_wins = other_relation.nil? ? 0 : match.games.where(winner_id: other_relation.waiting_player.id).count %>
+	<td><p style="padding-left: 15px;"><%= @waiting_player.user.login %> vs. <%= other_player %></p></td>
+	<td style="text-align: center;"><p>You: <%= match.games.where(winner_id: @waiting_player.id).count %> | Opponent: <%= other_wins %></p></td>
+	<td style="text-align: right;"><p style="padding-right: 30px;"><%= match.best_of %></p></td>
+      </tr>
+    </table>
+
+    <div id="matchInfoActionContainer">
+      <div id="matchChatContainer"></div>
+      
+      <div id="matchMapContainer"></div>
+      
+      <div id="matchActionContainer">
+	<% if player_relation.accepted %>
+	  <div class="actionButton disabledAction">Match Accepted</div>
+
+	  <%= form_for [@tournament, match], url: tournament_match_path(@tournament, match) do |f| %>
+	    <%= f.fields_for f.object.games.last do |builder| %>
+	      <%= builder.hidden_field :winner_id, value: 1 %>
+	    <% end %>
+	    <%= f.submit "Win Game", class: "actionButton activeAction" %>
+	  <% end %>
+	<% elsif match.bye? || match.match_player_relations.count != 1 %>
+	  <%= form_for player_relation, url: tournament_match_match_player_relation_path(@tournament, match, player_relation) do |f| %>
+	    <%= f.hidden_field :accepted, value: 1 %>
+	    <%= f.submit "Accept Match", class: "actionButton activeAction" %>
+	  <% end %>
+	<% else %>
+	  <div class="actionButton disabledAction">Waiting For Other Player</div>
+	<% end %>
+
+	<% if player_relation.contested %>
+	  <%= form_for player_relation, url: tournament_match_match_player_relation_path(@tournament, match, player_relation) do |f| %>
+	    <%= f.hidden_field :contested, value: 0 %>
+	    <%= f.submit "Dismiss Mod Call", class: "actionButton activeAction" %>
+	  <% end %>
+	<% else %>
+	  <%= form_for player_relation, url: tournament_match_match_player_relation_path(@tournament, match, player_relation) do |f| %>
+	    <%= f.hidden_field :contested, value: 1 %>
+	    <%= f.submit "Call Mods", class: "actionButton activeAction" %>
+	  <% end %>
+	<% end %>
+      </div>
+    </div>
   <% end %>
 </div>

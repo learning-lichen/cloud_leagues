@@ -19,14 +19,17 @@ $ ->
 $ ->
     $('#biggestPrizePools #gmContent').css('display', 'block')
     $('#biggestPrizePools #gmTab').css('border-bottom', 0)
+    $('#biggestPrizePools #gmTab').addClass('prizeTabSelected')
 
     $('#biggestPrizePools .biggestPrizePoolsTab').click ->
         content_id = '#' + this.id.replace('Tab', 'Content')
 
         $('#biggestPrizePools .biggestPrizePoolsContent').css('display', 'none')
         $('#biggestPrizePools .biggestPrizePoolsTab').css('border-bottom', '1px solid #797470')
+        $('#biggestPrizePools .biggestPrizePoolsTab').removeClass('prizeTabSelected')
 
         $(this).css('border-bottom', 0)
+        $(this).addClass('prizeTabSelected')
         $(content_id).css('display', 'block')
 
 $ ->

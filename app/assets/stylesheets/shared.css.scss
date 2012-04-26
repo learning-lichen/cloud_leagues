@@ -192,7 +192,10 @@ header {
 		    padding-bottom: 5px;
 
 		    &:focus { outline: 0; }
+		    &:hover { background-color: #F1F1EC; }
 		}
+
+		.prizeTabSelected { &:hover { background-color: #E3E3E3; } }
 
 		#gmTab { padding-left: 11px; }
 		#bronzeTab { border-right: 0; padding-right: 11px; }

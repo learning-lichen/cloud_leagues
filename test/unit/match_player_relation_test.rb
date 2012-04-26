@@ -8,6 +8,7 @@ class MatchPlayerRelationTest < ActiveSupport::TestCase
     assert match_player_relations(:default_grand_master_match_one).valid?
     assert match_player_relations(:mod_all_match_two).valid?
     assert match_player_relations(:other_mod_all_match_two).valid?
+    assert match_player_relations(:mod_master_match_one).valid?
   end
 
   test "waiting player id validations" do

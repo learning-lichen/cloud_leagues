@@ -20,6 +20,7 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
     empty_link_matches = 0
     
     assert_equal (2 ** closest_power) - 1, matches.length
+    assert_equal (2 ** closest_power) - 1, empty_tournament.games.length
     matches.each do |match| 
       current_match_link = match.match_links
       next_match_links = MatchLink.find_all_by_next_match_id(match.id)
@@ -33,6 +34,7 @@ class SingleEliminationTournamentTest < ActiveSupport::TestCase
 
   test "player added" do
     master_tournament = tournaments(:master_tournament)
+    master_tournament.waiting_players.each { |wp| wp.destroy }
     master_tournament.max_players = 8
     master_tournament.save
 

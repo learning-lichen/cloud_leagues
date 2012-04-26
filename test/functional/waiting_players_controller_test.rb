@@ -16,13 +16,14 @@ class WaitingPlayersControllerTest < ActionController::TestCase
   end
   
   test "member should create waiting player" do
-    login :moderator_user
-    master_tournament = tournaments(:master_tournament)
+    login :default_user
+    all_tournament = tournaments(:all_tournament)
+    waiting_players(:default_waiting_all).destroy
     
     assert_difference 'WaitingPlayer.count' do
-      post :create, tournament_id: master_tournament.id
+      post :create, tournament_id: all_tournament.id
     end
-    assert_redirected_to tournament_path(master_tournament)
+    assert_redirected_to tournament_path(all_tournament)
   end
 
   test "member should not update waiting player" do

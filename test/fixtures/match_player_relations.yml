@@ -39,3 +39,10 @@ other_mod_all_match_two:
   waiting_player_id: 7
   accepted: true
   contested: false
+
+mod_master_match_one:
+  id: 7
+  match_id: 4
+  waiting_player_id: 8
+  accepted: true
+  contested: true

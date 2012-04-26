@@ -23,7 +23,12 @@ class Ability
       end
 
       can :update, Match do |match|
-        !(match.waiting_players & user.waiting_players).empty?
+        player_belongs = !(match.waiting_players & user.waiting_players).empty?
+        match_contested = match.contested?
+
+        both_players_ready = (match.match_player_relations.where(accepted: true).count == match.match_player_relations.count)
+
+        player_belongs && !match_contested && match.winner_id.blank? && (both_players_ready || match.bye?)
       end
 
       can :update, MatchPlayerRelation do |mpr|

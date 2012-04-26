@@ -39,3 +39,9 @@ other_mod_waiting_all:
   tournament_id: 1
   user_id: 5
   player_accepted: false
+
+mod_waiting_master:
+  id: 8
+  tournament_id: 3
+  user_id: 4
+  player_accepted: true

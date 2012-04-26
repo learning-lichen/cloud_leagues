@@ -17,8 +17,17 @@ class SingleEliminationTournament < Tournament
         new_match = self.matches.build
         new_match.best_of = default_best_of
         
-        if new_match.save 
-          match_list[match_level][i] = new_match 
+        if new_match.save
+          new_game = new_match.games.build
+
+          if new_game.save
+            match_list[match_level][i] = new_match
+          else
+            logger.warn 'Error creating tournament structure.'
+            errors.add :type, 'could not be created at this time. Please try again later'
+            destroy_structure
+            return false
+          end
         else
           logger.warn 'Error creating tournament structure.'
           errors.add :type, 'could not be created at this time. Please try again later'

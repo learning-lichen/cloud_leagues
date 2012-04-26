@@ -14,10 +14,10 @@ class MatchesController < ApplicationController
 
   def update
     if @match.update_attributes params[:match], as: current_user.role
-      redirect_to match_path(@match)
+      redirect_to tournament_path(@tournament)
     else
       flash[:notice] = 'Could not update this match.'
-      redirect_to match_path(@match)
+      redirect_to tournament_path(@tournament)
     end
   end
 end
