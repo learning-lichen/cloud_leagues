@@ -18,9 +18,9 @@ module TournamentsHelper
     if days_remaining > 0 
       "#{days_remaining}d#{neg_flag}"
     elsif hours_remaining > 0
-      "#{neg_flag}#{hours_remaining}h#{neg_flag}"
+      "#{hours_remaining}h#{neg_flag}"
     elsif mins_remaining > 0
-      "#{neg_flag}#{mins_remaining}m#{neg_flag}"
+      "#{mins_remaining}m#{neg_flag}"
     else secs_remaining >= 0
       "< 1m#{neg_flag}"
     end

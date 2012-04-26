@@ -176,11 +176,18 @@
 	#matchChatContainer {
 	    display: inline-block;
 	    font-size: 12px;
+	    padding-left: 15px;
+	    width: 420px;
 	}
 
 	#matchMapContainer {
 	    display: inline-block;
 	    font-size: 12px;
+	    
+	    table tbody tr td {
+		font-weight: bold;
+		text-align: center;
+	    }
 	}
 
 	#matchActionContainer {

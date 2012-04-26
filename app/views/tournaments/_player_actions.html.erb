@@ -29,7 +29,35 @@
     <div id="matchInfoActionContainer">
       <div id="matchChatContainer"></div>
       
-      <div id="matchMapContainer"></div>
+      <div id="matchMapContainer">
+	<% losers_pick = match.games.count != 1 %>
+	<% map_num = match.previous_matches.length % match.tournament.map_lists.count %>
+	<table>
+	  <tr>
+	    <td>
+	      Current Map
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <% if losers_pick %>
+	        <%= image_tag "loser_pick.png" %>
+              <% else %>
+                <%= image_tag match.tournament.map_lists[map_num].map.image_url, height: '200', width: '200' %>
+	      <% end %>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+	      <% if losers_pick %>
+	        Loser's Pick
+              <% else %>
+                <%= match.tournament.map_lists[map_num].map.name %>
+	      <% end %>
+	    </td>
+	  </tr>
+	</table>
+      </div>
       
       <div id="matchActionContainer">
 	<% if player_relation.accepted %>
