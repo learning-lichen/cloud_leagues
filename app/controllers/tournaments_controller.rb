@@ -34,6 +34,7 @@ class TournamentsController < ApplicationController
     if @tournament.save
       redirect_to tournament_path(@tournament)
     else
+      (1..3).each { |i| @tournament.map_lists.build.map_order = i }
       render action: :new
     end
   end

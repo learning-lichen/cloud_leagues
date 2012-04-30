@@ -25,12 +25,10 @@ class MapsControllerTest < ActionController::TestCase
     login :admin_user
     
     name = 'Metropolis'
-    download_url = 'd_url'
     image_url = 'i_url'
 
     assert_difference 'Map.count' do
       post :create, map: { name: name,
-        download_url: download_url,
         image_url: image_url
       }
     end
@@ -47,7 +45,6 @@ class MapsControllerTest < ActionController::TestCase
 
     assert_difference 'Map.count', 0 do
       post :create, map: { name: name,
-        download_url: download_url,
         image_url: image_url
       }
     end

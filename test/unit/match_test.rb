@@ -139,6 +139,7 @@ class MatchTest < ActiveSupport::TestCase
 
   test "previous matches" do
     assert matches(:all_match_one).previous_matches.empty?
+    assert matches(:master_match_one).previous_matches.empty?
   end
 
   test "empty delegation" do
@@ -150,5 +151,11 @@ class MatchTest < ActiveSupport::TestCase
   test "bye" do
     assert matches(:master_match_one).bye?
     assert !matches(:all_match_one).bye?
+  end
+
+  test "resolved" do
+    assert !matches(:master_match_one).resolved?
+    assert !matches(:all_match_one).resolved?
+    assert matches(:all_match_two).resolved?
   end
 end

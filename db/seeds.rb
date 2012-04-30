@@ -15,3 +15,8 @@ admin.create_account_information({
   league: Tournament::PLATINUM,
   time_zone: 'Eastern Time (US & Canada)'
 }, as: :admin)
+
+Map.create({
+  name: 'Metropolis',
+  image_url: '/assets/metropolis.jpg'
+}, as: :admin)

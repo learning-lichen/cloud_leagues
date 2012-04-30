@@ -41,6 +41,7 @@ class AccountInformation < ActiveRecord::Base
 
   # Callbacks
   before_validation :strip_inputs
+  after_create :create_chat_profile
 
   # Attribute Whitelists
   attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, as: :new_member
@@ -53,5 +54,19 @@ class AccountInformation < ActiveRecord::Base
     reddit_name.strip! if reddit_name
     character_name.strip! if character_name
     character_code.strip! if character_code
+  end
+
+  def create_chat_profile
+    new_chat_profile = ChatProfile.new
+    new_chat_profile.user_id = user.id
+    new_chat_profile.chat_id = Authlogic::Random.hex_token[0..19]
+    num_tried = 0
+
+    while (!new_chat_profile.valid? && num_tried < 1000)      
+      new_chat_profile.chat_id = Authlogic::Random.hex_token[0..19]
+      num_tried += 1
+    end
+
+    new_chat_profile.save
   end
 end

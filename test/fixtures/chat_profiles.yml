@@ -3,11 +3,6 @@ default_profile:
   user_id: 1
   chat_id: 1a2b3c
 
-other_profile:
-  id: 2
-  user_id: 2
-  chat_id: aaaaa
-
 admin_profile:
   id: 3
   user_id: 3

@@ -8,5 +8,6 @@ class ModifyReplaysForGames < ActiveRecord::Migration
   def down
     add_column :replays, :match_id, :integer, null: false
     add_column :replays, :game_number, :integer
+    remove_column :replays, :game_id
   end
 end

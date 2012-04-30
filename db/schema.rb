@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120420173948) do
+ActiveRecord::Schema.define(:version => 20120430014259) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(:version => 20120420173948) do
   create_table "chat_messages", :force => true do |t|
     t.string   "sender_id",                       :null => false
     t.string   "recipient_id",                    :null => false
-    t.string   "message",                         :null => false
     t.boolean  "read",         :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "message",                         :null => false
   end
 
   create_table "chat_profiles", :force => true do |t|
@@ -58,11 +58,10 @@ ActiveRecord::Schema.define(:version => 20120420173948) do
   end
 
   create_table "maps", :force => true do |t|
-    t.string   "name",                         :null => false
-    t.string   "image_url",    :default => "", :null => false
-    t.string   "download_url",                 :null => false
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.string   "name",                       :null => false
+    t.string   "image_url",  :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "match_links", :force => true do |t|

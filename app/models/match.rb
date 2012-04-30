@@ -4,7 +4,7 @@ class Match < ActiveRecord::Base
   
   has_many :match_player_relations, dependent: :destroy
   has_many :waiting_players, through: :match_player_relations
-  has_many :games, dependent: :destroy
+  has_many :games, order: 'id ASC', dependent: :destroy
   has_many :replays, through: :games
   has_many :match_links, dependent: :destroy
   has_many :winner_match_links, dependent: :destroy
@@ -31,11 +31,17 @@ class Match < ActiveRecord::Base
   # Delegations
   delegate :empty?, to: :match_player_relations
 
+  def next_matches
+    match_links.map do |ml|
+      Match.find ml.next_match_id
+    end
+  end
+
   def previous_matches
     immediately_before = MatchLink.where(next_match_id: id).map { |ml| ml.match }
     other_previous = immediately_before.map { |m| m.previous_matches }
 
-    other_previous.reduce(immediately_before) { |all_previous, m| all_previous.push m }
+    other_previous.reduce(immediately_before) { |all_previous, m| all_previous.push m }.flatten
   end
 
   def contested?
@@ -48,10 +54,29 @@ class Match < ActiveRecord::Base
   end
 
   def bye?
-    previous_matches_empty = true
-    previous_matches.each { |pm| previous_matches_empty = false unless pm.empty? }
+    is_bye = false
 
-    match_player_relations.count == 1 && previous_matches_empty
+    if previous_matches.empty? && match_player_relations.count == 1
+      is_bye = true
+    elsif match_player_relations.count == 1
+      directly_previous = previous_matches.reduce([]) do |previous, match|
+        previous.push match if match.next_matches.include?(self)
+      end
+      
+      directly_previous.each do |prev|
+        is_bye = true if prev.resolved?
+      end
+    end
+    
+    is_bye
+  end
+
+  def resolved?
+    previous_resolved = previous_matches.reduce(true) do |resolved, match|
+      resolved = resolved && match.resolved?
+    end
+
+    (!winner_id.nil? || empty?) && previous_resolved
   end
 
   protected

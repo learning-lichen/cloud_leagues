@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.new params[:user], as: current_user ? current_user.role : :guest
 
     if @user.save
+      cookies[:user_credentials] = @user.persistence_token + '::' + @user.id.to_s
       redirect_to user_path(@user)
     else
       render action: :new

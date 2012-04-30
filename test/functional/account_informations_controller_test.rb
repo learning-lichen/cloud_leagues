@@ -10,7 +10,7 @@ class AccountInformationsControllerTest < ActionController::TestCase
 
   test "should create account information" do
     other_user = login :other_user
-    assert_difference 'AccountInformation.count' do
+    assert_difference ['AccountInformation.count', 'ChatProfile.count'] do
       post :create, user_id: other_user.id, account_information: {
         reddit_name: 'other user', character_name: 'other char',
         character_code: 555, race: 0, league: Tournament::DIAMOND,

@@ -54,12 +54,10 @@ module TournamentsHelper
   end
 
   def current_match(tournament, player)
-    starting_match = (tournament.matches.joins(:match_player_relations).where('match_player_relations.waiting_player_id' => player.id) & tournament.starting_matches).first
-
-    match = starting_match
+    match = player.match_player_relations.first.match
     
     while match.winner_id && match.winner_id == player.id
-      match = match.winner_match_links.first.match
+      match = Match.find(match.winner_match_links.first.next_match_id)
     end
 
     match

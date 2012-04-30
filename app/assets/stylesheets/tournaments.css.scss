@@ -174,19 +174,72 @@
 	font-size: 0;
 	
 	#matchChatContainer {
-	    display: inline-block;
 	    font-size: 12px;
+	    padding-top: 15px;
 	    padding-left: 15px;
-	    width: 420px;
-	}
 
-	#matchMapContainer {
-	    display: inline-block;
-	    font-size: 12px;
-	    
-	    table tbody tr td {
+	    #chatAndMapTable {
+		width: 620px;
+
+		img { display: block; veritcal-align: bottom; }
+	    }
+
+	    .chatColumn {
+		width: 420px;
+
+		#matchChat {
+		    height: 198px;
+		    border-top-left-radius: 10px;
+		    -moz-border-radius-topleft: 10px;
+		    border: 1px solid #BCBCBC;
+		    border-right: 0;
+		    background-color: #F1F1F1;
+		    overflow: auto;
+
+		    .chatMessage {
+			margin-top: 5px;
+		    }
+		}
+
+		#chatMessageForm {
+		    #chatMessageInput { 
+			width: 350px;
+			border-bottom-left-radius: 10px;
+			-moz-border-radius-bottomleft: 10px;
+			border: 1px solid #BCBCBC;
+			border-top: 0;
+			padding: 5px;
+			margin: 0;
+		    }
+		    
+		    #chatMessageSubmit {
+			border: 0;
+			margin: 0;
+			padding: 0;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			width: 58px;
+			background-color: #F1F1F1;
+
+			border-bottom-right-radius: 10px;
+			-moz-border-radius-bottomright: 10px;
+			border: 1px solid #BCBCBC;
+			border-left: 0;
+			border-top: 0;
+
+			&:hover { background-color: #FFF; }
+		    }
+		}
+	    }
+
+	    .mapColumn {
 		font-weight: bold;
 		text-align: center;
+	    }
+
+	    .noChatMessage {
+		padding-bottom: 5px;
+		font-weight: bold;
 	    }
 	}
 

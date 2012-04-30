@@ -108,8 +108,8 @@ class SingleEliminationTournament < Tournament
       end
     end
 
-    new_players_match = empty_matches.first
-    new_players_match ||= one_player_matches[Random.rand(one_player_matches.length)] unless one_player_matches.empty?
+    new_players_match = one_player_matches[Random.rand(one_player_matches.length)] unless one_player_matches.empty?
+    new_players_match ||= empty_matches.first
     new_players_match
   end
 end
