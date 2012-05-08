@@ -468,6 +468,22 @@ footer {
 	    }
 	}
     }
+
+    .displayMessageIcon {
+	dt a {
+	    background: url(/assets/user_nav_arrow_message.png);
+	    background-repeat: no-repeat;
+	    -webkit-background-origin: content-box;
+	    background-origin: content-box;
+	    
+	    &.selected {
+		background: url(/assets/user_nav_arrow_active_message.png);
+		background-repeat: no-repeat;
+		-webkit-background-origin: content-box;
+		background-origin: content-box;
+	    }
+	}
+    }
     
     ul.userInformation {
 	display: inline-block;

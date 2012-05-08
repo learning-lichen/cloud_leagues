@@ -8,5 +8,6 @@
  *= require account_informations
  *= require password_resets
  *= require maps
+ *= require chat_messages
  *= require application_bottom
 */

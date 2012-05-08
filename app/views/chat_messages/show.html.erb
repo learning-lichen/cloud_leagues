@@ -1,0 +1,32 @@
+<% user = @sender.nil? ? "Unkown User" : @sender.login %>
+<% title "Conversation with #{user}" %>
+<h1 id="messageHeader">Your Messages</h1>
+
+<div class="messagePanel" style="padding-bottom: 0;">
+  <h2>Conversation with <%= user %></h2>
+
+  <% @messages.each do |message| %>
+    <div class="messagePreviewContainer <%= message.read ? "" : " newMessage" %>">
+      <div class="userPortrait">
+      </div>
+
+      <div class="messagePreview">
+	<% if message.sender_id == current_user.chat_profile.chat_id %>
+	  <p class="messageSender"><%= current_user.login %></p>
+	<% else %>
+	  <p class="messageSender"><%= link_to_if !@sender.nil?, user, user_profile_path(@sender) %></p>
+	<% end %>
+
+	<p class="messageText"><%= message.message %></p>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="sendMessage">
+    <% if !@sender.nil? %>
+      <h2>Send Message</h2>
+      <% @message = ChatMessage.new sender_id: current_user.chat_profile.chat_id, recipient_id: @sender.login %>
+      <%= render @message %>
+    <% end %>
+  </div>
+</div>

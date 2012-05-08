@@ -101,3 +101,28 @@ $ ->
 
         if $('.activeMapListRow').length == 20
             $('#addMapListRow').css('display', 'none')
+
+    $('#callModForm').bind('ajax:beforeSend', (evt, xhr, settings) ->
+        submitButton = $(this).find('input[name="commit"]')
+        submitButton.attr('disabled', 'disabled')
+        submitButton.removeClass('activeAction')
+        submitButton.addClass('disabledAction')
+        submitButton.attr('value', 'Submitting...')
+    ).bind('ajax:success', (evt, data, status, xhr) ->
+        submitButton = $(this).find('input[name="commit"]')
+        contested_field = $(this).find('#match_player_relation_contested')
+
+        if data.contested
+            submitButton.attr('value', 'Dismiss Mod Call')
+            contested_field.attr('value', 0)
+        else
+            submitButton.attr('value', 'Call Mod')
+            contested_field.attr('value', 1)
+    ).bind('ajax:complete', (evt, xhr, status) ->
+        submitButton = $(this).find('input[name="commit"]')
+        submitButton.removeAttr('disabled')
+        submitButton.removeClass('disabledAction')
+        submitButton.addClass('activeAction')
+    ).bind('ajax:error', (evt, xhr, status, error) ->
+        alert('There was an error. Please refresh, or report the error if the problem persists.')
+    )

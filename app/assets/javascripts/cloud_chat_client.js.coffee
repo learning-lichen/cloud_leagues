@@ -33,6 +33,7 @@ $ ->
             message_text = $('<pre>').text(message.message).html()
             $('#matchChat').append('<p class="chatMessage"><b>' + message.cloud_login + ':</b> ' + message_text + '</p>')
             $('#matchChat').prop({ scrollTop: $('#matchChat').prop('scrollHeight') })
+            window.unread_message = true
 
         socket.on 'message_failure', (error) ->
             alert(error);
@@ -40,6 +41,9 @@ $ ->
         socket.on 'disconnect', ->
             $('#chatMessageForm > input[name=message]').attr('disabled', 'disabled')
             $('#chatMessageForm > input[name=message]').val('Disconnected')
+
+        socket.on 'refresh_page', ->
+            location.reload()
 
     $('#chatMessageForm').submit ->
         recipient_id = $('input[name=recipient_id]')
@@ -51,3 +55,16 @@ $ ->
             $('#matchChat').append('<p class="chatMessage"><b>You:</b> ' + message_text + '</p>')
             $('#chatMessageForm > input[name=message]').val('')
             $('#matchChat').prop({ scrollTop: $('#matchChat').prop('scrollHeight') })
+        false
+
+    $('#winGameForm').submit ->
+        opponent = $('#chatMessageForm > input[name=recipient_id]')
+        my_socket.emit('match_won', { opponent: opponent.val() })
+        true
+
+    $(document).click ->
+        sender = $('#chatMessageForm > input[name=recipient_id]')
+
+        if window.unread_message
+            my_socket.emit('read_messages', { sender: sender.val() })
+            window.undread_message = false

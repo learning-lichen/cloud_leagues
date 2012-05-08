@@ -267,6 +267,105 @@ class AbilityTest < ActiveSupport::TestCase
   end
 
   ##############################################################################
+  # Chat Message Modification Abilities                                        #
+  ##############################################################################
+  test "guest cannot read messages" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:read, ChatMessage)
+  end
+
+  test "guest cannot create messages" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:create, ChatMessage)
+  end
+
+  test "guest cannot destroy messages" do
+    ability = Ability.new nil
+
+    assert ability.cannot?(:destroy, ChatMessage)
+  end
+
+  test "members without account info cannot interact with messages" do
+    ability = Ability.new users(:other_user)
+
+    assert ability.cannot?(:index, ChatMessage)
+    assert ability.cannot?(:show, ChatMessage)
+    assert ability.cannot?(:create, ChatMessage)
+    assert ability.cannot?(:destroy, ChatMessage)
+  end
+
+  test "members can index messages" do
+    ability = Ability.new users(:default_user)
+
+    assert ability.can?(:index, ChatMessage)
+  end
+
+  test "members can show their recieved messages " do
+    ability = Ability.new users(:default_user)
+    message = chat_messages(:admin_to_default)
+
+    assert ability.can?(:show, message)
+  end
+
+  test "members can read their sent messages" do
+    ability = Ability.new users(:default_user)
+    message = chat_messages(:default_to_admin)
+
+    assert ability.can?(:show, message)
+  end
+
+  test "members cannot show others messages" do
+    ability = Ability.new users(:default_user)
+    message = chat_messages(:admin_to_mod)
+    
+    assert ability.cannot?(:show, message)
+  end
+
+  test "members can create messages with their sender id" do
+    user = users(:default_user)
+    ability = Ability.new user
+    message = ChatMessage.new({ sender_id: user.chat_profile.chat_id })
+
+    assert ability.can?(:create, message)
+  end
+
+  test "members cannot create messages with other sender_id" do
+    admin = users(:admin_user)
+    ability = Ability.new users(:default_user)
+    message = ChatMessage.new({ sender_id: admin.chat_profile.chat_id })
+
+    assert ability.cannot?(:create, message)
+  end
+
+  test "members can destroy messages they've recieved" do
+    ability = Ability.new users(:default_user)
+    message = chat_messages(:admin_to_default)
+
+    assert ability.can?(:destroy, message)
+  end
+
+  test "members cannot destroy messages they have not recieved" do
+    ability = Ability.new users(:default_user)
+    message = chat_messages(:default_to_admin)
+
+    assert ability.cannot?(:destroy, message)
+  end
+
+  test "moderators can manage messages" do
+    ability = Ability.new users(:moderator_user)
+
+    assert ability.can?(:manage, ChatMessage)
+  end
+
+  test "admins can manage messages" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:manage, ChatMessage)
+  end
+ 
+  ##############################################################################
   # Tournament Modification Abilities                                          #
   ##############################################################################
   test "guest can read tournaments" do

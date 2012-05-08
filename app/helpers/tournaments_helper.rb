@@ -56,7 +56,7 @@ module TournamentsHelper
   def current_match(tournament, player)
     match = player.match_player_relations.first.match
     
-    while match.winner_id && match.winner_id == player.id
+    while match.winner_id && match.winner_id == player.id && !match.winner_match_links.empty?
       match = Match.find(match.winner_match_links.first.next_match_id)
     end
 

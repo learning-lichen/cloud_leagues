@@ -18,6 +18,12 @@ class Ability
 
       # Certain features require account information.
       if user.account_information
+        can :index, ChatMessage
+        can :show, ChatMessage, recipient_id: user.chat_profile.chat_id
+        can :show, ChatMessage, sender_id: user.chat_profile.chat_id
+        can :create, ChatMessage, sender_id: user.chat_profile.chat_id
+        can :destroy, ChatMessage, recipient_id: user.chat_profile.chat_id
+
         can :create, WaitingPlayer, valid?: true, user_id: user.id, tournament: { started?: false }
         can :destroy, WaitingPlayer, user_id: user.id
       end
@@ -45,6 +51,8 @@ class Ability
       
       can [:create, :update, :destroy], AccountInformation, user: { role: :member }
       can [:create, :update, :destroy], AccountInformation, user: { id: user.id }
+
+      can :manage, ChatMessage
 
       can :create, WaitingPlayer, valid?: true
       can [:update, :destroy], WaitingPlayer

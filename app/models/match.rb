@@ -54,20 +54,13 @@ class Match < ActiveRecord::Base
   end
 
   def bye?
-    is_bye = false
-
-    if previous_matches.empty? && match_player_relations.count == 1
-      is_bye = true
-    elsif match_player_relations.count == 1
-      directly_previous = previous_matches.reduce([]) do |previous, match|
-        previous.push match if match.next_matches.include?(self)
-      end
-      
-      directly_previous.each do |prev|
-        is_bye = true if prev.resolved?
-      end
-    end
+    is_bye = true
+    is_bye = false unless match_player_relations.count == 1
     
+    previous_matches.each do |match|
+      is_bye = false unless match.resolved?
+    end
+
     is_bye
   end
 

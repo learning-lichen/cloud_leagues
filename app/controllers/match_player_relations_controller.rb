@@ -6,7 +6,10 @@ class MatchPlayerRelationsController < ApplicationController
 
   def update
     if @match_player_relation.update_attributes params[:match_player_relation], as: current_user.role
-      redirect_to tournament_path @tournament
+      respond_to do |format|
+        format.html { redirect_to tournament_path @tournament }
+        format.json { render json: @match_player_relation.to_json }
+      end
     else
       flash[:notice] = 'Could not update this match player relation.'
       redirect_to tournament_path @tournament

@@ -56,9 +56,16 @@ class TournamentsController < ApplicationController
 
     if @tournament.update_attributes params[:tournament], as: current_user.role
       flash[:notice] = 'Tournament updated successfully.'
-      redirect_to tournament_path(@tournament)
+      
+      respond_to do |format|
+        format.html { redirect_to tournament_path(@tournament) }
+        format.js
+      end
     else
-      render action: :edit
+      respond_to do |format|
+        format.html { render action: :edit }
+        format.js { render json: @tournament.errors.to_json }
+      end
     end
   end
 

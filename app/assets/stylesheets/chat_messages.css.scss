@@ -1,0 +1,68 @@
+#messageHeader {
+    margin-bottom: 7px;
+}
+
+.messagePanel {
+    background-color: #FFF;
+    border-bottom: 1px solid #222;
+
+    padding-top: 15px;
+    margin-top: 20px;
+    padding-bottom: 15px;
+    
+    .messagePreviewContainer {
+	font-size: 0px;
+	padding-left: 10px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	border-top: 1px solid #BBB;
+	background-color: #FEEFFF;
+
+	&.newMessage {
+	    border-right: 5px solid #BBB;
+	    background-color: #FEEADF;
+	}
+
+	.userPortrait {
+	    font-size: 12px;
+	    vertical-align: top;
+
+	    display: inline-block;
+	    -moz-border-radius: 2px;
+	    border-radius: 2px;
+	    background-color: #797470;
+	    
+	    height: 35px;
+	    width: 35px;
+	    margin: 3px;
+	    
+	    overflow: hidden;
+	}
+
+	.messagePreview {
+	    vertical-align: top;
+	    font-size: 12px;
+	    display: inline-block;
+	    margin-left: 10px;
+	    margin-top: 3px;
+	    
+	    .messageText { margin: 0; padding: 0; padding-top: 3px; }
+	    .messageSender { margin: 0; padding: 0; font-weight: bold; }
+	}
+    }
+
+    .sendMessage {
+	h2 { padding-top: 15px; }
+	form { padding-left: 15px; padding-bottom: 15px; }
+    }
+
+    .noMessages {
+	margin-left: 15px;
+	margin-top: 15px;
+    }
+
+    h2 {
+	margin-top: 0;
+	margin-left: 15px;
+    }
+}

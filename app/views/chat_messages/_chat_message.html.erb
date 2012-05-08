@@ -1,0 +1,18 @@
+<%= form_for [current_user, @message] do |form| %>
+  <fieldset>
+    <%= form.hidden_field :sender_id %>	
+    <table>
+      <tr>
+	<td><%= form.label :recipient_id, "To" %></td>
+	<td><%= form.text_field :recipient_id %></td>
+      </tr>
+      
+      <tr>
+	<td style="vertical-align: top; padding-right: 5px;"><%= form.label :message, "Message" %></td>
+	<td><%= form.text_area :message, size: "80x10" %></td>
+      </tr>
+
+      <tr><td></td><td><%= form.submit "Send", id: "submitButton" %></td></tr>
+    </table>        
+  </fieldset>
+<% end %>

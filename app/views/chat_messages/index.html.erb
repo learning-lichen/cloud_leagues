@@ -1,0 +1,31 @@
+<% title "Your Messages" %>
+<h1 id="messageHeader">Your Messages</h1>
+
+<div class="actionLinksContainer">
+  <div class="actionLinks">
+    <%= link_to "New Message", new_user_chat_message_path(current_user) %>
+  </div>
+</div>
+
+<div class="messagePanel" style="margin-top: 10px; padding-bottom: 0;">
+  <h2>Current Conversations</h2>
+
+  <% @messages.each do |sender, message| %>
+    <div class="messagePreviewContainer<%= message.read ? "" : " newMessage" %>">
+      <div class="userPortrait">
+      </div>
+
+      <div class="messagePreview">
+	<% user = sender.nil? ? "Unknown User" : sender.login %>
+	<p class="messageSender"><%= link_to user, user_chat_message_path(current_user, message) %></p>
+	
+	<% text = message.message.length > 50 ? message[0, 50] + "..." : message.message %>
+	<p class="messageText"><%= text %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @messages.empty? %>
+    <p class="noMessages">You have no messages to display.</p>
+  <% end %>
+</div>

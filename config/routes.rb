@@ -6,6 +6,7 @@ CloudLeagues::Application.routes.draw do
 
   resources :users do
     resource :account_information, as: :profile, path: :profile
+    resources :chat_messages, only: [:index, :show, :new, :create, :destroy]
   end
 
   resources :tournaments do
