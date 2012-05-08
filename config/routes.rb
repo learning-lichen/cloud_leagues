@@ -18,5 +18,7 @@ CloudLeagues::Application.routes.draw do
 
   resources :maps
 
+  resources :feedbacks, only: [:create]
+
   root to: 'home#index'
 end

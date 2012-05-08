@@ -1,0 +1,37 @@
+<div id="feedback">
+  <div id="showFeedbackForm">Submit Feedback</div>
+
+  <div id="feedbackFormContainer">
+    <div id="feedbackErrors"></div>
+
+    <% feedback = Feedback.new %>
+    <% feedback.user_id = current_user.id unless current_user.nil? %>
+    <%= form_for feedback, remote: true, url: feedbacks_path(format: :json),html: { id: "feedbackForm" } do |form| %>
+      <fieldset>
+	<%= form.hidden_field :user_id %>
+
+	<table>
+	  <tr>
+	    <td><%= form.select :category, Feedback::CATEGORIES.map { |key, val| [val, key] }, { include_blank: 'Select Category'} %></td>
+	  </tr>
+	  
+	  <tr>
+	    <td><%= form.text_area :message, size: "25x10" %></td>
+	  </tr>
+	  
+	  <tr><td>
+	      <div style="vertical-align: top;">
+		<div style="display: inline-block; vertical-align: top;">
+		  <%= form.submit "Submit", id: "feedbackSubmit" %>
+		</div>
+
+		<div id="feedbackLoader">
+		  <%= image_tag "loader.gif" %>
+		</div>
+	      </div>
+	  </td></tr>
+	</table>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

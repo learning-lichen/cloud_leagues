@@ -1,0 +1,10 @@
+guest_feedback:
+  id: 1
+  category: 2
+  message: This site is great!
+
+user_feedback:
+  id: 2
+  category: 0
+  message: The messaging system should be AJAX based.
+  user_id: 1

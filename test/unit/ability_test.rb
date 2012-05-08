@@ -835,4 +835,48 @@ class AbilityTest < ActiveSupport::TestCase
 
     assert ability.can? :update, MatchPlayerRelation
   end
+
+  ##############################################################################
+  # Feedback Modification Abilities                                            #
+  ##############################################################################
+  test "guest can create anonamous feedback" do
+    ability = Ability.new nil
+    
+    good_feedback = Feedback.new
+    bad_feedback = Feedback.new
+    bad_feedback.user_id = 1
+
+    assert ability.can?(:create, good_feedback)
+    assert ability.cannot?(:create, bad_feedback)
+  end
+
+  test "member can create feedback for themselves" do
+    user = users :default_user
+    ability = Ability.new user
+
+    good_feedback = Feedback.new({ user_id: user.id }, as: :member)
+    bad_feedback = Feedback.new({ user_id: user.id + 1 }, as: :member)
+
+    assert ability.can?(:create, good_feedback)
+    assert ability.cannot?(:create, bad_feedback)
+  end
+
+  test "moderator can create feedback for themselves" do
+    user = users :moderator_user
+    ability = Ability.new user
+
+    good_feedback = Feedback.new({ user_id: user.id }, as: :moderator)
+    bad_feedback = Feedback.new({ user_id: user.id + 1 }, as: :moderator)
+
+    puts good_feedback.user_id
+
+    assert ability.can?(:create, good_feedback)
+    assert ability.cannot?(:create, bad_feedback)
+  end
+
+  test "admin can create feedback" do
+    ability = Ability.new users(:admin_user)
+
+    assert ability.can?(:create, Feedback)
+  end
 end

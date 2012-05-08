@@ -4,3 +4,4 @@
 //= require jquery-cookie
 //= require shared
 //= require tournaments
+//= require feedbacks

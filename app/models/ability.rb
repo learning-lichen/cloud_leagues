@@ -9,10 +9,14 @@ class Ability
       
       can :create, UserSession
 
+      can :create, Feedback, user_id: nil
+
     elsif user.role? :member
       cannot :create, User
       
       can :destroy, UserSession
+
+      can :create, Feedback, user_id: user.id
 
       can [:create, :update], AccountInformation, user: { id: user.id }
 
@@ -48,6 +52,8 @@ class Ability
       cannot :create, User
       
       can :destroy, UserSession
+
+      can :create, Feedback, user_id: user.id
       
       can [:create, :update, :destroy], AccountInformation, user: { role: :member }
       can [:create, :update, :destroy], AccountInformation, user: { id: user.id }
