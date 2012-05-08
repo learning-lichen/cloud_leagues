@@ -30,8 +30,23 @@
     <p>Please <%= link_to "create a profile", new_user_profile_path(current_user) %> to view tournament information tailored to you.</p>
   </div>
 <% else %>
-  <div class="homePanel noSidePadding">
+  <div class="messagePanel", style="padding-bottom: 0;">
     <h2>Your Recent Messages</h2>
+    
+    <% @recent_messages.each do |sender, message| %>
+      <div class="messagePreviewContainer<%= message.read ? "" : " newMessage" %>">
+	<div class="userPortrait">
+	</div>
+	
+	<div class="messagePreview">
+	  <% user = sender.nil? ? "Unkown User" : sender.login %>
+	  <p class="messageSender"><%= link_to user, user_chat_message_path(current_user, message) %></p>
+
+	  <% text = message.message.length > 50 ? message[0, 50] + "..." : message.message %>
+	  <p class="messageText"><%= text %></p>
+	</div>
+      </div>
+    <% end %>
   </div>
 
   <div class="tournamentPanel">
