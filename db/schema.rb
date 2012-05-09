@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508041215) do
+ActiveRecord::Schema.define(:version => 20120509040811) do
 
   create_table "account_informations", :force => true do |t|
     t.integer  "user_id"
@@ -20,10 +20,14 @@ ActiveRecord::Schema.define(:version => 20120508041215) do
     t.string   "character_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role",           :default => 0
-    t.integer  "race",                          :null => false
-    t.integer  "league",                        :null => false
-    t.string   "time_zone",                     :null => false
+    t.integer  "role",                :default => 0
+    t.integer  "race",                               :null => false
+    t.integer  "league",                             :null => false
+    t.string   "time_zone",                          :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   create_table "chat_messages", :force => true do |t|

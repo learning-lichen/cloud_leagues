@@ -31,6 +31,11 @@
     <div id="matchInfoActionContainer">
       <div id="matchChatContainer">
 	<% if !other_relation.nil? && match.winner_id.nil?%>
+	  <% sender = other_relation.waiting_player.user.chat_profile %>
+	  <% recipient = @waiting_player.user.chat_profile %>
+	  <% messages = ChatMessage.where('(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)', sender.chat_id, recipient.chat_id, recipient.chat_id, sender.chat_id).order('id DESC').limit(25) %>
+	  <% messages = messages.to_a.sort %>
+
 	  <table id="chatAndMapTable" cellspacing="0" cellpadding="0">
 	    <tr>
 	      <td class="chatColumn" style="font-weight: bold; text-align: center;">Chat with Opponent</td>
@@ -39,7 +44,13 @@
 
 	    <tr>
 	      <td class="chatColumn">
-		<div id="matchChat"></div>
+		<div id="matchChat">
+		  <% messages.each do |message| %>
+		    <% name = message.sender_id == sender.chat_id ? sender.user.login : "You" %>
+		    <p class="chatMessage oldMessage"><b><%= name %>:</b> <%= message.message %></p>
+		    <% message.update_column :read, true if !message.read && message.recipient_id == recipient.chat_id %>
+		  <% end %>
+		</div>
 	      </td>
 	      <td class="mapColumn">
 		<% map_name = "" %>
@@ -77,13 +88,13 @@
       </div>
       
       <div id="matchActionContainer">
-	<% if player_relation.accepted %>
+	<% if player_relation.accepted && !match.contested? %>
 	  <div class="actionButton disabledAction">Match Accepted</div>
 
 	  <% both_accepted = match.match_player_relations.where(accepted: true).count == 2 %>
 	  <% if match.bye? || both_accepted && match.winner_id.nil? %>
 	    <%= form_for match, url: tournament_match_path(@tournament, match), html: { id: "winGameForm" } do |f| %>
-	      <%= f.fields_for :games, :last do |builder| %>
+	      <%= f.fields_for :games, match.games.last do |builder| %>
 	        <%= builder.hidden_field :winner_id, value: @waiting_player.id %>
 	      <% end %>
 	      <%= f.submit "Win Game", class: "actionButton activeAction" %>
@@ -92,9 +103,15 @@
 	    <div class="actionButton disabledAction">Waiting For Other</div>
 	  <% end %>
 	<% else %>
-	  <%= form_for player_relation, url: tournament_match_match_player_relation_path(@tournament, match, player_relation) do |f| %>
-	    <%= f.hidden_field :accepted, value: 1 %>
-	    <%= f.submit "Accept Match", class: "actionButton activeAction" %>
+	  <% if !player_relation.accepted %>
+	    <%= form_for player_relation, url: tournament_match_match_player_relation_path(@tournament, match, player_relation), html: { id: "acceptMatchForm" } do |f| %>
+	      <%= f.hidden_field :accepted, value: 1 %>
+	      <%= f.submit "Accept Match", class: "actionButton activeAction" %>
+	    <% end %>
+	  <% end %>
+
+	  <% if match.contested? && !player_relation.contested %>
+	    <div class="actionButton disabledAction">A player has requested a moderator review.</div>
 	  <% end %>
         <% end %>
 

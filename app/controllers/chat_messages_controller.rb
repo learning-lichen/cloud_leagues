@@ -20,9 +20,8 @@ class ChatMessagesController < ApplicationController
     @message = @chat_message
     sender = @message.sender_id
     recipient = @message.recipient_id
-    id = @message.id + 1
 
-    @messages = ChatMessage.where('(sender_id = ? AND recipient_id = ? AND id < ?) OR (sender_id = ? AND recipient_id = ? AND id < ?)', sender, recipient, id, recipient, sender, id).limit(100)
+    @messages = ChatMessage.where('(sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)', sender, recipient, recipient, sender).order('id DESC').limit(100)
     @sender = ChatProfile.find_by_chat_id(sender).user rescue nil
 
     render

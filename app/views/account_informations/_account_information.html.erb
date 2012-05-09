@@ -40,6 +40,11 @@
     <h3>Optional Stuff</h3>
     <table class="optionInformationTable">
       <tr>
+	<td><%= form.label :avatar, "Avatar" %></td>
+	<td><%= form.file_field :avatar %></td>
+      </tr>
+
+      <tr>
 	<td><%= form.label :reddit_name, "Reddit Name" %></td>
 	<td><%= form.text_field :reddit_name %></td>
       </tr>

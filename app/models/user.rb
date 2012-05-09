@@ -72,6 +72,16 @@ class User < ActiveRecord::Base
     Notifier.deliver_password_reset_instructions(self)
   end
 
+  def avatar_url
+    avatar = nil
+    if account_information.nil?
+      avatar = AccountInformation.new.avatar.url(:thumb)
+    else
+      avatar = account_information.avatar.url(:thumb)
+    end
+    avatar
+  end
+
   protected
   def strip_inputs
     login.strip! if login

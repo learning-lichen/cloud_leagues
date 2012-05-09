@@ -33,4 +33,11 @@ namespace :deploy do
   task :restart, roles: :app, except: { no_release: true } do
     run "#{try_sudo} touch #{File.join(current_path, 'tmp', 'restart.txt')}"
   end
+
+  desc 'Build missing paperclip styles'
+  task :build_missing_paperclip_styles, roles: :app do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake paperclip:refresh:missing_styles"
+  end
 end
+
+after('deploy:update_code', 'deploy:build_missing_paperclip_styles')

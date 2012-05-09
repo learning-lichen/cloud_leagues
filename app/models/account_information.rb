@@ -25,6 +25,7 @@ class AccountInformation < ActiveRecord::Base
   
   # Associations
   belongs_to :user
+  has_attached_file :avatar, styles: { thumb: ["35x35#", :png] }, default_url: '/assets/missing_avatar.png'
 
   # Validations
   validates :user_id, presence: true, uniqueness: true
@@ -38,16 +39,17 @@ class AccountInformation < ActiveRecord::Base
   validates :race, presence: true, inclusion: { in: RACES.keys }
   validates :league, presence: true, inclusion: { in: Tournament::LEAGUES.keys }, exclusion: { in: [Tournament::ALL] }
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.us_zones.map { |z| z.name } }
+  validates_attachment :avatar, content_type: { content_type: ['image/jpg', 'image/png'] }, size: { in: 0..50.kilobytes }
 
   # Callbacks
   before_validation :strip_inputs
   after_create :create_chat_profile
 
   # Attribute Whitelists
-  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, as: :new_member
-  attr_accessible :reddit_name, :race, :time_zone, as: :member
-  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, as: :moderator
-  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, :time_zone, as: :admin
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, :avatar, as: :new_member
+  attr_accessible :reddit_name, :race, :time_zone, :avatar, as: :member
+  attr_accessible :reddit_name, :character_name, :character_code, :race, :league, :time_zone, :avatar, as: :moderator
+  attr_accessible :user_id, :reddit_name, :character_name, :character_code, :role, :race, :league, :time_zone, :avatar, as: :admin
 
   protected
   def strip_inputs

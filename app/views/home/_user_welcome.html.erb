@@ -36,6 +36,7 @@
     <% @recent_messages.each do |sender, message| %>
       <div class="messagePreviewContainer<%= message.read ? "" : " newMessage" %>">
 	<div class="userPortrait">
+	  <%= image_tag sender.avatar_url unless sender.nil? %>
 	</div>
 	
 	<div class="messagePreview">

@@ -5,9 +5,23 @@
 <div class="messagePanel" style="padding-bottom: 0;">
   <h2>Conversation with <%= user %></h2>
 
+  <div class="sendMessage">
+    <% if !@sender.nil? %>
+      <h2>Send Message</h2>
+      <% @message = ChatMessage.new sender_id: current_user.chat_profile.chat_id, recipient_id: @sender.login %>
+      <%= render @message %>
+    <% end %>
+  </div>
+
+  <% first = true %>
   <% @messages.each do |message| %>
     <div class="messagePreviewContainer <%= message.read ? "" : " newMessage" %>">
       <div class="userPortrait">
+	<% if message.sender_id == current_user.chat_profile.chat_id %>
+	  <%= image_tag current_user.avatar_url %>
+	<% else %>
+	  <%= image_tag @sender.avatar_url unless @sender.nil? %>
+	<% end %>
       </div>
 
       <div class="messagePreview">
@@ -17,16 +31,11 @@
 	  <p class="messageSender"><%= link_to_if !@sender.nil?, user, user_profile_path(@sender) %></p>
 	<% end %>
 
+	<p class="messageDate">Sent on <%= message.created_at.to_date %> <%= "(Latest)" if first %></p>
+
 	<p class="messageText"><%= message.message %></p>
       </div>
     </div>
+    <% first = false %>
   <% end %>
-  
-  <div class="sendMessage">
-    <% if !@sender.nil? %>
-      <h2>Send Message</h2>
-      <% @message = ChatMessage.new sender_id: current_user.chat_profile.chat_id, recipient_id: @sender.login %>
-      <%= render @message %>
-    <% end %>
-  </div>
 </div>

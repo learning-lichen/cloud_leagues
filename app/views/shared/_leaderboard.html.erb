@@ -15,10 +15,12 @@
     <% else %>
       <div id="topPlayers">
 	<% top_players.each do |player_id| %>
+	  <% user = User.find_by_id(player_id) %>
 	  <div class="topPlayerRow">
-	    <div class="userPortrait"></div>
+	    <div class="userPortrait">
+	      <%= image_tag user.avatar_url %>
+	    </div>
 	    <div class="leaderboardUserInfo">
-	      <% user = User.find_by_id(player_id) %>
 	      <% win_loss_array = user.win_loss_array %>
 	      <%= link_to user.login, user_path(user) %>
 	      <div class="leaderboardUserStats">

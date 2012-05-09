@@ -43,7 +43,9 @@ $ ->
             $('#chatMessageForm > input[name=message]').val('Disconnected')
 
         socket.on 'refresh_page', ->
-            location.reload()
+            setTimeout( ->
+                window.location.reload()
+            , 2000)
 
     $('#chatMessageForm').submit ->
         recipient_id = $('input[name=recipient_id]')
@@ -62,9 +64,17 @@ $ ->
         my_socket.emit('match_won', { opponent: opponent.val() })
         true
 
+    $('#acceptMatchForm').submit ->
+        opponent = $('#chatMessageForm > input[name=recipient_id]')
+        my_socket.emit('player_accepted', { opponent: opponent.val() })
+        true
+
     $(document).click ->
         sender = $('#chatMessageForm > input[name=recipient_id]')
 
         if window.unread_message
             my_socket.emit('read_messages', { sender: sender.val() })
             window.undread_message = false
+        true
+
+    $('#matchChat').prop({ scrollTop: $('#matchChat').prop('scrollHeight') })

@@ -1,12 +1,13 @@
 <% title "Starcraft 2 Tournaments" %>
 <h1 id="tournamentHeader">Tournament List</h1>
 
-<div class="actionLinksContainer">
-  <div class="actionLinks">
-    <%= link_to "New Tournament", new_tournament_path if can?(:create, Tournament) %>
-    <%= link_to "View All", "#" %>
+<% if can?(:create, Tournament) %>
+  <div class="actionLinksContainer">
+    <div class="actionLinks">
+      <%= link_to "New Tournament", new_tournament_path if can?(:create, Tournament) %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="tournamentPanel" style="margin-top: 10px;">
   <h2>Tournaments Open to All</h2>
