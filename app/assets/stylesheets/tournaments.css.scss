@@ -385,6 +385,18 @@
 	.top {
 	    border-bottom: 1px solid #BCBCBC;
 	}
+
+	.usersMatch {
+	    font-weight: bold;
+	    color: #F1F1EC;
+	    background-color: #222;
+	}
+
+	.matchWinner {
+	    background-image: url(/assets/match_winner.png);
+	    background-repeat: no-repeat;
+	    background-position: right top;
+	}
     }
 }
 

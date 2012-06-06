@@ -10,6 +10,20 @@
     margin-top: 20px;
     padding-bottom: 15px;
     border-left: 5px solid #FFF;
+
+    #refreshMessageIndex {
+	margin: 10px;
+	margin-top: 0;
+	margin-left: 5px;
+	display: none;
+
+	a {
+	    display: block;
+	    text-align: center;
+	    background-color: #F1F1F1;
+	    padding: 5px;
+	}
+    }
     
     .messagePreviewContainer {
 	font-size: 0px;

@@ -30,10 +30,11 @@ $ ->
             socket.emit('authenticate', { persistence_token: user_cred_cookie[0], id: user_cred_cookie[1] })
 
         socket.on 'new_message', (message) ->
-            message_text = $('<pre>').text(message.message).html()
-            $('#matchChat').append('<p class="chatMessage"><b>' + message.cloud_login + ':</b> ' + message_text + '</p>')
-            $('#matchChat').prop({ scrollTop: $('#matchChat').prop('scrollHeight') })
-            window.unread_message = true
+            if message.sender_id == $('input[name=recipient_id]').val()
+                message_text = $('<pre>').text(message.message).html()
+                $('#matchChat').append('<p class="chatMessage"><b>' + message.cloud_login + ':</b> ' + message_text + '</p>')
+                $('#matchChat').prop({ scrollTop: $('#matchChat').prop('scrollHeight') })
+                window.unread_message = true
 
         socket.on 'message_failure', (error) ->
             alert(error);

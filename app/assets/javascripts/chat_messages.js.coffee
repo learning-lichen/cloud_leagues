@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$ ->
+    updateMessages = ->
+        $.ajax({
+            url: $('#linkToChatMessages').prop('href') + ".json"
+        }).done((data) ->
+            if data.unread_messages
+                $('#refreshMessageIndex').css('display', 'block')
+                $('#dropMenuArrow').addClass('displayMessageIcon')
+            else
+                setTimeout(updateMessages, 60000)
+        )
+
+    if $('#linkToChatMessages').length > 0
+        setTimeout(updateMessages, 60000)

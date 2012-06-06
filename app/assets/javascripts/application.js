@@ -5,3 +5,4 @@
 //= require shared
 //= require tournaments
 //= require feedbacks
+//= require chat_messages

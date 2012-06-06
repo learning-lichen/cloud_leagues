@@ -15,7 +15,7 @@ class MapList < ActiveRecord::Base
   protected
   def map_ordering   
     if map_order != 1 && tournament && tournament.map_lists.select { |ml| ml.map_order == 1 }.length == 0
-      errors.add :map_order, 'must be sequential'
+      errors.add :map_order, I18n.t('activerecord.errors.models.map_list.attributes.map_order.sequence')
     end
   end
 end

@@ -1,6 +1,10 @@
 <div class="matchDisplay">
   <% player_relations = match.match_player_relations %>
-  <div class="matchPlayer top">
+  <% playert_class = "usersMatch" if current_user && player_relations[0] && player_relations[0].waiting_player.user_id == current_user.id %>
+  <% playert_class ||= "" %>
+  <% winnert_class = "matchWinner" if player_relations[0] && player_relations[0].waiting_player.id == match.winner_id %>
+  <% winnert_class ||= "" %>
+  <div class="matchPlayer top <%= playert_class + winnert_class %>">
     <% if player_relations[0] %>
       <%= player_relations[0].waiting_player.user.login %>
     <% else %>
@@ -8,7 +12,11 @@
     <% end %>
   </div>
 	    
-  <div class="matchPlayer">
+  <% playerb_class = "usersMatch" if current_user && player_relations[1] && player_relations[1].waiting_player.user_id == current_user.id %>
+  <% playerb_class ||= "" %>
+  <% winnerb_class = "matchWinner" if player_relations[1] && player_relations[1].waiting_player.id == match.winner_id %>
+  <% winnerb_class ||= "" %>
+  <div class="matchPlayer <%= playerb_class + " " + winnerb_class %>">
     <% if player_relations[1] %>
       <%= player_relations[1].waiting_player.user.login %>
     <% else %>

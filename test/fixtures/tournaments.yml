@@ -48,7 +48,7 @@ full_tournament:
   type: SingleEliminationTournament
   start_time: <%= 5.hours.from_now %>
   registration_time: <%= 1.hours.ago %>
-  max_players: 1
+  max_players: 2
   name: Full Tournament
   prize: 0
   default_best_of: 3

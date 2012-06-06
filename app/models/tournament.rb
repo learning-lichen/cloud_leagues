@@ -10,14 +10,14 @@ class Tournament < ActiveRecord::Base
   BRONZE = 0b0000001
 
   LEAGUES = {
-    ALL => 'All',
-    GRAND_MASTER => 'Grand Master',
-    MASTER => 'Master',
-    DIAMOND => 'Diamond',
-    PLATINUM => 'Platinum',
-    GOLD => 'Gold',
-    SILVER => 'Silver',
-    BRONZE => 'Bronze'
+    ALL => I18n.t('tournament.leagues.all'),
+    GRAND_MASTER => I18n.t('tournament.leagues.grand_master'),
+    MASTER => I18n.t('tournament.leagues.master'),
+    DIAMOND => I18n.t('tournament.leagues.diamond'),
+    PLATINUM => I18n.t('tournament.leagues.platinum'),
+    GOLD => I18n.t('tournament.leagues.gold'),
+    SILVER => I18n.t('tournament.leagues.silver'),
+    BRONZE => I18n.t('tournament.leagues.bronze')
   }
 
   # Associations
@@ -28,10 +28,10 @@ class Tournament < ActiveRecord::Base
   has_many :maps, through: :map_lists
   
   # Validations
-  validates :league, presence: true, inclusion: { in: 1..127, message: 'is not valid' }
-  validates :max_players, presence: true, inclusion: { in: 1..64 }
+  validates :league, presence: true, inclusion: { in: 1..127 }
+  validates :max_players, presence: true, inclusion: { in: 2..64 }
   validates :name, presence: true, uniqueness: true, length: { within: 5..25 }
-  validates :prize, presence: true, inclusion: { in: 0..4999, message: 'must be within $0 and $4,999' }
+  validates :prize, presence: true, inclusion: { in: 0..4999 }
   validates :default_best_of, presence: true, inclusion: { in: [1, 3, 5, 7, 9, 11] }
   validate :validate_waiting_players
   validate :validate_type
@@ -92,23 +92,21 @@ class Tournament < ActiveRecord::Base
   #    these all.
   def update_structure
     # Check for errors.
-    errors.add :type, 'cannot be changed' if type_changed?
-    errors.add :start_time, 'cannot be changed once started' if start_time_changed? and start_time_was <= Time.now
+    errors.add :type, I18n.t('activerecord.errors.models.tournament.attributes.type.changed') if type_changed?
+    errors.add :start_time, I18n.t('activerecord.errors.models.tournament.attributes.start_time.changed') if start_time_changed? and start_time_was <= Time.now
     
     if started?
-      error_end = 'once tournament has started'
-      errors.add :league, 'cannot be changed' + error_end if league_changed?
-      errors.add :start_time, 'cannot be changed' + error_end if start_time_changed?
-      errors.add :max_players, 'cannot be changed' + error_end if max_players_changed?
-      errors.add :registration_time, 'cannot be changed' + error_end if registration_time_changed?
+      errors.add :league, I18n.t('activerecord.errors.models.tournament.attributes.started.league') if league_changed?
+      errors.add :start_time, I18n.t('activerecord.errors.models.tournament.attributes.started.start_time') if start_time_changed?
+      errors.add :max_players, I18n.t('activerecord.errors.models.tournament.attributes.started.max_players') if max_players_changed?
+      errors.add :registration_time, I18n.t('activerecord.errors.models.tournament.attributes.started.registration_time') if registration_time_changed?
     end
 
     if locked?
-      error_end = 'if tournament is locked'
-      errors.add :league, 'cannot be changed' + error_end if league_changed?
-      errors.add :start_time, 'cannot be changed' + error_end if start_time_changed?
-      errors.add :max_players, 'cannot be changed' + error_end if max_players_changed?
-      errors.add :registration_time, 'cannot be changed' + error_end if registration_time_changed?
+      errors.add :league, I18n.t('activerecord.errors.models.tournament.attributes.locked.league') if league_changed?
+      errors.add :start_time, I18n.t('activerecord.errors.models.tournament.attributes.locked.start_time') if start_time_changed?
+      errors.add :max_players, I18n.t('activerecord.errors.models.tournament.attributes.locked.max_players') if max_players_changed?
+      errors.add :registration_time, I18n.t('activerecord.errors.models.tournament.attributes.locked.registration_time') if registration_time_changed?
     end
 
     raise ActiveRecord::Rollback unless errors.empty?
@@ -135,13 +133,13 @@ class Tournament < ActiveRecord::Base
       all_players_belong = false if ((player.user.account_information.league & league) == 0)
     end
     
-    errors.add(:waiting_players, 'too many accepted') if accepted_count > (max_players || 0)
-    errors.add(:waiting_players, 'do not belong to this tournaments league') unless all_players_belong
+    errors.add(:waiting_players, I18n.t('activerecord.errors.models.tournament.attributes.waiting_players.too_many')) if accepted_count > (max_players || 0)
+    errors.add(:waiting_players, I18n.t('activerecord.errors.models.tournament.attributes.waiting_players.dont_belong')) unless all_players_belong
   end
 
   def validate_type
-    errors.add(:type, 'must be present') and return if type.nil?
-    errors.add(:type, 'cannot be changed') if !new_record? and type_changed?
+    errors.add(:type, I18n.t('activerecord.errors.models.tournament.attributes.type.blank')) and return if type.nil?
+    errors.add(:type, I18n.t('activerecord.errors.models.tournament.attributes.type.changed')) if !new_record? and type_changed?
     tournament_file_names = Dir.glob('app/models/*_tournament.rb').map do |file_name|
       File.basename file_name, '.rb'
     end
@@ -150,17 +148,17 @@ class Tournament < ActiveRecord::Base
       file_name.split('_').map { |w| w.capitalize }.join
     end
 
-    errors.add(:type, 'is not a valid tournament type') unless class_names.include?(type)
+    errors.add(:type, I18n.t('activerecord.errors.models.tournament.attributes.type.inclusion')) unless class_names.include?(type)
   end
   
   def validate_times
-    errors.add(:start_time, 'must be present') and return if start_time.nil?
-    errors.add(:start_time, 'must be in the future') and return if new_record? and start_time <= Time.now
-    errors.add(:registration_time, 'must be present') and return if registration_time.nil?
-    errors.add(:registration_time, 'must be before start time') and return if registration_time >= start_time
+    errors.add(:start_time, I18n.t('activerecord.errors.models.tournament.attributes.start_time.blank')) and return if start_time.nil?
+    errors.add(:start_time, I18n.t('activerecord.errors.models.tournament.attributes.start_time.future')) and return if new_record? and start_time <= Time.now
+    errors.add(:registration_time, I18n.t('activerecord.errors.models.tournament.attributes.registration_time.blank')) and return if registration_time.nil?
+    errors.add(:registration_time, I18n.t('activerecord.errors.models.tournament.attributes.registration_time.too_late')) and return if registration_time >= start_time
   end
 
   def validate_map_list
-    errors.add :map_lists, 'must have a map with order 1' if map_lists.select { |ml| ml.map_order == 1 }.empty?
+    errors.add :map_lists, I18n.t('activerecord.errors.models.tournament.attributes.map_lists.order') if map_lists.select { |ml| ml.map_order == 1 }.empty?
   end
 end

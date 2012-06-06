@@ -6,10 +6,10 @@ class Feedback < ActiveRecord::Base
   OTHER = 3
 
   CATEGORIES = {
-    FEATURE_REQUEST => 'Feature Request',
-    BUG_REPORT => 'Bug Report',
-    COMMENT => 'Comment',
-    OTHER => 'Other'
+    FEATURE_REQUEST => I18n.t('feedback.categories.feature_request'),
+    BUG_REPORT => I18n.t('feedback.categories.bug_report'),
+    COMMENT => I18n.t('feedback.categories.comment'),
+    OTHER => I18n.t('feedback.categories.other')
   }
 
   # Associations

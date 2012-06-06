@@ -10,6 +10,8 @@
 <div class="messagePanel" style="margin-top: 10px; padding-bottom: 0;">
   <h2>Current Conversations</h2>
 
+  <div id="refreshMessageIndex"><%= link_to "You have unread messages. Click here to see them.", user_chat_messages_path(current_user) %></div>
+
   <% @messages.each do |sender, message| %>
     <div class="messagePreviewContainer<%= message.read ? "" : " newMessage" %>">
       <div class="userPortrait">
@@ -20,7 +22,7 @@
 	<% user = sender.nil? ? "Unknown User" : sender.login %>
 	<p class="messageSender"><%= link_to user, user_chat_message_path(current_user, message) %></p>
 	
-	<% text = message.message.length > 50 ? message[0, 50] + "..." : message.message %>
+	<% text = message.message.length > 50 ? message.message[0, 50] + "..." : message.message %>
 	<p class="messageText"><%= text %></p>
       </div>
     </div>

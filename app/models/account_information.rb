@@ -17,10 +17,10 @@ class AccountInformation < ActiveRecord::Base
   ZERG = 3
   
   RACES = {
-    RANDOM => 'Random',
-    TERRAN => 'Terran',
-    PROTOSS => 'Protoss',
-    ZERG => 'Zerg'
+    RANDOM => I18n.t('races.random'),
+    TERRAN => I18n.t('races.terran'),
+    PROTOSS => I18n.t('races.protoss'),
+    ZERG => I18n.t('races.zerg')
   }
   
   # Associations
@@ -29,17 +29,14 @@ class AccountInformation < ActiveRecord::Base
 
   # Validations
   validates :user_id, presence: true, uniqueness: true
-  validates :reddit_name, allow_nil: true, allow_blank: true, uniqueness: {
-    message: 'has already been registered by another user'}
-  validates :character_name, presence: true, uniqueness: {
-    scope: :character_code, message: 'has already been registered'}
-  validates :character_code, {presence: true, numericality: true, 
-    length: {is: 3}}
+  validates :reddit_name, allow_nil: true, allow_blank: true, uniqueness: true
+  validates :character_name, presence: true, uniqueness: { scope: :character_code }
+  validates :character_code, presence: true, numericality: true, length: {is: 3}
   validates :role, presence: true, inclusion: { in: ROLES.keys }
   validates :race, presence: true, inclusion: { in: RACES.keys }
   validates :league, presence: true, inclusion: { in: Tournament::LEAGUES.keys }, exclusion: { in: [Tournament::ALL] }
   validates :time_zone, presence: true, inclusion: { in: ActiveSupport::TimeZone.us_zones.map { |z| z.name } }
-  validates_attachment :avatar, content_type: { content_type: ['image/jpg', 'image/png'] }, size: { in: 0..50.kilobytes }
+  validates_attachment :avatar, content_type: { content_type: ['image/jpeg', 'image/pjpeg', 'image/png'], message: I18n.t('activerecord.errors.models.account_information.attributes.avatar.content_type') }, size: { in: 0..50.kilobytes, message: I18n.t('activerecord.errors.models.account_information.attributes.avatar.size') }
 
   # Callbacks
   before_validation :strip_inputs

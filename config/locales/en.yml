@@ -1,5 +1,297 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      account_information: Profile
+      chat_message: Message
+      chat_profile: Chat Profile
+      feedback: Feedback
+      game: Game
+      map: Map
+      map_list: Map List
+      match: Match
+      match_player_relation: Match Player
+      replay: Replay
+      single_elimination_tournament: Single Elimination Tournament
+      tournament: Tournament
+      waiting_player: Waiting Player
+    attributes:
+      account_information:
+        user_id: "User"
+        reddit_name: "Reddit username"
+        character_name: "Character name"
+        character_code: "Character code"
+        role: "Role"
+        race: "Race"
+        league: "League"
+        time_zone: "Time zone"
+        avatar_content_type: "Avatar image type"
+        avatar_file_size: "Avatar file size"
+      chat_message:
+        sender_id: "Sender"
+        recipient_id: "Recipient"
+        read: "Read"
+        message: "Message text"
+      chat_profile:
+        user_id: "User"
+        chat_id: "Chat"
+      feedback:
+        user_id: "User"
+        category: "Category"
+        message: "Feedback"
+      game:
+        match_id: "Match"
+        winner_id: "Winner"
+      map:
+        name: "Name"
+        image_content_type: "Image content type"
+        image_file_size: "Image file size"
+      map_list:
+        map_id: "Map"
+        map_order: "Map order"
+      match:
+        tournament_id: "Tournament"
+        best_of: "Best of"
+        match_player_relations: "Match players"
+        winner_id: "Winner"
+      match_player_relation:
+        waiting_player_id: "Waiting player"
+        match_id: "Match"
+      replay:
+        game_id: "Game"
+        uploader_id: "Uploader"
+        replay_content_type: "Replay content type"
+        replay_file_size: "Replay file size"
+      single_elimination_tournament:
+        league: "League"
+        max_players: "Maximum number of players"
+        name: "Name"
+        prize: "Prize pool"
+        default_best_of: "Best of"
+        type: "Format"
+        start_time: "Starting time"
+        registration_time: "Registration time"
+        waiting_players: "Players"
+        map_lists: "Map list"
+      tournament:
+        league: "League"
+        max_players: "Maximum number of players"
+        name: "Name"
+        prize: "Prize pool"
+        default_best_of: "Best of"
+        type: "Format"
+        start_time: "Starting time"
+        registration_time: "Registration time"
+        waiting_players: "Players"
+        map_lists: "Map list"
+      waiting_player:
+        tournament_id: "Tournament"
+        user_id: "User"
+        player_accepted: "Player acceptance"
+    errors:
+      template:
+        header:
+          one: "1 error prohibited this %{model} from being saved"
+          other: "%{count} errors prohibited this %{model} from being saved"
+        body: "There were problems with the following fields:"
+      models:
+        account_information:
+          attributes:
+            user_id:
+              blank: "cannot be missing"
+              taken: "must be uniquely assigned a profile"
+            reddit_name:
+              taken: "has already been registered"
+            character_name:
+              blank: "cannot be missing"
+              taken: "has already been registered"
+            character_code:
+              blank: "cannot be missing"
+              wrong_length: "must be of length %{count}"
+              not_a_number: "must be a number"
+            role:
+              blank: "cannot be missing"
+              inclusion: "must be valid"
+            race:
+              blank: "cannot be missing"
+              inclusion: "must be valid"
+            league:
+              blank: "cannot be missing"
+              inclusion: "must be valid"
+            time_zone:
+              blank: "cannot be missing"
+              inclusion: "must be valid"
+            avatar:
+              content_type: "must be PNG or JPEG"
+              size: "must be less than 50 kilobytes"
+        chat_message:
+          attributes:
+            sender_id:
+              blank: "cannot be missing"
+            recipient_id:
+              blank: "cannot be missing"
+            message:
+              blank: "cannot be missing"
+        chat_profile:
+          attributes:
+            user_id:
+              blank: "cannot be missing"
+              taken: "has already been registered"
+            chat_id:
+              blank: "cannot be missing"
+              taken: "has already been registered"
+        feedback:
+          attributes:
+            message:
+              blank: "cannot be missing"
+            category:
+              blank: "cannot be missing"
+              inclusion: "must be valid"
+        game:
+          attributes:
+            match_id:
+              blank: "cannot be missing"
+            winner_id:
+              blank: "cannot be missing"
+              inclusion: "must be the id of a participating players"
+        map:
+          attributes:
+            name:
+              blank: "cannot be missing"
+              taken: "is already is use"
+            image:
+              content_type: "must be PNG or JPEG"
+              size: "must be less than 500 kilobytes"
+        map_list:
+          attributes:
+            map_id:
+              blank: "cannot be missing"
+              inclusion: "must be the id of a valid map"
+            map_order:
+              blank: "cannot be missing"
+              inclusion: "must be between 1 and 20"
+              taken: "must be unique"
+              sequence: "must be sequential"
+        match:
+          attributes:
+            tournament_id:
+              blank: "cannot be misisng"
+            best_of:
+              blank: "cannot be missing"
+              inclusion: "must be 1, 3, 5, 7, 9, or 11"
+            match_player_relations:
+              too_long: "must be less than %{count}"
+            winner_id:
+              inclusion: "must belong to a player in this match"
+        match_player_relation:
+          attributes:
+            waiting_player_id:
+              blank: "cannot be missing"
+            match_id:
+              blank: "cannot be missing"
+        replay:
+          attributes:
+            game_id:
+              blank: "cannot be missing"
+            uploader_id:
+              blank: "cannot be missing"
+              taken: "has already uploaded a replay for this game"
+            replay:
+              blank: "cannot be missing"
+              content_type: "must be in valid SC2 replay format"
+              size: "must be less than 1000 kilobytes"
+        single_elimination_tournament:
+          attributes:
+            league:
+              blank: "cannot be missing"
+              inclusion: "is not valid"
+            max_players:
+              blank: "cannot be missing"
+              inclusion: "must be between 2 and 64"
+            name:
+              blank: "cannot be missing"
+              taken: "is already is use"
+              too_long: "must be less than 26 characters"
+              too_short: "must be more than 4 characters"
+            prize:
+              blank: "cannot be missing"
+              inclusion: "must be between $0 and $4,999"
+            default_best_of:
+              blank: "cannot be missing"
+              inclusion: "must be 1, 3, 5, 7, 9, or 11"
+        tournament:
+          attributes:
+            league:
+              blank: "cannot be missing"
+              inclusion: "is not valid"
+            max_players:
+              blank: "cannot be missing"
+              inclusion: "must be between 2 and 64"
+            name:
+              blank: "cannot be missing"
+              taken: "is already is use"
+              too_long: "must be less than 26 characters"
+              too_short: "must be more than 4 characters"
+            prize:
+              blank: "cannot be missing"
+              inclusion: "must be between $0 and $4,999"
+            default_best_of:
+              blank: "cannot be missing"
+              inclusion: "must be 1, 3, 5, 7, 9, or 11"
+            type:
+              changed: "cannot be changed"
+              blank: "cannot be missing"
+              inclusion: "is not a recognized format"
+            start_time:
+              blank: "cannot be missing"
+              changed: "cannot be changed"
+              future: "must be in the future"
+            registration_time:
+              blank: "cannot be missing"
+              too_late: "must be before the starting time"
+            waiting_players:
+              too_many: "accpeted limit has been reached"
+              dont_belong: "in this tournament do not belong to the correct league"
+            map_lists:
+              order: "must have map with order 1"
+            started:
+              league: "cannot be changed once the tournament has started"
+              start_time: "cannot be changed once the tournament has started"
+              max_players: "cannot be changed once the tournament has started"
+              registration_time: "cannot be changed once the tournament has started"
+            locked:
+              league: "cannot be changed when the tournament is locked"
+              start_time: "cannot be changed when the tournament is locked"
+              max_players: "cannot be changed when the tournament is locked"
+              registration_time: "cannot be changed when the tournament is locked"
+        waiting_player:
+          attributes:
+            tournament_id:
+              blank: "cannot be missing"
+            user_id: 
+              blank: "cannot be missing"
+              taken: "is already registered for this tournament"
+              account_information: "must have a profile" 
+              league: "must be in this tournament's league"
+            player_accepted:
+              too_many: "denied. Too many players have already joined"
+  races:
+    random: "Random"
+    terran: "Terran"
+    protoss: "Protoss"
+    zerg: "Zerg"
+  feedback:
+    categories:
+      feature_request: "Feature Request"
+      bug_report: "Bug Report"
+      comment: "Comment"
+      other: "Other"
+  tournament:
+    leagues:
+      all: "All"
+      grand_master: "Grand Master"
+      master: "Master"
+      diamond: "Diamond"
+      platinum: "Platinum"
+      gold: "Gold"
+      silver: "Silver"
+      bronze: "Bronze"

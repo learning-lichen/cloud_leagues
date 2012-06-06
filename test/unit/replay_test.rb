@@ -13,13 +13,6 @@ class ReplayTest < ActiveSupport::TestCase
 
     assert !replay.valid?
   end
-
-  test "replay url validations" do
-    replay = replays(:all_match_replay_one)
-    replay.replay_url = nil
-
-    assert !replay.valid?
-  end
   
   test "uploader id validations" do
     all_replay1 = replays(:all_match_replay_one)

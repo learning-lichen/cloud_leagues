@@ -115,6 +115,7 @@ $ ->
         if data.contested
             submitButton.attr('value', 'Dismiss Mod Call')
             contested_field.attr('value', 0)
+            alert('You have contested this match. A moderator will message you soon.\nPlease pay attention to your inbox.')
         else
             submitButton.attr('value', 'Call Mod')
             contested_field.attr('value', 1)

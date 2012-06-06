@@ -1,17 +1,26 @@
 all_match_replay_one:
   id: 1
   game_id: 1
-  replay_url: www.all_match_replay_one.com
   uploader_id: 3
+  replay_file_name: replay.sc2replay
+  replay_content_type: data
+  replay_file_size: 10000
+  replay_updated_at: 2012-05-11 04:48:23
 
 all_match_replay_two:
   id: 2
   game_id: 3
-  replay_url: www.all_match_replay_two.com
   uploader_id: 4
+  replay_file_name: replay.sc2replay
+  replay_content_type: data
+  replay_file_size: 10000
+  replay_updated_at: 2012-05-11 04:48:23
 
 grand_master_match_replay_one:
   id: 3
   game_id: 3
-  replay_url: www.gm_match_replay_one.com
   uploader_id: 3
+  replay_file_name: replay.sc2replay
+  replay_content_type: data
+  replay_file_size: 10000
+  replay_updated_at: 2012-05-11 04:48:23

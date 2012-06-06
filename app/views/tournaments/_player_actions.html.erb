@@ -58,7 +58,7 @@
 		  <% map_num = match.previous_matches.length % match.tournament.map_lists.count %>
 		  <% map = match.tournament.map_lists[map_num].map %>
 		  <% map_name = map.name %>
-		  <%= image_tag map.image_url, height: '200', width: '200' %>
+		  <%= image_tag map.image.url(:small) %>
 	        <% else %>
 		  <% map_name = "Loser's Pick" %>
 		  <%= image_tag "loser_pick.png" %>
@@ -88,7 +88,7 @@
       </div>
       
       <div id="matchActionContainer">
-	<% if player_relation.accepted && !match.contested? %>
+	<% if player_relation.accepted && !match.contested? && match.winner_id.nil? %>
 	  <div class="actionButton disabledAction">Match Accepted</div>
 
 	  <% both_accepted = match.match_player_relations.where(accepted: true).count == 2 %>

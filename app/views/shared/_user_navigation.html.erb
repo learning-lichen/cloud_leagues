@@ -28,13 +28,13 @@
 	<% chat_id = current_user.chat_profile.nil? ? nil : current_user.chat_profile.chat_id %>
 	<% unread_messages = ChatMessage.where(recipient_id: chat_id, read: false) %>
 	<% menu_class = unread_messages.empty? ? "" : "displayMessageIcon" %>
-	<dl class="dropMenu <%= menu_class %>">
+	<dl class="dropMenu <%= menu_class %>", id="dropMenuArrow">
 	  <dt>
 	    <%= link_to "", "javascript:void(0)", class: "button_inner", id: "linkglobal"  %>
 	  </dt>
 	  <dd>
 	    <ul id="ulglobal">
-	      <li style="margin-top: 2px;"><%= link_to "Messages", user_chat_messages_path(current_user) %></li>
+	      <li style="margin-top: 2px;"><%= link_to "Messages", user_chat_messages_path(current_user), id: "linkToChatMessages" %></li>
 	      <li><%= link_to "Logout", logout_path, method: :delete %></li>
 	    </ul>
 	  </dd>

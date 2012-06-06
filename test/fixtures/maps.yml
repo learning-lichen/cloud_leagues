@@ -1,14 +1,23 @@
 shattered_temple:
   id: 1
   name: Shatterd Temple
-  image_url: http://shatteredtemple.com/image.jpg
+  image_file_name: metropolis.jpg
+  image_content_type: image/jpeg
+  image_file_size: 38644
+  image_updated_at: 2012-05-11 04:48:23
 
 shakuras_plateau:
   id: 2
   name: Shakuras Plateau
-  image_url: http://shakurasplateau.com/image.jpg
+  image_file_name: metropolis.jpg
+  image_content_type: image/jpeg
+  image_file_size: 38644
+  image_updated_at: 2012-05-11 04:48:23
 
 lost_temple:
   id: 3
   name: Lost Temple
-  image_url: http://losttemple.com/image.jpg
+  image_file_name: metropolis.jpg
+  image_content_type: image/jpeg
+  image_file_size: 38644
+  image_updated_at: 2012-05-11 04:48:23

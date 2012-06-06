@@ -23,15 +23,15 @@ class WaitingPlayer < ActiveRecord::Base
   protected
   def validate_users_league
     return if tournament.nil?
-    errors.add :user, 'must have account information' and return if user.account_information.nil?
+    errors.add :user, I18n.t('activerecord.errors.models.waiting_player.attributes.user_id.account_information') and return if user.account_information.nil?
     
     user_league = user.account_information.league
-    errors.add :user, 'must be in the tournaments league' unless ((user_league & tournament.league) > 0)
+    errors.add :user, I18n.t('activerecord.errors.models.waiting_player.attributes.user_id.league') unless ((user_league & tournament.league) > 0)
   end
 
   def validate_player_acceptance    
     if (player_accepted_changed? && player_accepted) || (new_record? && player_accepted)
-      errors.add :player_accepted, 'too many' if tournament.waiting_players.where(player_accepted: true).length >= tournament.max_players
+      errors.add :player_accepted, I18n.t('activerecord.errors.models.waiting_player.attributes.player_accepted.too_many') if tournament.waiting_players.where(player_accepted: true).length >= tournament.max_players
     end
   end
 

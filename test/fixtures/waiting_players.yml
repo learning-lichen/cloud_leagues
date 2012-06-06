@@ -34,6 +34,12 @@ admin_waiting_full:
   user_id: 3
   player_accepted: true
 
+default_waiting_full:
+  id: 9
+  tournament_id: 5
+  user_id: 1
+  player_accepted: true
+
 other_mod_waiting_all:
   id: 7
   tournament_id: 1

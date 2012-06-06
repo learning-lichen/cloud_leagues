@@ -21,37 +21,6 @@ class MapsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
-  test "should create map" do
-    login :admin_user
-    
-    name = 'Metropolis'
-    image_url = 'i_url'
-
-    assert_difference 'Map.count' do
-      post :create, map: { name: name,
-        image_url: image_url
-      }
-    end
-    assert_not_nil map = Map.find_by_name(name)
-    assert_redirected_to map_path(map)
-  end
-
-  test "should now create map" do
-    login :default_user
-    
-    name = 'Metropolis'
-    download_url = 'd_url'
-    image_url = 'i_url'
-
-    assert_difference 'Map.count', 0 do
-      post :create, map: { name: name,
-        image_url: image_url
-      }
-    end
-    assert_nil map = Map.find_by_name(name)
-    assert_redirected_to root_path
-  end
-
   test "should get edit" do
     login :admin_user
     get :edit, id: maps(:lost_temple).id
@@ -104,9 +73,10 @@ class MapsControllerTest < ActionController::TestCase
   test "should not delete map in use" do
     login :admin_user
     map = maps :shakuras_plateau
+
     delete :destroy, id: map.id
 
-    assert_not_nil Map.find_by_id map.id
-    assert_redirected_to map_path(@map)
+    assert_not_nil Map.find_by_id(map.id)
+    assert_redirected_to map_path(map)
   end
 end
